@@ -1,0 +1,75 @@
+name: Feature Request
+description: Propose new functionality or a functional enhancement.
+title: 'feat: <concise description of the proposed feature>'
+labels:
+  - feat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing an enhancement.
+
+        A well-defined proposal describes the problem to be solved, the intended
+        outcome, and the rationale. Please focus on the requirement rather than a
+        specific implementation.
+
+  - type: checkboxes
+    id: preconditions
+    attributes:
+      label: Preconditions
+      description: Confirm the following before submitting.
+      options:
+        - label: I have searched existing issues and confirmed this feature has not already been requested.
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Describe the problem, deficiency, or requirement this feature addresses.
+      placeholder: As a <role>, I need <capability> so that <benefit>.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: Describe the desired functionality and expected behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Justification
+      description: State the business and/or technical rationale for this change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any alternative solutions or workarounds that were considered.
+    validations:
+      required: false
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and Impact
+      description: Identify affected components, interfaces, or services, and any expected impact on existing functionality.
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Define the measurable conditions that must be satisfied for this feature to be considered complete.
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: false

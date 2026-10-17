@@ -1,0 +1,47 @@
+name: Continuous Integration
+run-name: Continuous Integration on ${{ github.head_ref != '' && !startsWith(github.ref_name, 'merge/') && github.head_ref || github.ref_name }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  verify:
+    name: Build, Lint and Test
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Set Up Node.js Environment
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install Project Dependencies
+        run: npm ci
+
+      - name: Check Code Formatting
+        run: npm run format:check
+
+      - name: Lint Source Code
+        run: npm run lint
+
+      - name: Type-Check Source Code
+        run: npm run typecheck
+
+      - name: Run Test Suite With Coverage
+        run: npm run coverage
+
+      - name: Build Distribution Output
+        run: npm run build

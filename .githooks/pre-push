@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+hook_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+branch_name_regex="$(cat "${hook_dir}/branch-name.pattern")"
+
+default_branch="main"
+zero_sha="0000000000000000000000000000000000000000"
+
+invalid_branches=()
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+    if [[ "$local_sha" == "$zero_sha" ]]; then
+        continue
+    fi
+
+    if [[ "$local_ref" != refs/heads/* ]]; then
+        continue
+    fi
+
+    branch_name="${local_ref#refs/heads/}"
+
+    if [[ "$branch_name" == "$default_branch" ]]; then
+        continue
+    fi
+
+    if [[ ! "$branch_name" =~ $branch_name_regex ]]; then
+        invalid_branches+=("$branch_name")
+    fi
+done
+
+if [[ "${#invalid_branches[@]}" -eq 0 ]]; then
+    exit 0
+fi
+
+printf "\e[31mThe following branch names do not meet the required naming convention.\e[0m\n"
+for branch_name in "${invalid_branches[@]}"; do
+    printf "\e[31mx %s\e[0m\n" "$branch_name"
+done
+echo
+echo "Expected format:"
+echo "  <type>/<short-description>   e.g. feat/add-authentication"
+echo
+echo "Because the branch does not exist on the remote yet, it can be renamed at no cost:"
+echo "  git branch -m <new-name>"
+echo "More details: see the Branch Naming section in CONTRIBUTING.md"
+exit 1

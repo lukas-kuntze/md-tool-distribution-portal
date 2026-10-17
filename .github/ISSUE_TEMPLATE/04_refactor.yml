@@ -1,0 +1,60 @@
+name: Refactor / Technical Improvement
+description: Propose an internal improvement or technical debt reduction without changing external behavior.
+title: 'refactor: <concise description of the improvement>'
+labels:
+  - refactor
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose internal restructuring, technical debt
+        reduction, or design improvements that do not alter externally
+        observable behavior.
+
+        For performance or efficiency optimizations, use the dedicated
+        **Performance Improvement** template instead.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Select the primary nature of the improvement.
+      options:
+        - Code restructuring / maintainability
+        - Technical debt reduction
+        - Architecture / design improvement
+        - Tooling / build improvement
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Situation
+      description: Describe the current implementation or condition and its limitations.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Improvement
+      description: Describe the proposed change and the intended outcome.
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Justification
+      description: State the technical rationale and the expected benefit (e.g. maintainability, reliability, readability).
+    validations:
+      required: true
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and Impact
+      description: Identify affected components and any risks to backward compatibility or existing behavior.
+    validations:
+      required: false

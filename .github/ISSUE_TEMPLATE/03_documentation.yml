@@ -1,0 +1,53 @@
+name: Documentation
+description: Report an issue with, or propose an improvement to, project documentation.
+title: 'docs: <concise description of the documentation change>'
+labels:
+  - docs
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping to improve the documentation.
+
+        Accurate and complete documentation is essential to Developer Experience.
+        Please describe the deficiency and the proposed correction clearly.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Select the nature of the documentation issue.
+      options:
+        - Incorrect or outdated information
+        - Missing documentation
+        - Unclear or ambiguous content
+        - Broken link or reference
+        - Formatting or structural issue
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Affected Location
+      description: Identify the affected file, page, or section (e.g. README.md, CONTRIBUTING.md, or a URL).
+      placeholder: e.g. README.md — "Getting Started"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the documentation issue and, where applicable, the proposed correction.
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other relevant information or references.
+    validations:
+      required: false

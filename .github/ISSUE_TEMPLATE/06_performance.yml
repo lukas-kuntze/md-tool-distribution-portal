@@ -1,0 +1,65 @@
+name: Performance Improvement
+description: Propose a performance or efficiency optimization without changing external behavior.
+title: 'perf: <concise description of the optimization>'
+labels:
+  - perf
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose a performance or efficiency optimization
+        that does not alter externally observable behavior.
+
+        Where possible, support the proposal with measurements or profiling data.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Select the primary nature of the optimization.
+      options:
+        - Latency / response time
+        - Throughput
+        - Memory consumption
+        - CPU utilization
+        - Bundle / artifact size
+        - I/O or network efficiency
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Situation
+      description: Describe the current behavior and its performance limitation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Optimization
+      description: Describe the proposed change and the intended outcome.
+    validations:
+      required: true
+
+  - type: textarea
+    id: measurements
+    attributes:
+      label: Measurements / Evidence
+      description: Provide benchmarks, profiling data, or metrics that quantify the current cost and the expected improvement.
+      value: |
+        - Metric:
+        - Current:
+        - Target:
+        - Method / tooling:
+    validations:
+      required: false
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and Impact
+      description: Identify affected components and any risks to correctness, backward compatibility, or existing behavior.
+    validations:
+      required: false

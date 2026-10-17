@@ -1,0 +1,47 @@
+name: Task / Maintenance
+description: Track a general task, chore, or maintenance activity.
+title: 'chore: <concise description of the task>'
+labels:
+  - chore
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to track general work items that do not constitute a
+        defect, feature, documentation, or refactoring change — for example
+        routine maintenance, tooling, dependency management, or operational tasks.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Task Description
+      description: Provide a concise and objective description of the task to be performed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Explain why this task is necessary.
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Definition of Done
+      description: Define the conditions under which this task is considered complete.
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any dependencies, references, or related issues.
+    validations:
+      required: false

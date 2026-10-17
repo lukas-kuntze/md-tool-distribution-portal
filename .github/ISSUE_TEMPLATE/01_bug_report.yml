@@ -1,0 +1,99 @@
+name: Bug Report
+description: Report a defect or unexpected behavior in existing functionality.
+title: 'fix: <concise description of the defect>'
+labels:
+  - fix
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a defect.
+
+        Please provide a clear, objective, and reproducible description. Complete
+        and accurate information significantly reduces triage and resolution time.
+
+        Before submitting, please confirm the checklist below.
+
+  - type: checkboxes
+    id: preconditions
+    attributes:
+      label: Preconditions
+      description: Confirm the following before submitting.
+      options:
+        - label: I have searched existing issues and confirmed this defect has not already been reported.
+          required: true
+        - label: I have verified that this occurs on the latest available version.
+          required: true
+        - label: This report does not contain any confidential information (e.g. credentials, tokens, or personal data).
+          required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A concise and objective description of the defect.
+      placeholder: Describe what is happening and why it is incorrect.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Provide a deterministic sequence of steps that reliably reproduces the defect.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: Describe the behavior that was expected.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: Describe the behavior that was observed, including any error messages or stack traces.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: Assess the operational impact of the defect.
+      options:
+        - Critical — Loss of core functionality or data; no viable workaround
+        - High — Major functionality impaired; workaround is difficult
+        - Medium — Functionality partially impaired; a workaround exists
+        - Low — Minor or cosmetic issue with negligible impact
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Provide relevant environment details.
+      value: |
+        - Version / Commit:
+        - Operating System:
+        - Runtime / Toolchain:
+        - Additional context:
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other relevant information, logs, screenshots, or references.
+    validations:
+      required: false

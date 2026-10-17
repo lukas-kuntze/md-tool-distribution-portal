@@ -1,0 +1,13 @@
+# Default
+* text=auto eol=lf
+
+# Binary
+*.gif binary
+*.ico binary
+*.jpg binary
+*.pdf binary
+*.png binary
+
+# Shell & Git Hooks
+*.sh text eol=lf
+.githooks/* text eol=lf
