@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Apps installieren · App-Distribution</title>
+  </head>
+  <body class="public-body">
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+    <header class="public-header">
+      <div class="public-brand">
+        <img
+          class="brand-logo brand-logo-small"
+          src="../assets/images/medifox-dan-logo.webp"
+          alt="MEDIFOX DAN"
+          width="96"
+          height="51"
+        />
+      </div>
+      <div class="public-header-actions">
+        <span class="text-muted" data-user-name></span>
+        <a class="btn btn-ghost btn-sm" href="/docs.html#installation">
+          <span class="material-icons-outlined" aria-hidden="true">help_outline</span>
+          Hilfe
+        </a>
+        <a class="btn btn-outline btn-sm" href="/" data-admin-link hidden>
+          <span class="material-icons-outlined" aria-hidden="true">settings</span>
+          Verwaltung
+        </a>
+        <button
+          type="button"
+          class="btn btn-outline btn-sm"
+          data-theme-toggle
+          aria-pressed="false"
+          title="Farbmodus umschalten"
+        >
+          <span class="material-icons-outlined" aria-hidden="true">dark_mode</span>
+          <span data-theme-label>Dunkel</span>
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" data-sign-out>Abmelden</button>
+      </div>
+    </header>
+
+    <main class="public-main public-main-wide" id="main" data-apps-page>
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" data-apps-title>Apps installieren</h1>
+          <p class="page-subtitle" data-apps-subtitle>
+            Die aktuellen Versionen aller Apps, die du installieren darfst.
+          </p>
+        </div>
+      </div>
+      <div data-page-state></div>
+      <div data-page-content hidden>
+        <div data-branding-notice></div>
+        <div data-apps-notice></div>
+        <div data-apps-filter></div>
+        <div class="stack" data-apps-projects></div>
+      </div>
+    </main>
+
+    <footer class="public-footer">Bereitgestellt über die App-Distribution</footer>
+    <!-- @scripts -->
+  </body>
+</html>

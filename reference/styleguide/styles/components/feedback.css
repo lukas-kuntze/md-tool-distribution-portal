@@ -1,0 +1,82 @@
+/* =============================================================================
+   COMPONENT · Feedback (Toasts, Skeleton, Spinner)
+   Non-blocking notifications and loading placeholders.
+   ========================================================================== */
+
+/* -- Toasts --------------------------------------------------------------- */
+.toast-stack {
+  position: fixed;
+  bottom: var(--space-2xl);
+  right: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  z-index: 1100;
+  width: min(360px, calc(100vw - 32px));
+}
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-text-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  animation: toastIn 200ms ease;
+}
+.toast-title { font-size: 14px; font-weight: 600; color: var(--color-heading); margin-bottom: 2px; }
+.toast-body { font-size: 13px; color: var(--color-text-muted); }
+.toast-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-subtle);
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px;
+}
+.toast-close:hover { color: var(--color-text); }
+.toast-close:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--focus-ring); border-radius: var(--radius-xs); }
+.toast.success { border-left-color: var(--success); }
+.toast.warning { border-left-color: var(--warning); }
+.toast.danger  { border-left-color: var(--danger); }
+.toast.info    { border-left-color: var(--info); }
+
+@keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* -- Skeleton loader ------------------------------------------------------ */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+
+.skeleton-text  { height: 12px; width: 100%; margin-bottom: 8px; }
+.skeleton-title { height: 18px; width: 40%; margin-bottom: 12px; }
+.skeleton-avatar{ width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+.skeleton-card  { height: 100px; width: 100%; border-radius: var(--radius-md); }
+
+/* -- Spinner -------------------------------------------------------------- */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2.5px solid var(--color-border);
+  border-top-color: var(--primary);
+  animation: spin 700ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

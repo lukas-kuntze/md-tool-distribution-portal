@@ -1,0 +1,118 @@
+/* =============================================================================
+   COMPONENT · Forms
+   Label + control + helper/error. Two-column grid via .form-grid.
+   Validation state via .is-invalid. Checkboxes and radios via .form-check.
+   ========================================================================== */
+
+.form-group {
+  margin-bottom: 20px;
+}
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-heading);
+  transition: var(--transition-colors);
+}
+.form-control::placeholder {
+  color: var(--color-text-subtle);
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px var(--secondary-light);
+}
+.form-control:disabled {
+  background: var(--color-surface-inset);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+.form-control.is-invalid {
+  border-color: var(--danger);
+}
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px var(--danger-light);
+}
+.form-helper {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+/* Adaptive danger text: darker red in light (fixes the original sub-AA #EF4444),
+   lighter red in dark. The invalid *border* keeps the full --danger hue. */
+.form-error {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--danger-text);
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.form-check input[type='checkbox'],
+.form-check input[type='radio'] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+.form-check label {
+  font-size: 14px;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* -- Input group (control + trailing action, e.g. password visibility) ---- */
+.input-group {
+  position: relative;
+  display: flex;
+}
+.input-group .form-control {
+  padding-right: 44px;
+}
+.password-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-colors);
+}
+.password-toggle:hover {
+  color: var(--color-text);
+}
+.password-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+.password-toggle .material-icons-outlined {
+  font-size: 20px;
+}

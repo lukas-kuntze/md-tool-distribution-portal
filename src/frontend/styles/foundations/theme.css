@@ -1,0 +1,56 @@
+/* =============================================================================
+   THEME · Dark mode (manual opt-in)
+   -----------------------------------------------------------------------------
+   Re-skins the system by overriding ONLY the semantic tokens (plus theme-aware
+   brand/status shades). No component rule is touched.
+
+   The default theme is ALWAYS light. Dark mode is a manual opt-in: it applies
+   only when [data-theme="dark"] is set on <html> (by scripts/modules/theme.js,
+   persisted in localStorage and re-applied before first paint by the inline
+   <head> script). The OS `prefers-color-scheme` is intentionally NOT followed —
+   a dark-OS visitor still gets the light theme until they toggle. Because there
+   is a single block (no prefers-color-scheme duplicate), no parity guard is
+   needed.
+
+   Token roles set below (values verified ≥ WCAG AA):
+     --color-*            semantic surfaces / text / borders
+     --color-text-on-accent  DARK ink on the bright accent fills (buttons)
+     --color-accent          brand red as TEXT (kickers/links) — lighter than fill
+     --primary / --secondary  brand as solid FILL (buttons/logo); red = inverse logo
+     --*-text                 status text, light shades for the dark tints
+   ========================================================================== */
+
+/* -- Manual opt-in: forced dark ------------------------------------------ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-subtle: #172130;
+  --color-surface-hover: #334155;
+  --color-surface-inset: #0f172a;
+  --color-border: #334155;
+  --color-border-strong: #475569;
+  --color-heading: #f1f5f9;
+  --color-text: #cbd5e1;
+  --color-text-secondary: #aab6c4;
+  --color-text-muted: #94a3b8;
+  --color-text-subtle: #64748b;
+  --color-text-on-accent: #0f172a;
+  --color-accent: #ff7a7c;
+  --color-code-bg: #0f172a;
+  --color-code-text: #e2e8f0;
+  --focus-ring: rgba(91, 155, 213, 0.4);
+  --primary: #ff4d50;
+  --primary-dark: #e23b3e;
+  --primary-light: rgba(255, 77, 80, 0.16);
+  --secondary: #5b9bd5;
+  --secondary-dark: #4c86b8;
+  --secondary-light: rgba(91, 155, 213, 0.18);
+  --success-text: #4ade80;
+  --warning-text: #fbbf24;
+  --danger-text: #fca5a5;
+  --info-text: #93c5fd;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
+}

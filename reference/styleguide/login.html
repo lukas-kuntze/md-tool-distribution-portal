@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anmeldung — Kuntze IT Engineering</title>
+<meta name="description" content="Anmeldeseite im UI-Standard von Kuntze IT Engineering — Beispiel-Template aus dem Styleguide.">
+<meta name="color-scheme" content="light">
+<!-- Applies the theme BEFORE first paint (no flash of wrong theme). Default is light.
+     Precedence: ?theme=light|dark (for forced previews) → stored choice → light. -->
+<script>
+  (function () {
+    try {
+      var p = new URLSearchParams(location.search).get('theme');
+      var t = (p === 'dark' || p === 'light') ? p : localStorage.getItem('kuntze-theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { /* ignore */ }
+  })();
+</script>
+<link rel="stylesheet" href="styles/index.css">
+</head>
+
+<body>
+<div class="login-wrapper">
+  <div class="login-container">
+    <div class="login-card login-card-split">
+
+      <!-- Branding / Feature-Spalte -->
+      <div class="login-branding">
+        <div class="login-branding-content">
+          <div class="login-branding-header">
+            <span class="login-branding-title">Softwareentwicklung &amp;<br>IT-Dienstleistungen</span>
+            <span class="login-branding-company">Kuntze</span>
+          </div>
+          <div class="login-features">
+            <div class="login-feature">
+              <div class="login-feature-icon"><span class="material-icons-outlined" aria-hidden="true">dns</span></div>
+              <div class="login-feature-text">
+                <h4>Professionelles Server Management</h4>
+                <p>Maximale Uptime durch proaktives Monitoring und einfache Verwaltung.</p>
+              </div>
+            </div>
+            <div class="login-feature">
+              <div class="login-feature-icon"><span class="material-icons-outlined" aria-hidden="true">language</span></div>
+              <div class="login-feature-text">
+                <h4>Professionelles Domain Management</h4>
+                <p>Domains registrieren und verwalten — Zugang zu über 1.000 Domain-Endungen.</p>
+              </div>
+            </div>
+            <div class="login-feature">
+              <div class="login-feature-icon"><span class="material-icons-outlined" aria-hidden="true">lock</span></div>
+              <div class="login-feature-text">
+                <h4>SSL/TLS und Domain Security</h4>
+                <p>Webseiten verschlüsseln und Domains vor ungewolltem Zugriff Dritter schützen.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formular-Spalte -->
+      <div class="login-form-section">
+        <h1 class="login-form-title">Anmelden</h1>
+        <p class="login-form-subtitle">Bitte melde dich mit deinen Zugangsdaten an.</p>
+
+        <form action="#" method="POST" class="login-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="username">Benutzername</label>
+            <input id="username" name="username" class="form-control" type="text" autocomplete="username" required autofocus>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Passwort</label>
+            <div class="input-group">
+              <input id="password" name="password" class="form-control" type="password" autocomplete="current-password" required>
+              <button type="button" class="password-toggle" aria-label="Passwort anzeigen" aria-pressed="false">
+                <span class="material-icons-outlined" aria-hidden="true">visibility</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="login-remember">
+              <input type="checkbox" name="remember" value="1">
+              Passwort merken
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">login</span>
+            Anmelden
+          </button>
+
+          <div class="login-links">
+            <a class="login-link" href="#">Passwort vergessen?</a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="login-page-footer">
+    <a href="#">Impressum</a>
+    <a href="#">Datenschutz</a>
+    <a href="#" data-modal-open="cookie-consent-modal">Cookie-Einstellungen</a>
+  </div>
+</div>
+
+<!-- Toast-Ausgabebereich -->
+<div class="toast-stack" data-toast-stack aria-live="polite"></div>
+
+<!-- Cookie-Consent · Variante B (modaler Dialog) — via Footer-Link „Cookie-Einstellungen" -->
+<div class="modal-overlay cookie-overlay" id="cookie-consent-modal" hidden>
+  <div class="cookie-modal" data-cookie-modal role="dialog" aria-modal="true" aria-labelledby="cm-title">
+    <div class="cookie-modal-header">
+      <div class="cookie-modal-icon"><span class="material-icons-outlined" aria-hidden="true">cookie</span></div>
+      <div>
+        <h2 class="cookie-modal-title" id="cm-title">Cookie-Einstellungen</h2>
+        <p class="cookie-modal-subtitle">Wir respektieren deine Privatsphäre</p>
+      </div>
+    </div>
+    <p class="cookie-modal-desc">
+      Wir verwenden Cookies, um dir die bestmögliche Erfahrung zu bieten. Du kannst wählen, welche
+      Cookies du zulassen möchtest. Weitere Informationen findest du in unserer
+      <a href="#">Datenschutzerklärung</a>.
+    </p>
+    <div class="cookie-modal-options">
+      <div class="cookie-option">
+        <input type="checkbox" id="cm-necessary" checked disabled>
+        <div>
+          <h3 class="cookie-option-title">Notwendige Cookies</h3>
+          <p class="cookie-option-text">Für die Grundfunktionen der Website erforderlich und nicht deaktivierbar.</p>
+        </div>
+      </div>
+      <div class="cookie-option">
+        <input type="checkbox" id="cm-analytics">
+        <div>
+          <h3 class="cookie-option-title">Analyse-Cookies</h3>
+          <p class="cookie-option-text">Helfen uns zu verstehen, wie Besucher mit der Website interagieren.</p>
+        </div>
+      </div>
+      <div class="cookie-option">
+        <input type="checkbox" id="cm-marketing">
+        <div>
+          <h3 class="cookie-option-title">Marketing-Cookies</h3>
+          <p class="cookie-option-text">Werden verwendet, um relevante Werbung anzuzeigen.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cookie-modal-actions">
+      <button type="button" class="btn btn-secondary" data-cookie="necessary" data-modal-close>Nur Notwendige</button>
+      <button type="button" class="btn btn-secondary" data-cookie="save" data-modal-close>Auswahl speichern</button>
+      <button type="button" class="btn btn-primary" data-cookie="all" data-modal-close>Alle akzeptieren</button>
+    </div>
+    <div class="cookie-modal-footer">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </div>
+  </div>
+</div>
+
+<!-- Behaviour layer · nur die auf dieser Seite benötigten Module -->
+<script src="scripts/app.js"></script>
+<script src="scripts/modules/theme.js"></script>
+<script src="scripts/modules/forms.js"></script>
+<script src="scripts/modules/overlays.js"></script>
+<script src="scripts/modules/toast.js"></script>
+<script src="scripts/modules/cookie-modal.js"></script>
+
+</body>
+</html>

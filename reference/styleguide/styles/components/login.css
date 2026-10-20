@@ -1,0 +1,131 @@
+/* =============================================================================
+   COMPONENT · Login (Auth-Seiten-Template)
+   -----------------------------------------------------------------------------
+   Eigenständige, zentrierte Anmeldeseite mit geteilter Card: Marken-/Feature-
+   Spalte links, Formular rechts. Übernommen aus der business-management-console
+   und auf die semantischen Tokens des Styleguides angeglichen.
+
+   Nur die seiten-spezifische Struktur lebt hier. Die Formularfelder selbst nutzen
+   die vorhandene Library (.form-group/.form-label/.form-control/.input-group/
+   .password-toggle) und die Buttons (.btn). So folgt die Seite automatisch dem
+   Light/Dark-System.
+
+   Bewusste Ausnahme: der Seitenhintergrund ist ein fixer dunkler Marken-Verlauf
+   (theme-unabhängige Primitives) — die etablierte Auth-Optik in beiden Modi.
+   ========================================================================== */
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+  padding: var(--space-xl);
+  /* Fixe, bewusst dunkle Marken-Bühne (in Light & Dark identisch). */
+  background: linear-gradient(160deg, var(--gray-800) 0%, var(--gray-900) 100%);
+}
+
+.login-container { display: flex; align-items: center; justify-content: center; width: 100%; }
+
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+.login-card-split {
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* -- Branding / feature column -------------------------------------------- */
+.login-branding {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 40px;
+  background: var(--color-surface-subtle);
+  border-right: 1px solid var(--color-border);
+}
+.login-branding-content { display: flex; flex-direction: column; gap: 40px; }
+.login-branding-header { display: flex; flex-direction: column; gap: var(--space-xs); text-align: center; }
+.login-branding-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.login-branding-company { font-size: 32px; font-weight: 700; color: var(--color-heading); }
+
+.login-features { display: flex; flex-direction: column; gap: var(--space-2xl); }
+.login-feature { display: flex; gap: var(--space-lg); align-items: flex-start; }
+.login-feature-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-feature-icon .material-icons-outlined { font-size: 22px; color: var(--color-accent); }
+.login-feature-text h4 { margin: 0 0 var(--space-xs); font-size: 16px; font-weight: 600; color: var(--color-heading); }
+.login-feature-text p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--color-text-muted); }
+
+/* -- Form column ----------------------------------------------------------- */
+.login-form-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 40px;
+}
+.login-form-title { margin: 0 0 var(--space-md); font-size: 28px; font-weight: 700; text-align: center; color: var(--color-heading); }
+.login-form-subtitle { margin: 0 0 var(--space-2xl); font-size: 14px; line-height: 1.5; text-align: center; color: var(--color-text-muted); }
+
+.login-form { display: flex; flex-direction: column; }
+.login-form .btn-block { margin-top: var(--space-sm); }
+
+.login-remember {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.login-remember input { width: 16px; height: 16px; accent-color: var(--primary); }
+
+.login-links { text-align: center; margin-top: var(--space-xl); }
+.login-link { font-size: 14px; font-weight: 500; color: var(--color-accent); text-decoration: none; }
+.login-link:hover { text-decoration: underline; }
+
+/* -- Page footer (below the card) ----------------------------------------- */
+.login-page-footer { display: flex; justify-content: center; gap: var(--space-2xl); }
+.login-page-footer a {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);   /* auf dem dunklen Verlauf, in beiden Modi */
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+.login-page-footer a:hover { color: var(--white); }
+
+/* -- Responsive: unter dem Tablet-Breakpoint einspaltig -------------------- */
+@media (max-width: 767.98px) {
+  .login-card-split { grid-template-columns: 1fr; max-width: 480px; }
+  .login-branding { padding: 32px 24px; border-right: none; border-bottom: 1px solid var(--color-border); }
+  .login-branding-title { font-size: 11px; }
+  .login-branding-company { font-size: 24px; }
+  .login-features { gap: var(--space-xl); }
+  .login-feature-icon { width: 36px; height: 36px; }
+  .login-feature-icon .material-icons-outlined { font-size: 18px; }
+  .login-feature-text h4 { font-size: 13px; }
+  .login-feature-text p { font-size: 12px; }
+  .login-form-section { padding: 32px 24px; }
+}

@@ -1,0 +1,39 @@
+/* =============================================================================
+   App-Distribution · Administration
+   -----------------------------------------------------------------------------
+   Import graph in cascade order (ITCSS-style, as in the styleguide):
+     1. foundations  tokens, dark theme, base, icons, typography
+     2. layout       app shell, page composition
+     3. components   the styleguide library, only the parts this product uses
+   Vite bundles the chain into one file for production.
+   ========================================================================== */
+
+@import url('./foundations/tokens.css');
+@import url('./foundations/theme.css');
+@import url('./foundations/base.css');
+@import url('./foundations/icons.css');
+@import url('./foundations/typography.css');
+
+@import url('./layout/shell.css');
+
+@import url('./components/buttons.css');
+@import url('./components/forms.css');
+@import url('./components/upload.css');
+@import url('./components/switch.css');
+@import url('./components/badges.css');
+@import url('./components/alerts.css');
+@import url('./components/cards.css');
+@import url('./components/stats.css');
+@import url('./components/tables.css');
+@import url('./components/tabs.css');
+@import url('./components/dropdown.css');
+@import url('./components/breadcrumb.css');
+@import url('./components/pagination.css');
+@import url('./components/overlays.css');
+@import url('./components/feedback.css');
+@import url('./components/content-states.css');
+@import url('./components/code.css');
+@import url('./components/login.css');
+
+/* Last, so that its composition rules may refine the library (e.g. `[hidden]`). */
+@import url('./layout/page.css');

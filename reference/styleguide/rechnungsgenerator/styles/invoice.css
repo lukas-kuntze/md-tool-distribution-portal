@@ -1,0 +1,231 @@
+/* =============================================================================
+   Rechnungsgenerator · Druckvorlage
+   -----------------------------------------------------------------------------
+   Das eigentliche Rechnungsdokument. Farben sind bewusst FEST verdrahtet
+   (nicht die theme-aware --color-* Tokens) — das gedruckte Dokument muss
+   immer gleich aussehen, unabhängig vom Hell/Dunkel-Modus des Werkzeugs.
+   Als PDF sichern = Browser-Druckdialog ("Als PDF speichern"), kein externer
+   Dienst, keine Bibliothek — funktioniert auch offline.
+   ========================================================================== */
+
+.invoice-sheet {
+  --inv-red: #BC0003;
+  --inv-navy: #1E293B;
+  --inv-gray: #64748B;
+  --inv-gray-light: #94A3B8;
+  --inv-border: #E2E8F0;
+  --inv-bg-subtle: #F8FAFC;
+  --inv-text: #334155;
+
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 16mm 18mm;
+  box-sizing: border-box;
+  background: #fff;
+  color: var(--inv-text);
+  font-family: var(--font-serif);
+  font-size: 12.5px;
+  line-height: 1.55;
+  box-shadow: var(--shadow-lg);
+}
+
+.invoice-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.invoice-kicker {
+  color: var(--inv-red);
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.invoice-brand { font-size: 25px; font-weight: 700; color: var(--inv-navy); margin-top: 4px; }
+.invoice-sender-block { text-align: right; font-size: 11.5px; color: var(--inv-text); line-height: 1.65; }
+.invoice-sender-block .name { display: block; color: var(--inv-navy); font-weight: 700; }
+
+.invoice-hr { height: 3px; background: var(--inv-navy); margin: 14px 0 22px; }
+
+.invoice-meta-row { display: flex; justify-content: space-between; gap: 32px; margin-bottom: 26px; }
+.invoice-return-line {
+  font-size: 9.5px;
+  color: var(--inv-gray-light);
+  border-bottom: 1px solid var(--inv-border);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.invoice-recipient-block { font-size: 12.5px; line-height: 1.65; }
+.invoice-recipient-block .name { font-weight: 700; color: var(--inv-navy); }
+.invoice-facts { font-size: 11.5px; min-width: 220px; }
+.invoice-facts .fact-row { display: flex; justify-content: space-between; gap: 16px; padding: 3px 0; color: var(--inv-gray); }
+.invoice-facts .fact-row strong { color: var(--inv-navy); font-weight: 700; }
+
+.invoice-title { font-size: 21px; font-weight: 700; color: var(--inv-navy); margin: 0 0 4px; }
+.invoice-service-note { font-size: 11.5px; color: var(--inv-gray-light); margin: 0 0 18px; }
+
+.invoice-salutation { margin: 0 0 12px; }
+.invoice-intro { margin: 0 0 20px; white-space: pre-wrap; }
+
+table.invoice-items { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+.invoice-items thead th {
+  text-align: left;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--inv-gray);
+  background: var(--inv-bg-subtle);
+  border-bottom: 2px solid var(--inv-navy);
+  padding: 8px;
+}
+.invoice-items thead th:first-child, .invoice-items tbody td:first-child { padding-left: 0; }
+.invoice-items thead th:last-child, .invoice-items tbody td:last-child { padding-right: 0; }
+.invoice-items thead th.num, .invoice-items td.num { text-align: right; }
+.invoice-items thead th.center, .invoice-items td.center { text-align: center; }
+.invoice-items tbody td { padding: 9px 8px; border-bottom: 1px solid var(--inv-border); vertical-align: top; font-size: 12.5px; }
+.invoice-items .item-sub { color: var(--inv-gray-light); font-size: 10.5px; margin-top: 2px; }
+.invoice-items td.amount { font-weight: 700; text-align: right; white-space: nowrap; }
+
+.invoice-summary { margin: 14px 0 0; margin-left: auto; width: 60%; max-width: 300px; }
+.invoice-summary .summary-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12.5px; }
+.invoice-summary .summary-row.total {
+  border-top: 2px solid var(--inv-navy);
+  margin-top: 6px;
+  padding-top: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--inv-navy);
+}
+
+.invoice-note {
+  border-left: 3px solid var(--inv-red);
+  background: var(--inv-bg-subtle);
+  padding: 10px 14px;
+  font-size: 11.5px;
+  color: #475569;
+  margin: 22px 0;
+}
+
+.invoice-payment { border: 1px solid var(--inv-border); border-radius: 8px; padding: 16px 18px; margin: 20px 0; }
+.invoice-payment .payment-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--inv-gray-light);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.payment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 20px; font-size: 11.5px; margin-bottom: 10px; }
+.payment-grid .p-label { display: block; color: var(--inv-gray-light); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px; }
+.payment-grid strong { color: var(--inv-navy); }
+.payment-sentence { font-size: 11.5px; color: #475569; margin: 0; padding-top: 10px; border-top: 1px solid var(--inv-border); }
+
+.invoice-closing { margin-top: 18px; font-size: 12.5px; white-space: pre-wrap; }
+.invoice-signoff { margin-top: 16px; font-size: 12.5px; }
+
+.invoice-footer {
+  margin-top: 36px;
+  padding-top: 12px;
+  border-top: 1px solid var(--inv-border);
+  text-align: center;
+  font-size: 9.5px;
+  color: var(--inv-gray-light);
+  line-height: 1.7;
+}
+.invoice-footer .line1 { font-weight: 600; color: var(--inv-navy); }
+
+/* -- Direktes Editieren im Dokument ------------------------------------------ */
+/* Editierbare Textstellen (contenteditable). Kein Rahmen im Ruhezustand — nur
+   ein dezenter, gestrichelter Hover-/Fokus-Rahmen signalisiert Bearbeitbarkeit,
+   ohne dass das Dokument wie ein Formular aussieht. */
+.invoice-sheet .ed {
+  cursor: text;
+  border-radius: 3px;
+  outline: 1px dashed transparent;
+  outline-offset: 2px;
+  transition: outline-color 0.15s ease, background-color 0.15s ease;
+}
+.invoice-sheet .ed:hover { outline-color: var(--secondary, #154C79); }
+.invoice-sheet .ed:focus {
+  outline: 1px dashed var(--secondary, #154C79);
+  background: rgba(21, 76, 121, 0.06);
+}
+.invoice-sheet .ed[data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--inv-gray-light);
+}
+.invoice-sheet .ed-block { display: block; }
+
+/* Zahlen-/Datumsfelder: wie Fließtext aussehen, kein Kästchen-Look */
+.invoice-sheet input.ed-num,
+.invoice-sheet input.ed-date {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: 1px dashed transparent;
+  outline-offset: 2px;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+.invoice-sheet input.ed-num:hover, .invoice-sheet input.ed-date:hover { outline-color: var(--secondary, #154C79); }
+.invoice-sheet input.ed-num:focus, .invoice-sheet input.ed-date:focus {
+  outline: 1px dashed var(--secondary, #154C79);
+  background: rgba(21, 76, 121, 0.06);
+}
+.invoice-sheet input.ed-num { -moz-appearance: textfield; width: 3.5em; text-align: center; }
+.invoice-sheet input.ed-num.right { text-align: right; }
+.invoice-sheet input.ed-num.tiny { width: 2.4em; text-align: right; }
+.invoice-sheet input.ed-num::-webkit-outer-spin-button,
+.invoice-sheet input.ed-num::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.invoice-sheet input.ed-date { width: 8.5em; }
+
+/* Zeile löschen / Position hinzufügen — reine Bedienelemente, nie im Druck */
+.rg-row-del {
+  width: 22px; height: 22px;
+  border: none; background: transparent; color: var(--inv-gray-light);
+  border-radius: 4px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 13px; line-height: 1;
+}
+.rg-row-del:hover { color: var(--inv-red); background: rgba(188,0,3,0.08); }
+.invoice-items td.rg-del-cell { padding: 4px 0 4px 6px; width: 1%; }
+.rg-add-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 8px;
+  border: 1px dashed var(--inv-border);
+  background: transparent;
+  color: var(--inv-gray);
+  font: inherit; font-size: 11.5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.rg-add-link:hover { border-color: var(--secondary, #154C79); color: var(--secondary, #154C79); }
+.rg-mini-btn {
+  width: 20px; height: 20px;
+  border: 1px solid var(--inv-border);
+  background: #fff;
+  color: var(--inv-gray);
+  border-radius: 50%;
+  font-size: 11px;
+  line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.rg-mini-btn:hover { border-color: var(--secondary, #154C79); color: var(--secondary, #154C79); }
+
+.summary-row.adj-row { align-items: center; gap: 6px; }
+.summary-row.adj-row .adj-amount-wrap { display: flex; align-items: center; gap: 6px; }
+
+/* -- Druck ------------------------------------------------------------------ */
+@media print {
+  @page { size: A4; margin: 0; }
+  html, body { background: #fff !important; margin: 0; }
+  body > *:not(#invoice-print-root) { display: none !important; }
+  #invoice-print-root { display: block !important; position: static; }
+  .invoice-sheet { box-shadow: none; margin: 0; width: 210mm; min-height: 297mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+#invoice-print-root { display: none; }
+.no-print { }
+@media print { .no-print { display: none !important; } }

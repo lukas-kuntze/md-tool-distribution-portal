@@ -1,0 +1,105 @@
+/* =============================================================================
+   Rechnungsgenerator · App-Chrome
+   Nutzt ausschließlich Tokens/Komponenten aus ../../styles (Buttons, Forms,
+   Cards, Tabellen, Modals, Drawer). Hier nur das Layout, das dem Tool eigen
+   ist. Die Rechnung selbst wird direkt im Dokument bearbeitet (siehe
+   invoice.css) — es gibt bewusst kein Formular an der Seite.
+   ========================================================================== */
+
+.rg-topbar-actions { display: flex; align-items: center; gap: var(--space-md); }
+
+/* -- Schlanke Werkzeugleiste über dem Dokument ------------------------------ */
+.rg-doc-toolbar {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-3xl) 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.rg-doc-toolbar-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.rg-doc-toolbar-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-right: 2px;
+}
+.rg-customer-select { width: auto; min-width: 220px; padding: 8px 12px; font-size: 13px; }
+
+.rg-doc-hint {
+  max-width: 1000px;
+  margin: 8px auto 0;
+  padding: 0 var(--space-3xl);
+  font-size: 12.5px;
+  color: var(--color-text-subtle);
+}
+
+.rg-doc-stage {
+  padding: var(--space-xl) var(--space-3xl) var(--space-4xl);
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.rg-icon-btn {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+.rg-icon-btn:hover { background: var(--color-surface-hover); color: var(--color-heading); }
+.rg-icon-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--focus-ring); }
+.rg-icon-btn .material-icons-outlined { font-size: 20px; }
+
+/* -- Rechnungshistorie (Drawer) ---------------------------------------------- */
+.rg-history-actions { display: flex; gap: 4px; justify-content: flex-end; }
+.rg-empty-hint { padding: 28px; text-align: center; color: var(--color-text-muted); font-size: 13px; }
+
+/* -- Kundenverwaltung / Einstellungen-Modal ---------------------------------- */
+.modal.rg-modal-lg { max-width: 640px; }
+.rg-customer-list { margin-top: 20px; border-top: 1px solid var(--color-border); padding-top: 16px; }
+.rg-customer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 13px;
+}
+.rg-customer-row:last-child { border-bottom: none; }
+.rg-customer-row .name { font-weight: 600; color: var(--color-heading); }
+.rg-customer-row .meta { color: var(--color-text-muted); font-size: 12px; }
+.rg-customer-row .actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+.rg-settings-section { margin-bottom: 24px; }
+.rg-settings-section:last-child { margin-bottom: 0; }
+.rg-settings-section h4 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--color-text-muted);
+}
+.rg-field-row { display: flex; gap: var(--space-lg); }
+.rg-field-row > .form-group { flex: 1; min-width: 0; }
+
+.rg-import-export { display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 767.98px) {
+  .rg-doc-toolbar { padding: var(--space-lg) 20px 0; }
+  .rg-doc-hint { padding: 0 20px; }
+  .rg-doc-stage { padding: var(--space-lg) 12px var(--space-3xl); }
+  .rg-field-row { flex-direction: column; gap: 0; }
+}

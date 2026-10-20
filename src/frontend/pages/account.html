@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Mein Konto · App-Distribution</title>
+  </head>
+  <body data-nav="account" data-title="Konto">
+    <!-- @shell-start -->
+    <div data-account-page>
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Mein Konto</h2>
+          <p class="page-subtitle">Dein Profil, deine Einstellungen, deine Rechte und wo du angemeldet bist.</p>
+        </div>
+      </div>
+      <div data-page-state></div>
+
+      <div class="stack" data-page-content hidden>
+        <article class="card">
+          <div class="card-header"><h3 class="card-title">Profil</h3></div>
+          <div class="card-body">
+            <div class="account-profile" data-account-profile></div>
+            <p class="form-helper">
+              Name und Bild kommen aus GitHub und werden bei jeder Anmeldung übernommen. Ändern lassen sie sich nur
+              dort.
+            </p>
+          </div>
+        </article>
+
+        <form class="card" id="account-preferences-form" novalidate>
+          <div class="card-header"><h3 class="card-title">Einstellungen</h3></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="account-theme">Farbmodus</label>
+                <select id="account-theme" name="theme" class="form-control">
+                  <option value="system">Wie das Gerät</option>
+                  <option value="light">Hell</option>
+                  <option value="dark">Dunkel</option>
+                </select>
+                <div class="form-helper">Gilt in jedem Browser, in dem du angemeldet bist.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="account-start-page">Startseite nach der Anmeldung</label>
+                <select id="account-start-page" name="startPage" class="form-control">
+                  <option value="dashboard">Übersicht der Verwaltung</option>
+                  <option value="apps">Apps installieren</option>
+                </select>
+                <div class="form-helper" data-start-page-hint>
+                  Wer nur Apps installiert, landet immer auf „Apps installieren“.
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Einstellungen speichern</button>
+            </div>
+          </div>
+        </form>
+
+        <article class="card">
+          <div class="card-header"><h3 class="card-title">Meine Rechte</h3></div>
+          <div class="card-body card-body-flush" data-account-roles></div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="card-title">Aktive Sitzungen</h3>
+            <button type="button" class="btn btn-outline btn-sm" data-action="sign-out-everywhere">
+              <span class="material-icons-outlined" aria-hidden="true">logout</span>
+              Überall abmelden
+            </button>
+          </div>
+          <div class="card-body card-body-flush" data-account-sessions></div>
+        </article>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="sign-out-everywhere" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sign-out-everywhere-title">
+        <div class="modal-header">
+          <h3 id="sign-out-everywhere-title">Überall abmelden?</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Alle Sitzungen enden sofort, auch diese hier. Danach meldest du dich auf jedem Gerät neu an. Das hilft, wenn
+            ein Gerät verloren gegangen ist oder du dich auf einem fremden Rechner nicht abgemeldet hast.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="button" class="btn btn-danger" data-confirm-sign-out>Überall abmelden</button>
+        </div>
+      </div>
+    </div>
+    <!-- @shell-end -->
+  </body>
+</html>

@@ -45,3 +45,12 @@ jobs:
 
       - name: Build Distribution Output
         run: npm run build
+
+      # Workflows run the action from src/action/dist/, so the committed output must match the sources.
+      - name: Verify Committed Action Output
+        run: |
+          if [ -n "$(git status --porcelain src/action/dist)" ]; then
+            git status --porcelain src/action/dist
+            echo "::error::src/action/dist is out of date. Run 'npm run build:action' and commit the result."
+            exit 1
+          fi

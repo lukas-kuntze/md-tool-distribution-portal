@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Release · App-Distribution</title>
+  </head>
+  <body data-nav="projects" data-title="Release">
+    <!-- @shell-start -->
+    <div data-release-page>
+      <nav class="breadcrumb" aria-label="Brotkrümelnavigation" data-breadcrumb></nav>
+      <div data-page-state></div>
+
+      <div data-page-content hidden>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title" data-release-title></h2>
+            <p class="page-subtitle" data-release-meta></p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn-outline" data-action="withdraw" hidden>Zurückziehen</button>
+            <button type="button" class="btn btn-primary" data-action="restore" hidden>Wiederherstellen</button>
+            <button type="button" class="btn btn-primary" data-action="publish" hidden>Veröffentlichen</button>
+            <div class="dropdown" data-more-actions>
+              <button
+                type="button"
+                class="btn btn-outline"
+                data-dropdown-toggle
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Weitere Aktionen
+                <span class="material-icons-outlined" aria-hidden="true">expand_more</span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end" role="menu">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  role="menuitem"
+                  tabindex="-1"
+                  data-action="release-build-number"
+                  hidden
+                >
+                  Build-Nummer freigeben
+                </button>
+                <button
+                  type="button"
+                  class="dropdown-item danger"
+                  role="menuitem"
+                  tabindex="-1"
+                  data-action="delete"
+                  hidden
+                >
+                  Release löschen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-release-alert></div>
+
+        <div data-tab-group>
+          <div class="tablist" role="tablist" aria-label="Releasebereiche">
+            <button
+              type="button"
+              class="tab is-active"
+              role="tab"
+              id="tab-artifacts"
+              aria-controls="panel-artifacts"
+              aria-selected="true"
+            >
+              Artefakte
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-details"
+              aria-controls="panel-details"
+              aria-selected="false"
+            >
+              Details
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-texts"
+              aria-controls="panel-texts"
+              aria-selected="false"
+            >
+              Release Notes
+            </button>
+          </div>
+          <div
+            class="tab-panel"
+            id="panel-artifacts"
+            role="tabpanel"
+            aria-labelledby="tab-artifacts"
+            data-tab-panel
+            tabindex="0"
+          >
+            <div class="toolbar toolbar-split" data-upload-toolbar hidden>
+              <p class="text-muted">Fehlende Plattform, dSYM, Mapping oder Build-Metadaten nachreichen.</p>
+              <button type="button" class="btn btn-secondary" data-action="upload-file">
+                <span class="material-icons-outlined" aria-hidden="true">upload</span>
+                Datei hochladen
+              </button>
+            </div>
+            <div data-artifact-list></div>
+          </div>
+          <div
+            class="tab-panel"
+            id="panel-details"
+            role="tabpanel"
+            aria-labelledby="tab-details"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          >
+            <div class="card"><div class="card-body" data-release-details></div></div>
+          </div>
+          <div
+            class="tab-panel"
+            id="panel-texts"
+            role="tabpanel"
+            aria-labelledby="tab-texts"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          >
+            <form id="release-texts-form" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="release-notes">Release Notes</label>
+                <textarea
+                  id="release-notes"
+                  name="releaseNotes"
+                  class="form-control"
+                  rows="8"
+                  maxlength="50000"
+                ></textarea>
+                <div class="form-helper">Markdown, für Endbenutzer sichtbar.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="release-changelog">Changelog</label>
+                <textarea
+                  id="release-changelog"
+                  name="changelog"
+                  class="form-control"
+                  rows="8"
+                  maxlength="50000"
+                ></textarea>
+                <div class="form-helper">Markdown, technisch, z. B. aus Commits erzeugt.</div>
+              </div>
+              <div class="form-actions"><button type="submit" class="btn btn-secondary">Texte speichern</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="release-delete" hidden>
+      <form
+        class="modal modal-wide"
+        id="release-delete-form"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="release-delete-title"
+        novalidate
+      >
+        <div class="modal-header">
+          <h3 id="release-delete-title">Release endgültig löschen?</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div data-delete-summary></div>
+          <div class="alert alert-warning">
+            <strong>Was passiert</strong>
+            Das Release wird sofort unsichtbar und für die Wiederherstellungsfrist in Quarantäne gehalten. Danach werden
+            alle Dateien unwiderruflich gelöscht; die Build-Nummer bleibt gesperrt.
+          </div>
+          <p data-delete-withdraw-hint>
+            Nur ausblenden?
+            <button type="button" class="btn btn-outline btn-sm" data-delete-withdraw>Stattdessen zurückziehen</button>
+          </p>
+          <div class="form-group">
+            <label class="form-label" for="release-delete-reason">Begründung</label>
+            <textarea
+              id="release-delete-reason"
+              name="reason"
+              class="form-control"
+              rows="2"
+              maxlength="2000"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="release-delete-confirmation"
+              >Zur Bestätigung eingeben: <code data-delete-phrase></code
+            ></label>
+            <input
+              id="release-delete-confirmation"
+              name="confirmation"
+              class="form-control"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="submit" class="btn btn-danger" disabled>Release löschen</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-overlay" id="build-number-release" hidden>
+      <form
+        class="modal"
+        id="build-number-release-form"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="build-number-release-title"
+        novalidate
+      >
+        <div class="modal-header">
+          <h3 id="build-number-release-title">Build-Nummer freigeben?</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-warning">
+            <strong>Folgen für Geräte</strong>
+            Ein neuer Build mit der Nummer <span data-build-number></span> gilt auf Geräten mit dem gelöschten Build
+            nicht als Update (Android vergleicht <code>versionCode</code>, iOS <code>CFBundleVersion</code>). Die
+            Freigabe ist endgültig.
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="build-number-reason">Begründung</label>
+            <textarea
+              id="build-number-reason"
+              name="reason"
+              class="form-control"
+              rows="2"
+              maxlength="2000"
+              required
+              data-autofocus
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="submit" class="btn btn-danger">Freigeben</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-overlay" id="artifact-remove" hidden>
+      <form
+        class="modal"
+        id="artifact-remove-form"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="artifact-remove-title"
+        novalidate
+      >
+        <div class="modal-header">
+          <h3 id="artifact-remove-title">Artefakt entfernen?</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="delete-subject" data-artifact-remove-name></p>
+          <div class="alert alert-warning">
+            <strong>Was passiert</strong>
+            Das Artefakt ist sofort nicht mehr herunterladbar und wird für die Wiederherstellungsfrist in Quarantäne
+            gehalten. Danach wird die Datei unwiderruflich gelöscht. Das Release selbst bleibt bestehen; ein
+            korrigierter Build lässt sich anschließend hochladen.
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="artifact-remove-reason">Begründung</label>
+            <textarea
+              id="artifact-remove-reason"
+              name="reason"
+              class="form-control"
+              rows="2"
+              maxlength="2000"
+              required
+              data-autofocus
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="submit" class="btn btn-danger">Entfernen</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-overlay" id="install-hint" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="install-hint-title">
+        <div class="modal-header">
+          <h3 id="install-hint-title">Auf iPhone oder iPad installieren</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            iOS installiert Apps nur direkt auf dem Gerät. Öffne diese Seite in Safari auf dem iPhone oder iPad, melde
+            dich an und tippe dort auf „Installieren“.
+          </p>
+          <p class="hash">
+            <code data-install-page-url></code>
+            <button type="button" class="btn btn-ghost btn-sm" data-install-copy>
+              <span class="material-icons-outlined" aria-hidden="true">content_copy</span>
+              <span data-copy-label>Kopieren</span>
+            </button>
+          </p>
+          <p class="form-helper">
+            Das Gerät muss für die Verteilung registriert sein (Ad-hoc- oder Enterprise-Signierung).
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Schließen</button>
+        </div>
+      </div>
+    </div>
+    <!-- @upload-modal -->
+    <!-- @shell-end -->
+  </body>
+</html>

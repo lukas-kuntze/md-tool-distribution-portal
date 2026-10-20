@@ -1,0 +1,31 @@
+/* =============================================================================
+   COMPONENT · Data tables
+   Quiet subtle header, even row rhythm, subtle hover highlight.
+   Wrap in .table-wrapper for the rounded, clipped border.
+   ========================================================================== */
+
+.table-wrapper {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+table.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: var(--color-surface-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--color-border);
+}
+.data-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover { background: var(--color-surface-subtle); }

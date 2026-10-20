@@ -1,0 +1,45 @@
+/* =============================================================================
+   COMPONENT · Breadcrumb
+   -----------------------------------------------------------------------------
+   Shows the position of the current page within the site hierarchy. Semantic
+   markup: <nav aria-label> › <ol> › <li>. The current page is a plain <span>
+   with aria-current="page" (not a link). Separators are decorative (CSS).
+   ========================================================================== */
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+}
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+/* Decorative separator before every item except the first. */
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '/';
+  color: var(--color-text-subtle);
+}
+.breadcrumb-item a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-xs);
+}
+.breadcrumb-item a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+.breadcrumb-item a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+.breadcrumb-item [aria-current='page'] {
+  color: var(--color-heading);
+  font-weight: 600;
+}

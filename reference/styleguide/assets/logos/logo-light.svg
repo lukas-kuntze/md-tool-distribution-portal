@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" role="img" aria-label="Kuntze – Softwareentwicklung &amp; IT-Dienstleistungen">
+  <text x="150" y="25" text-anchor="middle"
+        font-family="'Roboto Slab', Georgia, serif"
+        font-size="12" font-weight="600" letter-spacing="1"
+        fill="#BC0003">SOFTWAREENTWICKLUNG &amp;</text>
+  <text x="150" y="42" text-anchor="middle"
+        font-family="'Roboto Slab', Georgia, serif"
+        font-size="12" font-weight="600" letter-spacing="1"
+        fill="#BC0003">IT-DIENSTLEISTUNGEN</text>
+  <text x="150" y="70" text-anchor="middle"
+        font-family="'Roboto Slab', Georgia, serif"
+        font-size="28" font-weight="700"
+        fill="#1E293B">Kuntze</text>
+</svg>

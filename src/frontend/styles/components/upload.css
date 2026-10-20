@@ -1,0 +1,86 @@
+/* =============================================================================
+   COMPONENT · Upload
+   Drop zone around a file input and the progress of a running upload.
+   The native input stays in the accessibility tree; the label is the click target.
+   ========================================================================== */
+
+.file-drop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-2xl) var(--space-lg);
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+  color: var(--color-text);
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+.file-drop:hover,
+.file-drop.is-dragover {
+  border-color: var(--secondary);
+  background: var(--secondary-light);
+}
+.file-drop:focus-within {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+/* The form helpers mark the (invisible) input; the drop zone shows it. */
+.file-drop:has(.is-invalid) {
+  border-color: var(--danger);
+}
+.file-drop-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.file-drop-icon {
+  font-size: 32px;
+  color: var(--color-text-muted);
+}
+.file-drop-text {
+  font-weight: 500;
+  color: var(--color-heading);
+  overflow-wrap: anywhere;
+}
+
+.form-control-mono {
+  font-family: var(--font-mono);
+}
+
+.upload-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+.upload-progress progress {
+  flex: 1;
+  height: 8px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-inset);
+  overflow: hidden;
+  appearance: none;
+}
+.upload-progress progress::-webkit-progress-bar {
+  background: var(--color-surface-inset);
+}
+.upload-progress progress::-webkit-progress-value {
+  background: var(--secondary);
+  transition: width 0.2s ease;
+}
+.upload-progress progress::-moz-progress-bar {
+  background: var(--secondary);
+}
+.upload-progress span {
+  min-width: 4ch;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+  text-align: right;
+}

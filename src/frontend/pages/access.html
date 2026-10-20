@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Benutzer & Zugriff · App-Distribution</title>
+  </head>
+  <body data-nav="access" data-title="Zugriffsverwaltung">
+    <!-- @shell-start -->
+    <div data-access-page>
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Benutzer &amp; Zugriff</h2>
+          <p class="page-subtitle">
+            Rollen gelten für die Plattform, ein Projekt oder eine Anwendung und vererben sich nach unten. Die
+            GitHub-Organisation entscheidet nur über die Anmeldung.
+          </p>
+        </div>
+      </div>
+      <div data-page-state></div>
+
+      <div data-page-content hidden>
+        <div data-tab-group>
+          <div class="tablist" role="tablist" aria-label="Bereiche der Zugriffsverwaltung">
+            <button
+              type="button"
+              class="tab is-active"
+              role="tab"
+              id="tab-assignments"
+              aria-controls="panel-assignments"
+              aria-selected="true"
+            >
+              Rollenzuweisungen
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-users"
+              aria-controls="panel-users"
+              aria-selected="false"
+              hidden
+            >
+              Benutzer
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-roles"
+              aria-controls="panel-roles"
+              aria-selected="false"
+            >
+              Rollen
+            </button>
+          </div>
+
+          <div
+            class="tab-panel"
+            id="panel-assignments"
+            role="tabpanel"
+            aria-labelledby="tab-assignments"
+            data-tab-panel
+            tabindex="0"
+          >
+            <div class="card panel-card">
+              <div class="card-header"><h3 class="card-title">Rollenzuweisungen</h3></div>
+              <div class="card-body">
+                <form class="toolbar" aria-label="Geltungsbereich wählen">
+                  <div class="form-group">
+                    <label class="form-label" for="access-scope">Geltungsbereich</label>
+                    <select id="access-scope" name="scopeType" class="form-control">
+                      <option value="global">Plattform</option>
+                      <option value="project">Projekt</option>
+                      <option value="application">Anwendung</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="access-project">Projekt</label>
+                    <select id="access-project" name="projectId" class="form-control"></select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="access-application">Anwendung</label>
+                    <select id="access-application" name="applicationId" class="form-control"></select>
+                  </div>
+                </form>
+                <div id="access-assignments" data-assignments></div>
+              </div>
+            </div>
+
+            <div class="card panel-card">
+              <div class="card-header"><h3 class="card-title">Effektive Rechte prüfen</h3></div>
+              <div class="card-body">
+                <form class="toolbar" role="search" aria-label="Benutzer suchen" data-user-search>
+                  <div class="form-group">
+                    <label class="form-label" for="access-user-query">Login oder Name</label>
+                    <input id="access-user-query" name="query" class="form-control" type="search" maxlength="100" />
+                  </div>
+                  <button type="submit" class="btn btn-outline">Suchen</button>
+                </form>
+                <p class="form-helper">
+                  „Effektive Rechte“ erklärt, welche Berechtigungen ein Benutzer im gewählten Geltungsbereich hat und
+                  woher sie stammen.
+                </p>
+                <div data-user-results></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="tab-panel"
+            id="panel-users"
+            role="tabpanel"
+            aria-labelledby="tab-users"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          >
+            <p class="text-muted">
+              Alle Personen, die sich angemeldet haben oder eine Rolle erhalten haben, mit letzter Anmeldung und ihren
+              aktuellen Rollen. Deaktivierte Konten können sich nicht mehr anmelden; ihre Historie bleibt erhalten.
+            </p>
+            <div data-users-page></div>
+          </div>
+
+          <div
+            class="tab-panel"
+            id="panel-roles"
+            role="tabpanel"
+            aria-labelledby="tab-roles"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          >
+            <div class="card panel-card">
+              <div class="card-header"><h3 class="card-title">Rollen</h3></div>
+              <div class="card-body">
+                <p class="form-helper">
+                  Was jede Rolle darf. Rollen gelten im zugewiesenen Bereich und in allem darunter: Plattform → Projekt
+                  → Anwendung. Wer eine Rolle mit Verwaltungsrechten vergeben darf, regelt der Schutz vor
+                  Rechteausweitung: nur im eigenen Bereich und nur Rechte, die man selbst besitzt.
+                </p>
+                <div data-role-catalog></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="permission-modal" hidden>
+      <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="permission-modal-title">
+        <div class="modal-header">
+          <div>
+            <h3 id="permission-modal-title">Effektive Rechte</h3>
+            <p class="form-helper" data-permission-user></p>
+          </div>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body" data-permission-body></div>
+      </div>
+    </div>
+    <!-- @shell-end -->
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Speicher · App-Distribution</title>
+  </head>
+  <body data-nav="storage" data-title="Betrieb">
+    <!-- @shell-start -->
+    <div data-storage-page>
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Speicher</h2>
+          <p class="page-subtitle">
+            Belegung der Ablage, täglicher Abgleich zwischen Datenbank und Dateisystem sowie die Löschaufträge.
+          </p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-secondary" data-action="reconcile" hidden>
+            <span class="material-icons-outlined" aria-hidden="true">fact_check</span>
+            Jetzt prüfen
+          </button>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="stack" data-storage-overview hidden>
+          <div class="stats-grid" data-storage-stats></div>
+
+          <article class="card">
+            <div class="card-header"><h3 class="card-title">Belegung je Projekt</h3></div>
+            <div class="card-body card-body-flush" data-storage-projects></div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <h3 class="card-title">Letzter Abgleich</h3>
+              <span class="text-muted" data-storage-report-time></span>
+            </div>
+            <div class="card-body" data-storage-report></div>
+          </article>
+        </div>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Löschaufträge</h3>
+              <p class="text-muted">
+                Releases und einzelne Artefakte werden über Quarantäne gelöscht. Fehlgeschlagene Aufträge bleiben
+                stehen, bis jemand die Ursache geprüft und sie erneut gestartet hat.
+              </p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="toolbar">
+              <div class="form-group">
+                <label class="form-label" for="job-filter">Aufträge</label>
+                <select id="job-filter" class="form-control" data-job-filter>
+                  <option value="">Offen und fehlgeschlagen</option>
+                  <option value="failed">Nur fehlgeschlagen</option>
+                  <option value="quarantined">In Quarantäne</option>
+                  <option value="completed,restored,cancelled">Abgeschlossen</option>
+                </select>
+              </div>
+            </div>
+            <div data-job-list></div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <!-- @shell-end -->
+  </body>
+</html>

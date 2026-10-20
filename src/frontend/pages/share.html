@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <!-- The secret of the link lives in the URL fragment; never leak the address to other sites. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Freigabe · App-Distribution</title>
+  </head>
+  <body class="public-body">
+    <header class="public-header">
+      <div class="public-brand">
+        <img
+          class="brand-logo brand-logo-small"
+          src="../assets/images/medifox-dan-logo.webp"
+          alt="MEDIFOX DAN"
+          width="96"
+          height="51"
+        />
+      </div>
+      <button
+        type="button"
+        class="btn btn-outline btn-sm"
+        data-theme-toggle
+        aria-pressed="false"
+        title="Farbmodus umschalten"
+      >
+        <span class="material-icons-outlined" aria-hidden="true">dark_mode</span>
+        <span data-theme-label>Dunkel</span>
+      </button>
+    </header>
+
+    <main class="public-main" id="main" data-share-page>
+      <div data-page-state></div>
+
+      <div data-page-content hidden>
+        <div class="page-header">
+          <div>
+            <span class="section-kicker" data-share-label></span>
+            <h1 class="page-title" data-share-project></h1>
+            <p class="page-subtitle" data-share-description></p>
+          </div>
+        </div>
+        <div data-branding-notice></div>
+        <div data-share-notice></div>
+        <div class="stack" data-share-applications></div>
+      </div>
+    </main>
+
+    <footer class="public-footer">Bereitgestellt über die App-Distribution</footer>
+    <!-- @scripts -->
+  </body>
+</html>

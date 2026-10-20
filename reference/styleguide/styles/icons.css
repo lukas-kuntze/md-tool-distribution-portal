@@ -1,0 +1,35 @@
+/* =============================================================================
+   ICONS · Material Icons Outlined (self-hosted)
+   -----------------------------------------------------------------------------
+   The one, binding icon set. Served locally as WOFF2 (kein externer CDN,
+   DSGVO-konform) — analog zur Roboto-Slab-Auslieferung. Usage:
+
+     <span class="material-icons-outlined" aria-hidden="true">check_circle</span>
+
+   Icons inherit the current text colour and can be sized via font-size. For
+   icon-only buttons always add an aria-label on the button.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Material Icons Outlined';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../assets/fonts/material-icons-outlined.woff2') format('woff2');
+}
+
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}

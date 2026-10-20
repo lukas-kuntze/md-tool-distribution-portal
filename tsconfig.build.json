@@ -4,6 +4,9 @@
   "compilerOptions": {
     "noEmit": false,
 
+    // The backend runs on Node; browser globals stay out of reach.
+    "lib": ["ES2024"],
+
     "rootDir": "./src",
     "outDir": "./dist",
 
@@ -13,5 +16,5 @@
   },
 
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+  "exclude": ["node_modules", "dist", "src/frontend", "src/action", "**/*.test.ts"]
 }

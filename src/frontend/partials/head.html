@@ -1,0 +1,18 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light" />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="../styles/index.css" />
+<!-- Applies the stored colour mode before the first paint; light is the default (styleguide). "system" follows
+     the device, as chosen on the account page. -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('kuntze-theme');
+      if (t === 'system') t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      /* storage blocked */
+    }
+  })();
+</script>

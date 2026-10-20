@@ -1,0 +1,99 @@
+/* =============================================================================
+   COMPONENT · Overlays (Modal & Drawer)
+   Modal → blocking/destructive decisions. Drawer → detail views & forms.
+   Both dim the page, close on ESC / overlay click and return focus (see JS).
+   ========================================================================== */
+
+.modal-overlay, .drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  z-index: 1000;
+  padding: 24px;
+}
+.modal-overlay { display: flex; align-items: center; justify-content: center; }
+.drawer-overlay { display: flex; justify-content: flex-end; padding: 0; }
+.modal-overlay[hidden], .drawer-overlay[hidden] { display: none; }
+
+/* Set on <body> while any overlay is open (JS) to lock background scrolling. */
+body.has-overlay { overflow: hidden; }
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-subtle);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 20px;
+  line-height: 1;
+  transition: var(--transition-colors);
+}
+.close-btn:hover { background: var(--color-surface-hover); color: var(--color-text); }
+.close-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--focus-ring); }
+
+/* -- Modal ---------------------------------------------------------------- */
+.modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 48px);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalIn 200ms ease;
+}
+.modal-header, .drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+.modal-header h3, .drawer-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.modal-footer, .drawer-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* -- Drawer --------------------------------------------------------------- */
+.drawer {
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  animation: drawerIn 240ms ease;
+}
+.drawer-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+  color: var(--color-text);
+}
+
+@keyframes modalIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes drawerIn { from { transform: translateX(100%); } to { transform: none; } }

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Projekt · App-Distribution</title>
+  </head>
+  <body data-nav="projects" data-title="Projektverwaltung">
+    <!-- @shell-start -->
+    <div data-project-page>
+      <nav class="breadcrumb" aria-label="Brotkrümelnavigation" data-breadcrumb></nav>
+      <div data-page-state></div>
+
+      <div data-page-content hidden>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title" data-project-name></h2>
+            <p class="page-subtitle" data-project-meta></p>
+          </div>
+          <div class="page-actions">
+            <a class="btn btn-outline" data-action="install-apps" href="/apps.html" hidden>
+              <span class="material-icons-outlined" aria-hidden="true">install_mobile</span>
+              Apps installieren
+            </a>
+            <button type="button" class="btn btn-outline" data-action="edit-project" hidden>Bearbeiten</button>
+            <button type="button" class="btn btn-outline" data-action="archive-project" hidden>Archivieren</button>
+            <button type="button" class="btn btn-outline" data-action="restore-project" hidden>Wiederherstellen</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-action="create-application"
+              data-modal-open="application-create"
+              hidden
+            >
+              <span class="material-icons-outlined" aria-hidden="true">add</span>
+              Anwendung anlegen
+            </button>
+          </div>
+        </div>
+
+        <div data-project-alert></div>
+
+        <div data-tab-group>
+          <div class="tablist" role="tablist" aria-label="Projektbereiche">
+            <button
+              type="button"
+              class="tab is-active"
+              role="tab"
+              id="tab-applications"
+              aria-controls="panel-applications"
+              aria-selected="true"
+            >
+              Anwendungen
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-shares"
+              aria-controls="panel-shares"
+              aria-selected="false"
+              hidden
+            >
+              Freigaben
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-access"
+              aria-controls="panel-access"
+              aria-selected="false"
+              hidden
+            >
+              Zugriff
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-audit"
+              aria-controls="panel-audit"
+              aria-selected="false"
+              hidden
+            >
+              Audit
+            </button>
+          </div>
+          <div
+            class="tab-panel"
+            id="panel-applications"
+            role="tabpanel"
+            aria-labelledby="tab-applications"
+            data-tab-panel
+            tabindex="0"
+          >
+            <div data-application-list></div>
+          </div>
+          <div
+            class="tab-panel"
+            id="panel-shares"
+            role="tabpanel"
+            aria-labelledby="tab-shares"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          ></div>
+          <div
+            class="tab-panel"
+            id="panel-access"
+            role="tabpanel"
+            aria-labelledby="tab-access"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          ></div>
+          <div
+            class="tab-panel"
+            id="panel-audit"
+            role="tabpanel"
+            aria-labelledby="tab-audit"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="project-edit" hidden>
+      <form
+        class="modal"
+        id="project-edit-form"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-edit-title"
+        novalidate
+      >
+        <div class="modal-header">
+          <h3 id="project-edit-title">Projekt bearbeiten</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="project-edit-name">Name</label>
+            <input
+              id="project-edit-name"
+              name="name"
+              class="form-control"
+              type="text"
+              maxlength="200"
+              required
+              data-autofocus
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="project-edit-description">Beschreibung</label>
+            <textarea
+              id="project-edit-description"
+              name="description"
+              class="form-control"
+              rows="4"
+              maxlength="2000"
+            ></textarea>
+          </div>
+          <div class="form-group" data-project-icon>
+            <span class="form-label" id="project-icon-label">Projekt-Icon</span>
+            <div class="icon-field">
+              <span data-icon-preview></span>
+              <div>
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg"
+                  class="sr-only"
+                  aria-labelledby="project-icon-label"
+                  data-icon-file
+                />
+                <div class="badge-row">
+                  <button type="button" class="btn btn-secondary btn-sm" data-action="choose-icon">
+                    <span class="material-icons-outlined" aria-hidden="true">image</span>
+                    Icon hochladen
+                  </button>
+                  <button type="button" class="btn btn-outline btn-sm" data-action="remove-icon" hidden>
+                    Entfernen
+                  </button>
+                </div>
+                <div class="form-helper">PNG oder JPEG, quadratisch, höchstens 512 KB. Wird sofort übernommen.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-overlay" id="project-archive" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="project-archive-title">
+        <div class="modal-header">
+          <h3 id="project-archive-title">Projekt archivieren?</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Das Projekt und seine Anwendungen werden schreibgeschützt und in Download-Ansichten ausgeblendet. Releases
+            und Dateien bleiben erhalten; das Projekt lässt sich jederzeit wiederherstellen.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="button" class="btn btn-primary" data-confirm-archive>Archivieren</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="application-create" hidden>
+      <form
+        class="modal modal-wide"
+        id="application-create-form"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="application-create-title"
+        novalidate
+      >
+        <div class="modal-header">
+          <h3 id="application-create-title">Anwendung anlegen</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4 class="sub-title">1 · Grunddaten</h4>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="application-create-name">Name</label>
+              <input
+                id="application-create-name"
+                name="name"
+                class="form-control"
+                type="text"
+                maxlength="200"
+                required
+                data-autofocus
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="application-create-slug">Slug</label>
+              <input
+                id="application-create-slug"
+                name="slug"
+                class="form-control"
+                type="text"
+                maxlength="63"
+                required
+                spellcheck="false"
+              />
+              <div class="form-helper">Eindeutig im Projekt, später nicht änderbar.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="application-create-description">Beschreibung (optional)</label>
+            <textarea
+              id="application-create-description"
+              name="description"
+              class="form-control"
+              rows="2"
+              maxlength="2000"
+            ></textarea>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="application-create-framework">Framework</label>
+              <select id="application-create-framework" name="framework" class="form-control">
+                <option value="flutter">Flutter</option>
+                <option value="dotnet_maui">.NET MAUI</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="application-create-visibility">Sichtbarkeit</label>
+              <select id="application-create-visibility" name="visibility" class="form-control">
+                <option value="private">Privat – nur Personen mit Rolle</option>
+                <option value="organization">Organisation – alle Angemeldeten</option>
+              </select>
+              <div class="form-helper">Entwürfe sehen immer nur Berechtigte.</div>
+            </div>
+          </div>
+
+          <h4 class="sub-title">2 · Plattformen und Kennungen</h4>
+          <div class="form-group form-check-row">
+            <div class="form-check">
+              <input type="checkbox" id="application-create-android" name="platforms" value="android" checked />
+              <label for="application-create-android">Android</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="application-create-ios" name="platforms" value="ios" checked />
+              <label for="application-create-ios">iOS</label>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group" data-identifier-for="android">
+              <label class="form-label" for="application-create-android-id">Android-Package-Name</label>
+              <input
+                id="application-create-android-id"
+                name="bundleIdentifier.android"
+                class="form-control"
+                type="text"
+                placeholder="de.firma.app"
+                spellcheck="false"
+              />
+            </div>
+            <div class="form-group" data-identifier-for="ios">
+              <label class="form-label" for="application-create-ios-id">iOS-Bundle-ID</label>
+              <input
+                id="application-create-ios-id"
+                name="bundleIdentifier.ios"
+                class="form-control"
+                type="text"
+                placeholder="de.firma.app"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+          <p class="form-helper">
+            Uploads werden gegen diese Kennungen geprüft. Nach dem ersten Release sind sie gesperrt.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Anlegen</button>
+        </div>
+      </form>
+    </div>
+    <!-- @shell-end -->
+  </body>
+</html>

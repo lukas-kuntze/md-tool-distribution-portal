@@ -4,6 +4,8 @@ node_modules/
 # Build Output
 dist/
 lib/
+# The GitHub Action runs from the repository, so its compiled output is versioned.
+!src/action/dist/
 
 # Environment
 .env

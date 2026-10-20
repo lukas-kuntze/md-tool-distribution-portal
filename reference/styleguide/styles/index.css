@@ -1,0 +1,51 @@
+/* =============================================================================
+   Softwareentwicklung und IT-Dienstleistungen Kuntze — UI Styleguide
+   -----------------------------------------------------------------------------
+   Single import graph. Order matters (ITCSS-style, low → high specificity):
+
+     1. tokens        design decisions as CSS custom properties (primitives + semantic)
+     2. theme         dark-mode overrides of the semantic tokens
+     3. base          fonts, reset, raw element defaults
+     4. icons         Material Icons Outlined (self-hosted)
+     5. layout        application shell (sidebar, topbar, sections)
+     6. typography    reusable type scale
+     7. components/*  the shipped, reusable UI library
+     8. docs/*        styleguide-only presentation helpers (NOT shipped)
+
+   For a product, import tokens + base + the components you need. The docs
+   layer is required only to render this styleguide document.
+
+   Production note: browsers load @import chains sequentially.
+   ========================================================================== */
+
+/* 1. Foundations */
+@import url('./tokens.css');
+@import url('./theme.css');      /* dark-mode overrides of semantic tokens */
+@import url('./base.css');
+@import url('./icons.css');      /* Material Icons Outlined (self-hosted) */
+@import url('./layout.css');
+@import url('./typography.css');
+
+/* 2. Components (reusable library) */
+@import url('./components/buttons.css');
+@import url('./components/forms.css');
+@import url('./components/switch.css');
+@import url('./components/badges.css');
+@import url('./components/alerts.css');
+@import url('./components/cards.css');
+@import url('./components/stats.css');
+@import url('./components/tables.css');
+@import url('./components/tabs.css');
+@import url('./components/accordion.css');
+@import url('./components/dropdown.css');
+@import url('./components/breadcrumb.css');
+@import url('./components/pagination.css');
+@import url('./components/overlays.css');
+@import url('./components/feedback.css');
+@import url('./components/content-states.css');
+@import url('./components/code.css');
+@import url('./components/cookie.css');
+@import url('./components/login.css');
+
+/* 3. Styleguide document presentation (not part of the library) */
+@import url('./docs/styleguide.css');

@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing.
 
-This document defines the contribution process and development standards for the **DevX Template: TypeScript** and repositories created from it. Following these guidelines helps ensure consistent development practices, maintainability, and code quality.
+This document defines the contribution process and development standards for the **MD Tool Distribution Portal**. Following these guidelines helps ensure consistent development practices, maintainability, and code quality.
 
 ---
 
@@ -19,6 +19,13 @@ This document defines the contribution process and development standards for the
   - [Examples](#examples-1)
   - [Supported Prefixes](#supported-prefixes)
 - [Local Validation](#local-validation)
+- [Project Rules](#project-rules)
+  - [Database Migrations](#database-migrations)
+  - [Permissions and Roles](#permissions-and-roles)
+  - [API Contracts](#api-contracts)
+  - [Administration Interface](#administration-interface)
+  - [Configuration and Secrets](#configuration-and-secrets)
+  - [Changelog](#changelog)
 - [Pull Requests](#pull-requests)
 - [Questions](#questions)
 
@@ -29,8 +36,8 @@ This document defines the contribution process and development standards for the
 Clone the repository:
 
 ```bash
-git clone git@github.com:lukas-kuntze/<repository>.git
-cd <repository>
+git clone git@github.com:lukas-kuntze/md-tool-distribution-portal.git
+cd md-tool-distribution-portal
 ```
 
 Initialize the local development environment.
@@ -55,7 +62,7 @@ Install the project dependencies:
 npm ci
 ```
 
-Node.js 24 or newer is required. A pre-configured [dev container](.devcontainer/devcontainer.json) is available for a reproducible environment.
+Node.js 24 or newer is required. The pre-configured [dev container](.devcontainer/devcontainer.json) is the recommended way to run Node locally. Configuration and running the services locally are described in the [README](README.md#getting-started).
 
 ---
 
@@ -185,6 +192,38 @@ This executes formatting, linting, type checking, tests, and the build in sequen
 New or modified domain logic in `src/` **shall** be covered by colocated unit tests (`<module>.test.ts`). Coverage thresholds are enforced by `npm run coverage`.
 
 The normative source layout, dependency direction, and conventions are documented in [src/README.md](src/README.md) and **shall** be observed when adding modules.
+
+---
+
+## Project Rules
+
+### Database Migrations
+
+Migrations in `src/backend/db/migrations/` are **forward-only** and run automatically when the web service or the worker starts.
+
+- A migration that may already have been applied anywhere — including a local development database — **shall not** be changed. Add a new migration instead and register it in `MIGRATIONS` (`src/backend/db/migrate.ts`).
+- A migration that rebuilds a table **shall** be tested against existing data, not only against an empty schema (see `src/backend/db/migrate.test.ts`). Foreign keys must hold at every step; deferring them across a table rebuild is not sufficient.
+- The expected schema version in `src/backend/config/composition-root.test.ts` is raised with every new migration.
+
+### Permissions and Roles
+
+New permissions are added to the permission catalog of the domain, seeded by a migration and assigned to the system roles there. The German role documentation in [docs/rollen-und-berechtigungen.md](docs/rollen-und-berechtigungen.md) **shall** be updated in the same change.
+
+### API Contracts
+
+Request and response types shared by backend and frontend live in `src/shared/types/api.ts`. Routes validate their input with Zod and return these types; changing a type therefore shows up in both the backend presenters and the frontend at compile time.
+
+### Administration Interface
+
+The administration follows the company styleguide in `reference/styleguide/`: one primary button per view, form actions right-aligned, spinners inside buttons while loading, configuration in modals. The DOM is built with `h()` from `src/frontend/scripts/core/dom.ts`, never from HTML strings. Page tests load the real page with its partials (`src/frontend/scripts/testing/page.ts`).
+
+### Configuration and Secrets
+
+Configuration is read from environment variables only, in `src/backend/config/environment.ts`. New variables are documented in [.env.example](.env.example) with a placeholder or a safe default. Real secrets **shall never** be committed; `.env` is ignored for local values. A secret that has been committed must be rotated.
+
+### Changelog
+
+Notable changes are recorded under `[Unreleased]` in [CHANGELOG.md](CHANGELOG.md), following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), including the number of any new migration.
 
 ---
 

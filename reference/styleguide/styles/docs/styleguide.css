@@ -1,0 +1,313 @@
+/* =============================================================================
+   DOCS-ONLY  ·  Styleguide presentation helpers
+   -----------------------------------------------------------------------------
+   These styles exist ONLY to render the styleguide document itself (colour
+   swatches, spec rows, do/don't grids, brand tiles, icon demos …). They are
+   NOT part of the shipped component library — do not use them in products.
+
+   Card/chrome colours use SEMANTIC tokens (theme-aware). DEMO SURFACES that
+   must show a fixed colour regardless of theme — colour swatches and the brand
+   logo stages — deliberately keep raw/literal values.
+   ========================================================================== */
+
+/* -- Generic demo row (shows component variants on a tinted surface) ------- */
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 20px;
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.demo-row + h4.sub-title { margin-top: 24px; }
+
+/* -- Embedded page preview (browser-chrome frame around an <iframe>) ------- */
+.preview-frame {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.preview-frame-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--color-surface-subtle);
+  border-bottom: 1px solid var(--color-border);
+}
+.preview-frame-dots { display: inline-flex; gap: 6px; flex-shrink: 0; }
+.preview-frame-dots i { width: 10px; height: 10px; border-radius: var(--radius-full); background: var(--color-border-strong); }
+.preview-frame-url {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  padding: 4px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+}
+.preview-frame-view {
+  display: block;
+  width: 100%;
+  height: 620px;
+  max-height: 80vh;
+  border: 0;
+  background: var(--color-bg);
+}
+
+/* Two full-width previews stacked (e.g. light vs dark). Full width so each
+   iframe is wide enough to render the real desktop split layout of the page. */
+.preview-split { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.preview-split .preview-frame-view { height: 640px; }
+.preview-frame-url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Variant label (e.g. "Hell" / "Dunkel") in the preview chrome bar. */
+.preview-frame-tag {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  color: var(--color-accent);
+  background: var(--primary-light);
+}
+
+/* -- Colour tokens -------------------------------------------------------- */
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.swatch {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.swatch:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+/* The colour chip itself must render its true value in any theme. */
+.swatch-color { height: 88px; border-bottom: 1px solid var(--color-border); }
+.swatch-body { padding: 12px 14px; }
+.swatch-name { font-weight: 600; color: var(--color-heading); font-size: 13px; margin-bottom: 4px; }
+.swatch-hex {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.3px;
+}
+.swatch-use {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* -- Typography spec rows ------------------------------------------------- */
+.type-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: baseline;
+}
+.type-row:last-child { border-bottom: none; }
+.type-meta { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted); line-height: 1.6; }
+.type-meta strong { display: block; color: var(--color-heading); font-family: var(--font-serif); font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.type-sample { color: var(--color-heading); }
+
+/* -- Spacing scale -------------------------------------------------------- */
+.spacing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+.space-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+.space-bar {
+  background: var(--primary-light);
+  border-radius: 4px;
+  margin: 0 auto 12px;
+}
+.space-name { font-weight: 600; color: var(--color-heading); font-size: 13px; }
+.space-value { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted); margin-top: 4px; }
+
+/* -- Radius / shadow samples ---------------------------------------------- */
+.sample-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+.sample-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 32px 20px;
+  text-align: center;
+}
+.sample-label { font-weight: 600; color: var(--color-heading); font-size: 13px; margin-bottom: 4px; }
+.sample-value { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted); }
+
+/* -- Breakpoints ---------------------------------------------------------- */
+.breakpoints {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.bp-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+}
+.bp-name { font-weight: 600; color: var(--color-heading); margin-bottom: 4px; }
+.bp-range { font-family: var(--font-mono); font-size: 12px; color: var(--color-accent); margin-bottom: 8px; }
+.bp-desc { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
+
+/* -- Design principles ---------------------------------------------------- */
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.principle {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+}
+.principle-title { font-size: 15px; font-weight: 600; color: var(--color-heading); margin: 0 0 6px; }
+.principle-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin: 0; }
+
+/* -- Do / Don't ----------------------------------------------------------- */
+.dd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.dd {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  background: var(--color-surface);
+}
+.dd-kicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.dd.do .dd-kicker { background: var(--success-light); color: var(--success-text); }
+.dd.dont .dd-kicker { background: var(--danger-light); color: var(--danger-text); }
+.dd ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; }
+
+/* -- Brand / logo --------------------------------------------------------- */
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.brand-tile {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+/* Logo stages show fixed demo backgrounds in ANY theme (raw literals). */
+.brand-tile-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  min-height: 160px;
+  background: var(--white);
+  border-bottom: 1px solid var(--color-border);
+}
+.brand-tile-stage.dark { background: var(--gray-900); }
+.brand-tile-stage.tint { background: var(--gray-50); }
+.brand-tile-meta { padding: 12px 16px; }
+.brand-tile-name { font-size: 13px; font-weight: 600; color: var(--color-heading); margin-bottom: 2px; }
+.brand-tile-desc { font-size: 12px; color: var(--color-text-muted); }
+.brand-logo svg { display: block; max-width: 100%; height: auto; }
+.brand-logo-on-dark text:first-child + text + text { fill: var(--white) !important; }
+
+.brand-rules {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.brand-rule {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  background: var(--color-surface);
+}
+.brand-rule-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-accent); font-weight: 600; margin-bottom: 6px; }
+.brand-rule-value { font-size: 18px; font-weight: 700; color: var(--color-heading); margin-bottom: 4px; }
+.brand-rule-desc { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
+
+.brand-downloads { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* -- Iconography demo ----------------------------------------------------- */
+.icon-sizes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+}
+.icon-size {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 20px 16px;
+  text-align: center;
+}
+.icon-size-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+.icon-size-box {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+.icon-size-name { font-weight: 600; color: var(--color-heading); font-size: 13px; margin-bottom: 2px; }
+.icon-size-value { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted); }
+.icon-size-use { font-size: 12px; color: var(--color-text-muted); margin-top: 6px; line-height: 1.5; }
+
+.icon-color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.icon-color {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.icon-color-chip { width: 32px; height: 32px; border-radius: var(--radius-xs); flex-shrink: 0; }
+.icon-color-meta { font-size: 13px; color: var(--color-text); }
+.icon-color-meta strong { display: block; color: var(--color-heading); font-weight: 600; }
+.icon-color-meta small { color: var(--color-text-muted); font-size: 12px; }

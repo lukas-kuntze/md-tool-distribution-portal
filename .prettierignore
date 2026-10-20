@@ -1,3 +1,6 @@
 coverage/
 dist/
 node_modules/
+reference/
+# HTML fragments: tags open in one partial and close in another.
+src/frontend/partials/

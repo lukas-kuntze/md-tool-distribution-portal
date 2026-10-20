@@ -1,0 +1,87 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "Softwareentwicklung und IT-Dienstleistungen Kuntze — design tokens (PRIMITIVES, light). Machine-readable mirror of the primitive layer of styles/tokens.css. The theme-aware semantic tokens (--color-surface/-text/-border …) and their dark values live in styles/tokens.css + styles/theme.css and are intentionally not duplicated here. This file is an ADDITIVE, optional artifact for tooling/export; styles/tokens.css remains the source of truth for the browser.",
+  "color": {
+    "brand": {
+      "primary":      { "value": "#BC0003", "type": "color" },
+      "primaryDark":  { "value": "#8A0002", "type": "color" },
+      "primaryLight": { "value": "rgba(188, 0, 3, 0.1)", "type": "color" },
+      "secondary":      { "value": "#154C79", "type": "color" },
+      "secondaryDark":  { "value": "#0D3A5C", "type": "color" },
+      "secondaryLight": { "value": "rgba(21, 76, 121, 0.1)", "type": "color" }
+    },
+    "status": {
+      "success":      { "value": "#22C55E", "type": "color" },
+      "successLight": { "value": "rgba(34, 197, 94, 0.1)", "type": "color" },
+      "successText":  { "value": "#166534", "type": "color" },
+      "warning":      { "value": "#F59E0B", "type": "color" },
+      "warningLight": { "value": "rgba(245, 158, 11, 0.1)", "type": "color" },
+      "warningText":  { "value": "#92400E", "type": "color" },
+      "danger":       { "value": "#EF4444", "type": "color" },
+      "dangerLight":  { "value": "rgba(239, 68, 68, 0.1)", "type": "color" },
+      "dangerText":   { "value": "#991B1B", "type": "color" },
+      "info":         { "value": "#3B82F6", "type": "color" },
+      "infoLight":    { "value": "rgba(59, 130, 246, 0.1)", "type": "color" },
+      "infoText":     { "value": "#1E40AF", "type": "color" }
+    },
+    "neutral": {
+      "white":   { "value": "#FFFFFF", "type": "color" },
+      "gray50":  { "value": "#F8FAFC", "type": "color" },
+      "gray100": { "value": "#F1F5F9", "type": "color" },
+      "gray200": { "value": "#E2E8F0", "type": "color" },
+      "gray300": { "value": "#CBD5E1", "type": "color" },
+      "gray400": { "value": "#94A3B8", "type": "color" },
+      "gray500": { "value": "#64748B", "type": "color" },
+      "gray600": { "value": "#475569", "type": "color" },
+      "gray700": { "value": "#334155", "type": "color" },
+      "gray800": { "value": "#1E293B", "type": "color" },
+      "gray900": { "value": "#0F172A", "type": "color" }
+    }
+  },
+  "space": {
+    "xs":  { "value": "4px",  "type": "dimension" },
+    "sm":  { "value": "8px",  "type": "dimension" },
+    "md":  { "value": "12px", "type": "dimension" },
+    "lg":  { "value": "16px", "type": "dimension" },
+    "xl":  { "value": "20px", "type": "dimension" },
+    "2xl": { "value": "24px", "type": "dimension" },
+    "3xl": { "value": "32px", "type": "dimension" },
+    "4xl": { "value": "48px", "type": "dimension" }
+  },
+  "radius": {
+    "xs":   { "value": "6px",   "type": "dimension" },
+    "sm":   { "value": "8px",   "type": "dimension" },
+    "md":   { "value": "12px",  "type": "dimension" },
+    "full": { "value": "999px", "type": "dimension" }
+  },
+  "shadow": {
+    "sm": { "value": "0 1px 3px rgba(0, 0, 0, 0.05)",  "type": "shadow" },
+    "md": { "value": "0 4px 12px rgba(0, 0, 0, 0.08)", "type": "shadow" },
+    "lg": { "value": "0 10px 40px rgba(0, 0, 0, 0.08)", "type": "shadow" }
+  },
+  "typography": {
+    "fontFamily": {
+      "serif": { "value": "'Roboto Slab', Georgia, 'Times New Roman', serif", "type": "fontFamily" },
+      "mono":  { "value": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "type": "fontFamily" }
+    },
+    "scale": {
+      "h1":     { "value": { "fontSize": "48px", "fontWeight": 700, "lineHeight": 1.15, "letterSpacing": "-0.5px" }, "type": "typography" },
+      "h2":     { "value": { "fontSize": "32px", "fontWeight": 700, "lineHeight": 1.2 }, "type": "typography" },
+      "h3":     { "value": { "fontSize": "26px", "fontWeight": 700, "lineHeight": 1.3 }, "type": "typography" },
+      "h4":     { "value": { "fontSize": "20px", "fontWeight": 600, "lineHeight": 1.35 }, "type": "typography" },
+      "h5":     { "value": { "fontSize": "16px", "fontWeight": 600, "lineHeight": 1.4 }, "type": "typography" },
+      "bodyLg": { "value": { "fontSize": "17px", "fontWeight": 400, "lineHeight": 1.8 }, "type": "typography" },
+      "body":   { "value": { "fontSize": "14px", "fontWeight": 400, "lineHeight": 1.6 }, "type": "typography" },
+      "small":  { "value": { "fontSize": "13px", "fontWeight": 400, "lineHeight": 1.6 }, "type": "typography" },
+      "kicker": { "value": { "fontSize": "11px", "fontWeight": 600, "lineHeight": 1.4, "letterSpacing": "1px", "textTransform": "uppercase" }, "type": "typography" }
+    }
+  },
+  "layout": {
+    "sidebarWidth":   { "value": "280px",  "type": "dimension" },
+    "headerHeight":   { "value": "64px",   "type": "dimension" },
+    "contentMaxWidth":{ "value": "1200px", "type": "dimension" }
+  },
+  "motion": {
+    "transition": { "value": "all 0.2s ease", "type": "transition" }
+  }
+}

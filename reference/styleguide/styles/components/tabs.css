@@ -1,0 +1,28 @@
+/* =============================================================================
+   COMPONENT · Tabs / Pills
+   Segmented in-view navigation. Active tab lifts via surface bg + shadow.
+   ========================================================================== */
+
+.tablist {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--color-surface-hover);
+  border-radius: var(--radius-sm);
+}
+.tab {
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: var(--transition-colors);
+  font-family: inherit;
+}
+.tab:hover { color: var(--color-heading); }
+.tab:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--focus-ring); }
+.tab.is-active { background: var(--color-surface); color: var(--color-heading); box-shadow: var(--shadow-sm); }
+.tab.is-active:focus-visible { box-shadow: 0 0 0 3px var(--focus-ring), var(--shadow-sm); }

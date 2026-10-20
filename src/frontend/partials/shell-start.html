@@ -1,0 +1,114 @@
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<div class="app">
+  <aside class="sidebar" aria-label="Hauptnavigation">
+    <div class="sidebar-header">
+      <img class="brand-logo" src="../assets/images/medifox-dan-logo.webp" alt="MEDIFOX DAN" width="168" height="90" />
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/" class="nav-item" data-nav-item="dashboard">Übersicht</a>
+
+      <div class="nav-section">Apps</div>
+      <a href="/projects.html" class="nav-item" data-nav-item="projects">Projekte</a>
+      <a href="/apps.html" class="nav-item" data-nav-item="apps">Apps installieren</a>
+
+      <div class="nav-group">
+        <div class="nav-section">Verwaltung</div>
+        <a href="/access.html" class="nav-item" data-nav-item="access" data-requires="managesAnyPermissions" hidden
+          >Benutzer &amp; Zugriff</a
+        >
+        <a href="/audit.html" class="nav-item" data-nav-item="audit" data-requires="readAudit" hidden>Audit-Log</a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-section">Betrieb</div>
+        <a href="/storage.html" class="nav-item" data-nav-item="storage" data-requires="manageStorage" hidden
+          >Speicher</a
+        >
+        <a
+          href="/settings.html"
+          class="nav-item"
+          data-nav-item="settings"
+          data-requires="manageSettings manageStorage"
+          hidden
+          >Einstellungen</a
+        >
+      </div>
+
+      <div class="nav-section">Hilfe</div>
+      <a href="/docs.html" class="nav-item" data-nav-item="docs">Dokumentation</a>
+    </nav>
+    <div class="sidebar-user">
+      <a href="/account.html" class="sidebar-user-link" data-nav-item="account" title="Mein Konto">
+        <span class="material-icons-outlined sidebar-user-icon" aria-hidden="true" data-user-avatar-fallback>account_circle</span>
+        <img class="sidebar-user-avatar" alt="" width="32" height="32" referrerpolicy="no-referrer" data-user-avatar hidden />
+        <span class="sidebar-user-text">
+          <span class="sidebar-user-name" data-user-name>Angemeldet</span>
+          <span class="sidebar-user-login" data-user-login></span>
+        </span>
+      </a>
+      <button type="button" class="btn btn-ghost btn-sm sidebar-user-signout" data-sign-out title="Abmelden" aria-label="Abmelden">
+        <span class="material-icons-outlined" aria-hidden="true">logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <header class="topbar">
+      <h1 data-page-title></h1>
+      <div class="topbar-actions">
+        <button
+          type="button"
+          class="btn btn-outline btn-sm"
+          data-theme-toggle
+          aria-pressed="false"
+          title="Farbmodus umschalten"
+        >
+          <span class="material-icons-outlined" aria-hidden="true">dark_mode</span>
+          <span data-theme-label>Dunkel</span>
+        </button>
+      </div>
+    </header>
+    <!--
+      Paints the shell as the previous page left it, before the modules load: title, active entry and, from the
+      tab's cache (Shell module), the user and the entries they may see. The module then checks with the server.
+    -->
+    <script>
+      (function () {
+        var body = document.body;
+        var title = document.querySelector('[data-page-title]');
+        if (title) title.textContent = body.getAttribute('data-title') || '';
+        var items = document.querySelectorAll('[data-nav-item]');
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].getAttribute('data-nav-item') === body.getAttribute('data-nav')) {
+            items[i].classList.add('active');
+            items[i].setAttribute('aria-current', 'page');
+          }
+        }
+        try {
+          var shell = JSON.parse(sessionStorage.getItem('md-shell') || 'null');
+          if (!shell || !shell.capabilities) return;
+          var guarded = document.querySelectorAll('[data-requires]');
+          for (var j = 0; j < guarded.length; j++) {
+            var needed = (guarded[j].getAttribute('data-requires') || '').split(' ');
+            var allowed = false;
+            for (var k = 0; k < needed.length; k++) allowed = allowed || shell.capabilities[needed[k]] === true;
+            guarded[j].hidden = !allowed;
+          }
+          var names = document.querySelectorAll('[data-user-name]');
+          for (var n = 0; n < names.length; n++) names[n].textContent = shell.displayName || '';
+          var logins = document.querySelectorAll('[data-user-login]');
+          for (var l = 0; l < logins.length; l++) logins[l].textContent = shell.login ? '@' + shell.login : '';
+          var avatar = document.querySelector('[data-user-avatar]');
+          var fallback = document.querySelector('[data-user-avatar-fallback]');
+          if (avatar && fallback && typeof shell.avatarUrl === 'string' && shell.avatarUrl.indexOf('https://') === 0) {
+            avatar.src = shell.avatarUrl;
+            avatar.hidden = false;
+            fallback.hidden = true;
+          }
+        } catch (e) {
+          /* storage blocked or malformed: the Shell module fills everything in */
+        }
+      })();
+    </script>
+
+    <div class="content">

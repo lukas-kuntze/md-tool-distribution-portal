@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rechnungsgenerator — Kuntze IT Engineering</title>
+<meta name="description" content="Lokaler Rechnungsgenerator im Kuntze-IT-Design: Rechnung direkt im Dokument bearbeiten und als PDF sichern — ohne Server, ohne externe Dienste.">
+<meta name="color-scheme" content="light">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('kuntze-theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { /* ignore */ }
+  })();
+</script>
+<link rel="stylesheet" href="../styles/index.css">
+<link rel="stylesheet" href="styles/app.css">
+<link rel="stylesheet" href="styles/invoice.css">
+</head>
+
+<body>
+<header class="topbar">
+  <h1>Rechnungsgenerator</h1>
+  <div class="rg-topbar-actions">
+    <button type="button" class="btn btn-outline btn-sm" data-drawer-open="history-drawer">
+      <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">history</span>
+      Historie
+    </button>
+    <button type="button" class="btn btn-outline btn-sm" data-modal-open="settings-modal">
+      <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">settings</span>
+      Einstellungen
+    </button>
+    <button type="button" class="btn btn-outline btn-sm" data-theme-toggle aria-pressed="false" title="Farbmodus umschalten">
+      <span class="material-icons-outlined" aria-hidden="true">dark_mode</span>
+      <span data-theme-label>Dunkel</span>
+    </button>
+  </div>
+</header>
+
+<!-- Schlanke Werkzeugleiste über dem Dokument — kein Formular, nur globale Aktionen -->
+<div class="rg-doc-toolbar">
+  <div class="rg-doc-toolbar-group">
+    <label class="rg-doc-toolbar-label" for="field-customer">Kunde</label>
+    <select id="field-customer" class="form-control rg-customer-select">
+      <option value="">— Kunde wählen —</option>
+    </select>
+    <button type="button" class="rg-icon-btn" id="btn-new-customer" title="Neuer Kunde" aria-label="Neuer Kunde">
+      <span class="material-icons-outlined" aria-hidden="true">person_add</span>
+    </button>
+    <button type="button" class="rg-icon-btn" id="btn-manage-customers" title="Kunden verwalten" aria-label="Kunden verwalten">
+      <span class="material-icons-outlined" aria-hidden="true">group</span>
+    </button>
+  </div>
+  <div class="rg-doc-toolbar-group">
+    <button type="button" class="btn btn-outline btn-sm" id="btn-new-invoice">
+      <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">note_add</span>
+      Neue Rechnung
+    </button>
+    <button type="button" class="btn btn-secondary btn-sm" id="btn-save-invoice">
+      <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">save</span>
+      Speichern
+    </button>
+    <button type="button" class="btn btn-primary btn-sm" id="btn-print">
+      <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">picture_as_pdf</span>
+      Als PDF sichern
+    </button>
+  </div>
+</div>
+
+<p class="rg-doc-hint">Klicke direkt in die Rechnung, um Texte, Positionen und Beträge zu bearbeiten.</p>
+
+<!-- Das Dokument selbst — die eigentliche "Formularfläche" -->
+<div class="rg-doc-stage">
+  <div id="invoice-preview"></div>
+</div>
+
+<!-- ============================== HISTORIE-DRAWER ============================== -->
+<div class="drawer-overlay" id="history-drawer" hidden>
+  <div class="drawer" role="dialog" aria-modal="true" aria-labelledby="history-drawer-title">
+    <div class="drawer-header">
+      <h3 id="history-drawer-title">Rechnungshistorie</h3>
+      <button type="button" class="close-btn" data-drawer-close aria-label="Schließen">
+        <span class="material-icons-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <div class="drawer-body">
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr><th>Nummer</th><th>Kunde</th><th>Datum</th><th>Betrag</th><th></th></tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+      <div class="rg-empty-hint" id="history-empty" hidden>Noch keine Rechnungen gespeichert.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== KUNDEN-MODAL ============================== -->
+<div class="modal-overlay" id="customer-modal" hidden>
+  <div class="modal rg-modal-lg" role="dialog" aria-modal="true" aria-labelledby="customer-modal-title">
+    <div class="modal-header">
+      <h3 id="customer-modal-title">Kunde</h3>
+      <button type="button" class="close-btn" data-modal-close aria-label="Schließen">
+        <span class="material-icons-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="cust-id">
+      <div class="rg-field-row">
+        <div class="form-group">
+          <label class="form-label" for="cust-number">Kundennummer</label>
+          <input id="cust-number" class="form-control" type="number" min="1">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cust-anrede">Anrede</label>
+          <select id="cust-anrede" class="form-control">
+            <option value="">Firma / keine Anrede</option>
+            <option value="Herr">Herr</option>
+            <option value="Frau">Frau</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="cust-firma">Firma (optional)</label>
+        <input id="cust-firma" class="form-control" type="text" placeholder="z. B. Mustermann GmbH">
+      </div>
+      <div class="rg-field-row">
+        <div class="form-group">
+          <label class="form-label" for="cust-vorname">Vorname</label>
+          <input id="cust-vorname" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cust-nachname">Nachname</label>
+          <input id="cust-nachname" class="form-control" type="text">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="cust-strasse">Straße &amp; Hausnummer</label>
+        <input id="cust-strasse" class="form-control" type="text">
+      </div>
+      <div class="rg-field-row">
+        <div class="form-group">
+          <label class="form-label" for="cust-plz">PLZ</label>
+          <input id="cust-plz" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cust-ort">Ort</label>
+          <input id="cust-ort" class="form-control" type="text">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label" for="cust-land">Land</label>
+        <input id="cust-land" class="form-control" type="text" value="Deutschland">
+      </div>
+
+      <div class="rg-customer-list" id="customer-list"></div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" data-modal-close>Schließen</button>
+      <button type="button" class="btn btn-primary" id="btn-cust-save">
+        <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">save</span>
+        Kunde speichern
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== EINSTELLUNGEN-MODAL ============================== -->
+<div class="modal-overlay" id="settings-modal" hidden>
+  <div class="modal rg-modal-lg" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-header">
+      <h3 id="settings-modal-title">Einstellungen</h3>
+      <button type="button" class="close-btn" data-modal-close aria-label="Schließen">
+        <span class="material-icons-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="rg-settings-section">
+        <h4>Absender</h4>
+        <div class="rg-field-row">
+          <div class="form-group">
+            <label class="form-label" for="set-kicker1">Kicker-Zeile 1</label>
+            <input id="set-kicker1" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="set-kicker2">Kicker-Zeile 2</label>
+            <input id="set-kicker2" class="form-control" type="text">
+          </div>
+        </div>
+        <div class="rg-field-row">
+          <div class="form-group">
+            <label class="form-label" for="set-company-name">Firmenname (Logo)</label>
+            <input id="set-company-name" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="set-contact-name">Ansprechpartner</label>
+            <input id="set-contact-name" class="form-control" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="set-full-name">Vollständiger Firmenname (Fußzeile/Rücksendezeile)</label>
+          <input id="set-full-name" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="set-street">Straße &amp; Hausnummer</label>
+          <input id="set-street" class="form-control" type="text">
+        </div>
+        <div class="rg-field-row">
+          <div class="form-group">
+            <label class="form-label" for="set-zip">PLZ</label>
+            <input id="set-zip" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="set-city">Ort</label>
+            <input id="set-city" class="form-control" type="text">
+          </div>
+        </div>
+        <div class="rg-field-row">
+          <div class="form-group">
+            <label class="form-label" for="set-country">Land</label>
+            <input id="set-country" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="set-tax-number">Steuernummer</label>
+            <input id="set-tax-number" class="form-control" type="text">
+          </div>
+        </div>
+        <div class="rg-field-row">
+          <div class="form-group">
+            <label class="form-label" for="set-phone">Telefon</label>
+            <input id="set-phone" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="set-email">E-Mail</label>
+            <input id="set-email" class="form-control" type="email">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="set-website">Website</label>
+          <input id="set-website" class="form-control" type="text">
+        </div>
+      </div>
+
+      <div class="rg-settings-section">
+        <h4>Bankverbindung</h4>
+        <div class="rg-field-row">
+          <div class="form-group">
+            <label class="form-label" for="set-bank-holder">Kontoinhaber</label>
+            <input id="set-bank-holder" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="set-bank-name">Kreditinstitut</label>
+            <input id="set-bank-name" class="form-control" type="text">
+          </div>
+        </div>
+        <div class="rg-field-row">
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label" for="set-iban">IBAN</label>
+            <input id="set-iban" class="form-control" type="text">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label" for="set-bic">BIC</label>
+            <input id="set-bic" class="form-control" type="text">
+          </div>
+        </div>
+      </div>
+
+      <div class="rg-settings-section">
+        <h4>Standardwerte für neue Rechnungen</h4>
+        <div class="rg-field-row">
+          <div class="form-group">
+            <label class="form-label" for="set-editor">Standard-Bearbeiter</label>
+            <input id="set-editor" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="set-due-days">Zahlungsziel (Tage)</label>
+            <input id="set-due-days" class="form-control" type="number" min="0">
+          </div>
+        </div>
+        <label class="switch" style="margin-bottom:16px;">
+          <input type="checkbox" id="set-klein-default">
+          <span class="switch-track"></span>
+          <span class="switch-label">Standardmäßig Kleinunternehmerregelung anwenden</span>
+        </label>
+        <div class="form-group">
+          <label class="form-label" for="set-klein-text">Standard-Hinweistext Kleinunternehmerregelung</label>
+          <textarea id="set-klein-text" class="form-control" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="set-vat-rate">Standard-USt-Satz (%)</label>
+          <input id="set-vat-rate" class="form-control" type="number" min="0" max="100" step="0.5" style="max-width:140px;">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="set-intro">Standard-Einleitungstext</label>
+          <textarea id="set-intro" class="form-control" rows="2"></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="set-closing">Standard-Schlusstext</label>
+          <textarea id="set-closing" class="form-control" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div class="rg-settings-section">
+        <h4>Daten sichern</h4>
+        <p class="form-helper" style="margin-top:0;">
+          Alle Daten liegen ausschließlich lokal im Browser (localStorage). Regelmäßiger
+          Export empfohlen, damit nichts verloren geht.
+        </p>
+        <div class="rg-import-export">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-export-data">
+            <span class="material-icons-outlined" aria-hidden="true" style="font-size:16px;">download</span>
+            Daten exportieren
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-import-trigger">
+            <span class="material-icons-outlined" aria-hidden="true" style="font-size:16px;">upload</span>
+            Daten importieren
+          </button>
+          <input type="file" id="input-import-data" accept="application/json" hidden>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+      <button type="button" class="btn btn-primary" id="btn-settings-save">
+        <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">save</span>
+        Speichern
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast-Ausgabebereich -->
+<div class="toast-stack" data-toast-stack aria-live="polite"></div>
+
+<!-- Druck-Root: nur beim Drucken sichtbar (siehe invoice.css) -->
+<div id="invoice-print-root"></div>
+
+<script src="../scripts/app.js"></script>
+<script src="../scripts/modules/theme.js"></script>
+<script src="../scripts/modules/overlays.js"></script>
+<script src="../scripts/modules/toast.js"></script>
+<script src="scripts/store.js"></script>
+<script src="scripts/invoice.js"></script>
+
+</body>
+</html>

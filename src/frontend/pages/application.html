@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Anwendung · App-Distribution</title>
+  </head>
+  <body data-nav="projects" data-title="Anwendungsverwaltung">
+    <!-- @shell-start -->
+    <div data-application-page>
+      <nav class="breadcrumb" aria-label="Brotkrümelnavigation" data-breadcrumb></nav>
+      <div data-page-state></div>
+
+      <div data-page-content hidden>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title" data-application-name></h2>
+            <p class="page-subtitle" data-application-meta></p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn-secondary" data-action="upload-build" hidden>
+              <span class="material-icons-outlined" aria-hidden="true">upload</span>
+              Build hochladen
+            </button>
+          </div>
+        </div>
+
+        <div data-tab-group>
+          <div class="tablist" role="tablist" aria-label="Anwendungsbereiche">
+            <button
+              type="button"
+              class="tab is-active"
+              role="tab"
+              id="tab-releases"
+              aria-controls="panel-releases"
+              aria-selected="true"
+            >
+              Releases
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-flavors"
+              aria-controls="panel-flavors"
+              aria-selected="false"
+              hidden
+            >
+              Flavors
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-settings"
+              aria-controls="panel-settings"
+              aria-selected="false"
+              hidden
+            >
+              Einstellungen
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-shares"
+              aria-controls="panel-shares"
+              aria-selected="false"
+              hidden
+            >
+              Freigaben
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-ci"
+              aria-controls="panel-ci"
+              aria-selected="false"
+              hidden
+            >
+              CI
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-access"
+              aria-controls="panel-access"
+              aria-selected="false"
+              hidden
+            >
+              Zugriff
+            </button>
+            <button
+              type="button"
+              class="tab"
+              role="tab"
+              id="tab-audit"
+              aria-controls="panel-audit"
+              aria-selected="false"
+              hidden
+            >
+              Audit
+            </button>
+          </div>
+
+          <div
+            class="tab-panel"
+            id="panel-releases"
+            role="tabpanel"
+            aria-labelledby="tab-releases"
+            data-tab-panel
+            tabindex="0"
+          >
+            <form class="toolbar" role="search" aria-label="Releases filtern" data-release-filter>
+              <div class="form-group" hidden>
+                <label class="form-label" for="release-filter-flavor">Flavor</label>
+                <select id="release-filter-flavor" name="flavorId" class="form-control"></select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="release-filter-status">Status</label>
+                <select id="release-filter-status" name="status" class="form-control">
+                  <option value="">Alle</option>
+                  <option value="draft">Entwurf</option>
+                  <option value="published">Veröffentlicht</option>
+                  <option value="withdrawn">Zurückgezogen</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="release-filter-lifecycle">Lebenszyklus</label>
+                <select id="release-filter-lifecycle" name="lifecycle" class="form-control">
+                  <option value="">Ohne endgültig gelöschte</option>
+                  <option value="active">Aktiv</option>
+                  <option value="pending_deletion,quarantined">In Löschung oder Quarantäne</option>
+                  <option value="purged">Endgültig gelöscht</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="release-filter-search">Suche</label>
+                <input
+                  id="release-filter-search"
+                  name="search"
+                  class="form-control"
+                  type="search"
+                  maxlength="100"
+                  placeholder="Version, Build, Commit, Branch, Tag"
+                />
+              </div>
+              <button type="submit" class="btn btn-outline">Suchen</button>
+            </form>
+            <div data-release-list></div>
+          </div>
+
+          <div
+            class="tab-panel"
+            id="panel-flavors"
+            role="tabpanel"
+            aria-labelledby="tab-flavors"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          >
+            <div class="toolbar toolbar-split">
+              <p class="text-muted">
+                Flavors entsprechen <code>--flavor</code> im Flutter-Projekt bzw. den Build-Varianten bei .NET MAUI.
+              </p>
+              <button type="button" class="btn btn-secondary" data-action="create-flavor" hidden>Flavor anlegen</button>
+            </div>
+            <div data-flavor-list></div>
+          </div>
+
+          <div
+            class="tab-panel"
+            id="panel-settings"
+            role="tabpanel"
+            aria-labelledby="tab-settings"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          >
+            <form class="card panel-card" id="application-settings-form" novalidate>
+              <div class="card-header"><h3 class="card-title">Allgemein</h3></div>
+              <div class="card-body">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label" for="settings-name">Name</label>
+                    <input id="settings-name" name="name" class="form-control" type="text" maxlength="200" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="settings-framework">Framework</label>
+                    <select id="settings-framework" name="framework" class="form-control">
+                      <option value="flutter">Flutter</option>
+                      <option value="dotnet_maui">.NET MAUI</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="settings-description">Beschreibung</label>
+                  <textarea
+                    id="settings-description"
+                    name="description"
+                    class="form-control"
+                    rows="2"
+                    maxlength="2000"
+                  ></textarea>
+                </div>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <span class="form-label">Plattformen</span>
+                    <div class="form-check">
+                      <input type="checkbox" id="settings-android" name="platforms" value="android" /><label
+                        for="settings-android"
+                        >Android</label
+                      >
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" id="settings-ios" name="platforms" value="ios" /><label for="settings-ios"
+                        >iOS</label
+                      >
+                    </div>
+                    <div class="form-helper">
+                      Ein Release verlangt ein installierbares Artefakt je aktivierter Plattform.
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="settings-visibility">Sichtbarkeit</label>
+                    <select id="settings-visibility" name="visibility" class="form-control">
+                      <option value="private">Privat – nur Personen mit einer Rolle</option>
+                      <option value="organization">Organisation – alle angemeldeten Mitglieder</option>
+                    </select>
+                    <div class="form-helper">
+                      „Organisation“ zeigt veröffentlichte Releases allen Angemeldeten zum Herunterladen; Entwürfe
+                      bleiben Berechtigten vorbehalten.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-actions"><button type="submit" class="btn btn-primary">Speichern</button></div>
+              </div>
+            </form>
+
+            <div class="card panel-card" data-presentation>
+              <div class="card-header"><h3 class="card-title">Darstellung auf Download-Seiten</h3></div>
+              <div class="card-body">
+                <div class="form-group">
+                  <span class="form-label" id="icon-label">App-Icon</span>
+                  <div class="icon-field">
+                    <span data-icon-preview></span>
+                    <div>
+                      <input
+                        type="file"
+                        id="icon-file"
+                        accept="image/png,image/jpeg"
+                        class="sr-only"
+                        aria-labelledby="icon-label"
+                        data-icon-file
+                      />
+                      <div class="badge-row">
+                        <button type="button" class="btn btn-secondary btn-sm" data-action="choose-icon">
+                          <span class="material-icons-outlined" aria-hidden="true">image</span>
+                          Icon hochladen
+                        </button>
+                        <button type="button" class="btn btn-outline btn-sm" data-action="remove-icon" hidden>
+                          Entfernen
+                        </button>
+                      </div>
+                      <div class="form-helper">PNG oder JPEG, quadratisch, höchstens 512 KB (z. B. 1024 × 1024).</div>
+                    </div>
+                  </div>
+                </div>
+                <form id="install-notes-form" novalidate>
+                  <div class="form-group">
+                    <label class="form-label" for="install-notes">Installationshinweise</label>
+                    <textarea
+                      id="install-notes"
+                      name="installNotes"
+                      class="form-control"
+                      rows="4"
+                      maxlength="5000"
+                    ></textarea>
+                    <div class="form-helper">
+                      Erscheint über den Downloads, z. B. unterstützte Geräte oder Ansprechpartner. Nur Text,
+                      Zeilenumbrüche bleiben erhalten.
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-secondary">Hinweise speichern</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <form class="card panel-card" id="identifier-form" novalidate>
+              <div class="card-header"><h3 class="card-title">Kennungen</h3></div>
+              <div class="card-body">
+                <div class="form-grid">
+                  <div class="form-group" data-identifier-for="android">
+                    <label class="form-label" for="identifier-android">Android-Package-Name</label>
+                    <input
+                      id="identifier-android"
+                      name="bundleIdentifier.android"
+                      class="form-control"
+                      type="text"
+                      placeholder="de.firma.app"
+                      spellcheck="false"
+                    />
+                  </div>
+                  <div class="form-group" data-identifier-for="ios">
+                    <label class="form-label" for="identifier-ios">iOS-Bundle-ID</label>
+                    <input
+                      id="identifier-ios"
+                      name="bundleIdentifier.ios"
+                      class="form-control"
+                      type="text"
+                      placeholder="de.firma.app"
+                      spellcheck="false"
+                    />
+                  </div>
+                </div>
+                <p class="form-helper" data-identifiers-locked hidden>
+                  <span class="material-icons-outlined" aria-hidden="true">lock</span>
+                  Nach dem ersten Release gesperrt: installierte Apps und Uploads hängen an diesen Kennungen.
+                </p>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-secondary">Kennungen speichern</button>
+                </div>
+              </div>
+            </form>
+
+            <div class="card panel-card">
+              <div class="card-header"><h3 class="card-title">Flavors</h3></div>
+              <div class="card-body">
+                <label class="switch">
+                  <input type="checkbox" id="flavors-enabled" />
+                  <span class="switch-track" aria-hidden="true"></span>
+                  <span class="switch-label">Flavors bzw. Build-Varianten verwenden</span>
+                </label>
+                <p class="form-helper">
+                  Ohne Flavors pflegt die Anwendung genau eine Variante. Abschalten ist nur möglich, solange höchstens
+                  ein Flavor aktiv ist.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="tab-panel"
+            id="panel-shares"
+            role="tabpanel"
+            aria-labelledby="tab-shares"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          ></div>
+
+          <div
+            class="tab-panel"
+            id="panel-ci"
+            role="tabpanel"
+            aria-labelledby="tab-ci"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          ></div>
+
+          <div
+            class="tab-panel"
+            id="panel-access"
+            role="tabpanel"
+            aria-labelledby="tab-access"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          ></div>
+          <div
+            class="tab-panel"
+            id="panel-audit"
+            role="tabpanel"
+            aria-labelledby="tab-audit"
+            data-tab-panel
+            tabindex="0"
+            hidden
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="flavor-modal" hidden>
+      <form
+        class="modal"
+        id="flavor-form"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="flavor-modal-title"
+        novalidate
+      >
+        <div class="modal-header">
+          <h3 id="flavor-modal-title">Flavor anlegen</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="flavor-name">Anzeigename</label>
+            <input
+              id="flavor-name"
+              name="name"
+              class="form-control"
+              type="text"
+              maxlength="200"
+              required
+              data-autofocus
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="flavor-key">Technischer Schlüssel</label>
+            <input
+              id="flavor-key"
+              name="key"
+              class="form-control"
+              type="text"
+              maxlength="64"
+              spellcheck="false"
+              placeholder="production"
+            />
+            <div class="form-helper">Muss dem Flavor im Projekt entsprechen (<code>--flavor</code>).</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="flavor-android">Android-Package-Name</label>
+            <input
+              id="flavor-android"
+              name="bundleIdentifier.android"
+              class="form-control"
+              type="text"
+              spellcheck="false"
+              placeholder="de.firma.app"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="flavor-ios">iOS-Bundle-ID</label>
+            <input
+              id="flavor-ios"
+              name="bundleIdentifier.ios"
+              class="form-control"
+              type="text"
+              spellcheck="false"
+              placeholder="de.firma.app"
+            />
+          </div>
+          <p class="form-helper" data-flavor-locked hidden>
+            <span class="material-icons-outlined" aria-hidden="true">lock</span>
+            Schlüssel und Kennungen sind gesperrt, weil der Flavor bereits Releases hat.
+          </p>
+          <div class="form-group" data-flavor-status hidden>
+            <label class="form-label" for="flavor-status">Status</label>
+            <select id="flavor-status" name="status" class="form-control">
+              <option value="active">Aktiv</option>
+              <option value="disabled">Deaktiviert – keine neuen Releases</option>
+              <option value="archived">Archiviert – zusätzlich ausgeblendet</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-overlay" id="flavors-enable" hidden>
+      <form
+        class="modal"
+        id="flavors-enable-form"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="flavors-enable-title"
+        novalidate
+      >
+        <div class="modal-header">
+          <h3 id="flavors-enable-title">Flavors aktivieren</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Die bestehende Variante wird als Flavor sichtbar. Bitte benenne sie, z. B. „Production“. Bestehende Releases
+            bleiben unverändert.
+          </p>
+          <div class="form-group">
+            <label class="form-label" for="flavors-enable-name">Name des bestehenden Flavors</label>
+            <input
+              id="flavors-enable-name"
+              name="name"
+              class="form-control"
+              type="text"
+              maxlength="200"
+              required
+              data-autofocus
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Aktivieren</button>
+        </div>
+      </form>
+    </div>
+    <!-- @upload-modal -->
+    <!-- @shell-end -->
+  </body>
+</html>

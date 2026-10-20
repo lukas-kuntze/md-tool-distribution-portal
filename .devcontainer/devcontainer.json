@@ -1,5 +1,5 @@
 {
-  "name": "devx-template-typescript",
+  "name": "md-tool-distribution-portal",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:24-bookworm",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}

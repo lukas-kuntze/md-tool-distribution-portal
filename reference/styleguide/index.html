@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuntze IT Engineering — UI Styleguide</title>
+<meta name="description" content="Verbindlicher UI-Styleguide von Kuntze IT Engineering — Farben, Typografie, Abstände, Komponenten und Interaktionsmuster.">
+<meta name="color-scheme" content="light">
+<!-- Default is light. Applies a stored manual override BEFORE first paint (no flash). -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('kuntze-theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { /* ignore */ }
+  })();
+</script>
+<link rel="stylesheet" href="styles/index.css">
+</head>
+
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<div class="app">
+
+  <aside class="sidebar" aria-label="Styleguide Navigation">
+    <div class="sidebar-header">
+      <span class="brand-kicker">Softwareentwicklung &amp;<br>IT-Dienstleistungen</span>
+      <div class="brand-name">Kuntze</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Grundlagen</div>
+      <a href="#introduction" class="nav-item active">Einführung</a>
+      <a href="#principles" class="nav-item">Designprinzipien</a>
+      <a href="#brand" class="nav-item">Marke &amp; Logo</a>
+      <a href="#colors" class="nav-item">Farben</a>
+      <a href="#typography" class="nav-item">Typografie</a>
+      <a href="#spacing" class="nav-item">Abstände</a>
+      <a href="#radius" class="nav-item">Radien &amp; Schatten</a>
+      <a href="#iconography" class="nav-item">Iconographie</a>
+
+      <div class="nav-section">Aktionen &amp; Eingabe</div>
+      <a href="#buttons" class="nav-item">Buttons</a>
+      <a href="#forms" class="nav-item">Formulare</a>
+      <a href="#switches" class="nav-item">Switches</a>
+
+      <div class="nav-section">Status</div>
+      <a href="#badges" class="nav-item">Badges</a>
+      <a href="#alerts" class="nav-item">Alerts</a>
+
+      <div class="nav-section">Container &amp; Daten</div>
+      <a href="#cards" class="nav-item">Cards</a>
+      <a href="#stats" class="nav-item">Stat-Karten</a>
+      <a href="#tables" class="nav-item">Tabellen</a>
+
+      <div class="nav-section">Navigation &amp; Overlays</div>
+      <a href="#pagination" class="nav-item">Pagination</a>
+      <a href="#tabs" class="nav-item">Tabs</a>
+      <a href="#accordion" class="nav-item">Accordion</a>
+      <a href="#navigation" class="nav-item">Navigation</a>
+      <a href="#dropdown" class="nav-item">Dropdown</a>
+      <a href="#breadcrumb" class="nav-item">Breadcrumbs</a>
+      <a href="#dialogs" class="nav-item">Dialoge &amp; Drawer</a>
+
+      <div class="nav-section">Zustände &amp; Feedback</div>
+      <a href="#loading" class="nav-item">Ladezustände &amp; Toasts</a>
+      <a href="#content-states" class="nav-item">Leer- &amp; Fehlerzustände</a>
+      <a href="#states" class="nav-item">Zustände</a>
+
+      <div class="nav-section">Muster &amp; Architektur</div>
+      <a href="#responsive" class="nav-item">Responsive</a>
+      <a href="#architecture" class="nav-item">Architektur &amp; Verhaltensregeln</a>
+      <a href="#cookie-consent" class="nav-item">Cookie-Consent</a>
+      <a href="#page-templates" class="nav-item">Seiten-Templates</a>
+      <a href="#js-components" class="nav-item">JS-Komponenten &amp; API</a>
+      <a href="#accessibility" class="nav-item">Accessibility</a>
+
+      <div class="nav-section">Beispiele</div>
+      <a href="#examples" class="nav-item">Kunden-Dashboard</a>
+
+      <div class="nav-section">Richtlinien</div>
+      <a href="#guidelines" class="nav-item">Guidelines</a>
+    </nav>
+  </aside>
+
+  <main class="main" id="main">
+    <header class="topbar">
+      <h1>UI Styleguide</h1>
+      <div class="topbar-actions">
+        <button type="button" class="btn btn-outline btn-sm" data-theme-toggle aria-pressed="false" title="Farbmodus umschalten">
+          <span class="material-icons-outlined" aria-hidden="true">dark_mode</span>
+          <span data-theme-label>Dunkel</span>
+        </button>
+        <div class="topbar-meta">Unternehmensstandard — verbindlich für alle Produkte</div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- Introduction -->
+      <section id="introduction">
+        <div class="section-header">
+          <span class="section-kicker">Einführung</span>
+          <h2 class="section-title">Konsistenz. Klarheit. Professionalität.</h2>
+          <p class="section-lead">
+            Dieser Styleguide definiert das visuelle und funktionale Fundament aller Anwendungen
+            von Kuntze IT Engineering. Er ist die verbindliche Referenz für Farben, Typografie,
+            Abstände und Komponenten — und gewährleistet ein einheitliches, wiedererkennbares
+            Erscheinungsbild über alle Produkte und Projekte hinweg.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Primärfarbe</div>
+            <div class="stat-value">#BC0003</div>
+            <div class="stat-delta">Kuntze Rot</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Leitschrift</div>
+            <div class="stat-value">Roboto Slab</div>
+            <div class="stat-delta">Serif, 400 – 700</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Farbmodus</div>
+            <div class="stat-value">Light + Dark</div>
+            <div class="stat-delta">Standard hell · manuell umschaltbar</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Breakpoint</div>
+            <div class="stat-value">768 px</div>
+            <div class="stat-delta">Mobile First</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Principles -->
+      <section id="principles">
+        <div class="section-header">
+          <span class="section-kicker">Grundsätze</span>
+          <h2 class="section-title">Designprinzipien</h2>
+          <p class="section-lead">
+            Vor jeder Gestaltungsentscheidung steht ein klares Prinzip. Diese Leitplanken
+            sichern die Wiedererkennbarkeit und technische Umsetzbarkeit über Teams hinweg.
+          </p>
+        </div>
+
+        <div class="principle-grid">
+          <article class="principle">
+            <h3 class="principle-title">Klarheit vor Dekoration</h3>
+            <p class="principle-text">Inhalte und Funktionen stehen im Vordergrund. Visuelle Mittel dienen ausschließlich dem Verständnis.</p>
+          </article>
+          <article class="principle">
+            <h3 class="principle-title">Konsistenz über Kreativität</h3>
+            <p class="principle-text">Wiederverwendbare Tokens und Komponenten sind neuen Einzellösungen stets vorzuziehen.</p>
+          </article>
+          <article class="principle">
+            <h3 class="principle-title">Ruhige Autorität</h3>
+            <p class="principle-text">Die Serifenschrift und das tiefe Rot vermitteln Substanz, Seriosität und ingenieurmäßige Präzision.</p>
+          </article>
+          <article class="principle">
+            <h3 class="principle-title">Zugänglichkeit nicht verhandelbar</h3>
+            <p class="principle-text">Kontraste, Fokus-Zustände und Tastaturbedienbarkeit sind Pflicht, keine Option.</p>
+          </article>
+          <article class="principle">
+            <h3 class="principle-title">Semantische Farbe</h3>
+            <p class="principle-text">Grün für Erfolg, Rot für Fehler, Gelb für Warnung, Blau für Information — konsequent und nie dekorativ.</p>
+          </article>
+          <article class="principle">
+            <h3 class="principle-title">Raum als Gestaltungsmittel</h3>
+            <p class="principle-text">Großzügige Abstände schaffen Struktur. Weißraum ist bewusste Gestaltung, nicht Leere.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Brand & Logo -->
+      <section id="brand">
+        <div class="section-header">
+          <span class="section-kicker">Markenidentität</span>
+          <h2 class="section-title">Marke &amp; Logo</h2>
+          <p class="section-lead">
+            Das Kuntze-Logo ist das zentrale Erkennungsmerkmal aller Produkte und Dokumente.
+            Es besteht aus dem Schriftzug „Kuntze" und der Abbinder-Zeile
+            „Softwareentwicklung &amp; IT-Dienstleistungen". Logo, Schutzraum und Mindestgröße
+            sind verbindlich einzuhalten.
+          </p>
+        </div>
+
+        <h3 class="block-title">Logo-Varianten</h3>
+        <div class="brand-grid">
+          <div class="brand-tile">
+            <div class="brand-tile-stage">
+              <div class="brand-logo" style="width: 240px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none" aria-label="Kuntze Logo">
+                  <text x="150" y="25" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="12" font-weight="600" fill="#BC0003" letter-spacing="1">SOFTWAREENTWICKLUNG &amp;</text>
+                  <text x="150" y="42" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="12" font-weight="600" fill="#BC0003" letter-spacing="1">IT-DIENSTLEISTUNGEN</text>
+                  <text x="150" y="70" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="28" font-weight="700" fill="#1E293B">Kuntze</text>
+                </svg>
+              </div>
+            </div>
+            <div class="brand-tile-meta">
+              <div class="brand-tile-name">Primärlogo · Hell</div>
+              <div class="brand-tile-desc">Standardvariante auf weißem Hintergrund</div>
+            </div>
+          </div>
+
+          <div class="brand-tile">
+            <div class="brand-tile-stage tint">
+              <div class="brand-logo" style="width: 240px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none" aria-label="Kuntze Logo">
+                  <text x="150" y="25" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="12" font-weight="600" fill="#BC0003" letter-spacing="1">SOFTWAREENTWICKLUNG &amp;</text>
+                  <text x="150" y="42" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="12" font-weight="600" fill="#BC0003" letter-spacing="1">IT-DIENSTLEISTUNGEN</text>
+                  <text x="150" y="70" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="28" font-weight="700" fill="#1E293B">Kuntze</text>
+                </svg>
+              </div>
+            </div>
+            <div class="brand-tile-meta">
+              <div class="brand-tile-name">Primärlogo · Tint</div>
+              <div class="brand-tile-desc">Auf neutralen Flächen (Gray 50)</div>
+            </div>
+          </div>
+
+          <div class="brand-tile">
+            <div class="brand-tile-stage dark">
+              <div class="brand-logo" style="width: 240px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none" aria-label="Kuntze Logo invers">
+                  <text x="150" y="25" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="12" font-weight="600" fill="#FF4D50" letter-spacing="1">SOFTWAREENTWICKLUNG &amp;</text>
+                  <text x="150" y="42" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="12" font-weight="600" fill="#FF4D50" letter-spacing="1">IT-DIENSTLEISTUNGEN</text>
+                  <text x="150" y="70" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="28" font-weight="700" fill="#FFFFFF">Kuntze</text>
+                </svg>
+              </div>
+            </div>
+            <div class="brand-tile-meta">
+              <div class="brand-tile-name">Logo · Invers</div>
+              <div class="brand-tile-desc">Auf dunklen Hintergründen, Login &amp; Hero</div>
+            </div>
+          </div>
+
+          <div class="brand-tile">
+            <div class="brand-tile-stage">
+              <div class="brand-logo" style="width: 200px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none" aria-label="Kuntze Wortmarke">
+                  <text x="150" y="55" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="44" font-weight="700" fill="#1E293B">Kuntze</text>
+                </svg>
+              </div>
+            </div>
+            <div class="brand-tile-meta">
+              <div class="brand-tile-name">Wortmarke</div>
+              <div class="brand-tile-desc">Verkürzte Form bei begrenztem Platz</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="block-title">Schutzraum &amp; Mindestgrößen</h3>
+        <div class="brand-rules">
+          <div class="brand-rule">
+            <div class="brand-rule-label">Schutzraum</div>
+            <div class="brand-rule-value">≥ 1 × x</div>
+            <div class="brand-rule-desc">Freiraum entspricht der Höhe des Buchstabens „K" auf allen vier Seiten.</div>
+          </div>
+          <div class="brand-rule">
+            <div class="brand-rule-label">Mindestbreite Digital</div>
+            <div class="brand-rule-value">160 px</div>
+            <div class="brand-rule-desc">Unterhalb dieser Breite ist die Wortmarke zu verwenden.</div>
+          </div>
+          <div class="brand-rule">
+            <div class="brand-rule-label">Mindestbreite Print</div>
+            <div class="brand-rule-value">35 mm</div>
+            <div class="brand-rule-desc">Bei Visitenkarten, Briefbogen und Druckmaterialien.</div>
+          </div>
+          <div class="brand-rule">
+            <div class="brand-rule-label">Format</div>
+            <div class="brand-rule-value">SVG</div>
+            <div class="brand-rule-desc">Vektorformat ist Standard. PNG nur als Fallback.</div>
+          </div>
+        </div>
+
+        <h3 class="block-title">SVG-Quellcode</h3>
+        <div class="snippet">
+          <div class="snippet-head">
+            <span class="snippet-lang">SVG</span>
+            <button class="snippet-copy" type="button" data-copy>Kopieren</button>
+          </div>
+<pre class="code">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none"&gt;
+  &lt;text x="150" y="25" text-anchor="middle" font-family="'Roboto Slab', serif"
+        font-size="12" font-weight="600" fill="#BC0003" letter-spacing="1"&gt;
+    SOFTWAREENTWICKLUNG &amp;amp;
+  &lt;/text&gt;
+  &lt;text x="150" y="42" text-anchor="middle" font-family="'Roboto Slab', serif"
+        font-size="12" font-weight="600" fill="#BC0003" letter-spacing="1"&gt;
+    IT-DIENSTLEISTUNGEN
+  &lt;/text&gt;
+  &lt;text x="150" y="70" text-anchor="middle" font-family="'Roboto Slab', serif"
+        font-size="28" font-weight="700" fill="#1E293B"&gt;
+    Kuntze
+  &lt;/text&gt;
+&lt;/svg&gt;</pre>
+        </div>
+
+        <h3 class="block-title">Verbotene Anwendungen</h3>
+        <div class="dd-grid">
+          <div class="dd dont">
+            <span class="dd-kicker">Nicht erlaubt</span>
+            <ul>
+              <li>Verzerren, drehen oder die Proportionen verändern.</li>
+              <li>Logo in nicht freigegebenen Farben einfärben.</li>
+              <li>Schatten, Outlines oder grafische Effekte hinzufügen.</li>
+              <li>Auf kontrastarmen oder unruhigen Hintergründen platzieren.</li>
+              <li>Schutzraum unterschreiten oder Logo beschneiden.</li>
+            </ul>
+          </div>
+          <div class="dd do">
+            <span class="dd-kicker">Empfohlen</span>
+            <ul>
+              <li>Stets die Originaldatei aus diesem Repository verwenden.</li>
+              <li>Vektorformat bevorzugen — SVG für Web, PDF für Print.</li>
+              <li>Helle Variante auf Weiß / Gray 50, inverse auf Gray 800 / 900.</li>
+              <li>Schutzraum großzügig wahren.</li>
+              <li>Mindestbreite einhalten oder auf Wortmarke umsteigen.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Colors -->
+      <section id="colors">
+        <div class="section-header">
+          <span class="section-kicker">Farbsystem</span>
+          <h2 class="section-title">Farben</h2>
+          <p class="section-lead">
+            Das Farbsystem basiert auf zwei Markenfarben — Kuntze Rot und Engineering Blau —
+            ergänzt um eine neutrale Graustufenpalette und vier semantische Statusfarben.
+          </p>
+        </div>
+
+        <h3 class="block-title">Markenfarben</h3>
+        <div class="token-grid">
+          <div class="swatch">
+            <div class="swatch-color" style="background: #BC0003;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Primary</div>
+              <div class="swatch-hex">#BC0003 · rgb(188, 0, 3)</div>
+              <div class="swatch-use">Primäre Aktionen, aktive Zustände, Markenakzente</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #8A0002;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Primary Dark</div>
+              <div class="swatch-hex">#8A0002 · rgb(138, 0, 2)</div>
+              <div class="swatch-use">Hover und gedrückte Zustände der Primärfarbe</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: rgba(188,0,3,0.1); border-bottom-color: #E2E8F0;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Primary Light</div>
+              <div class="swatch-hex">rgba(188, 0, 3, 0.1)</div>
+              <div class="swatch-use">Dezente Hintergrund-Tints, Badges, Icon-Flächen</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #154C79;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Secondary</div>
+              <div class="swatch-hex">#154C79 · rgb(21, 76, 121)</div>
+              <div class="swatch-use">Sekundäre Aktionen, Fokus-Ringe, Formularfokus</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #0D3A5C;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Secondary Dark</div>
+              <div class="swatch-hex">#0D3A5C · rgb(13, 58, 92)</div>
+              <div class="swatch-use">Hover der Sekundärfarbe</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: rgba(21,76,121,0.1);"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Secondary Light</div>
+              <div class="swatch-hex">rgba(21, 76, 121, 0.1)</div>
+              <div class="swatch-use">Fokus-Schatten, sekundäre Badges</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="block-title">Statusfarben</h3>
+        <div class="token-grid">
+          <div class="swatch">
+            <div class="swatch-color" style="background: #22C55E;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Success</div>
+              <div class="swatch-hex">#22C55E</div>
+              <div class="swatch-use">Bestätigungen, abgeschlossene Vorgänge, aktiver Status</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #F59E0B;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Warning</div>
+              <div class="swatch-hex">#F59E0B</div>
+              <div class="swatch-use">Warnhinweise, ausstehende Aktionen</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #EF4444;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Danger</div>
+              <div class="swatch-hex">#EF4444</div>
+              <div class="swatch-use">Fehler, destruktive Aktionen, kritische Hinweise</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #3B82F6;"></div>
+            <div class="swatch-body">
+              <div class="swatch-name">Info</div>
+              <div class="swatch-hex">#3B82F6</div>
+              <div class="swatch-use">Informative Hinweise, Neuigkeiten, laufende Prozesse</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="block-title">Neutralfarben</h3>
+        <div class="token-grid">
+          <div class="swatch"><div class="swatch-color" style="background:#FFFFFF;"></div><div class="swatch-body"><div class="swatch-name">White</div><div class="swatch-hex">#FFFFFF</div><div class="swatch-use">Kartenflächen, Content-Hintergrund</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F8FAFC;"></div><div class="swatch-body"><div class="swatch-name">Gray 50</div><div class="swatch-hex">#F8FAFC</div><div class="swatch-use">Tabellenköpfe, subtile Flächen</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F1F5F9;"></div><div class="swatch-body"><div class="swatch-name">Gray 100</div><div class="swatch-hex">#F1F5F9</div><div class="swatch-use">Seitenhintergrund, Hover-Flächen</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#E2E8F0;"></div><div class="swatch-body"><div class="swatch-name">Gray 200</div><div class="swatch-hex">#E2E8F0</div><div class="swatch-use">Trennlinien, Standardrahmen</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#CBD5E1;"></div><div class="swatch-body"><div class="swatch-name">Gray 300</div><div class="swatch-hex">#CBD5E1</div><div class="swatch-use">Eingabefeld-Rahmen</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#94A3B8;"></div><div class="swatch-body"><div class="swatch-name">Gray 400</div><div class="swatch-hex">#94A3B8</div><div class="swatch-use">Platzhalter, deaktivierte Elemente</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#64748B;"></div><div class="swatch-body"><div class="swatch-name">Gray 500</div><div class="swatch-hex">#64748B</div><div class="swatch-use">Sekundärtext, Beschriftungen</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#475569;"></div><div class="swatch-body"><div class="swatch-name">Gray 600</div><div class="swatch-hex">#475569</div><div class="swatch-use">Körpertext</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#334155;"></div><div class="swatch-body"><div class="swatch-name">Gray 700</div><div class="swatch-hex">#334155</div><div class="swatch-use">Primärtext</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#1E293B;"></div><div class="swatch-body"><div class="swatch-name">Gray 800</div><div class="swatch-hex">#1E293B</div><div class="swatch-use">Überschriften, hoher Kontrast</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#0F172A;"></div><div class="swatch-body"><div class="swatch-name">Gray 900</div><div class="swatch-hex">#0F172A</div><div class="swatch-use">Dunkle Flächen, Login-Hintergrund</div></div></div>
+        </div>
+
+        <h3 class="block-title">Dark Mode &amp; Theming</h3>
+        <p class="t-body" style="margin: 0 0 16px;">
+          Neben den Rohwerten oben existiert eine <strong>semantische Token-Schicht</strong>
+          (<code>--color-surface</code>, <code>--color-text</code>, <code>--color-border</code> …).
+          Komponenten referenzieren ausschließlich diese Rollen-Tokens — dadurch genügt ein
+          einziger Satz an Overrides, um das gesamte System in den Dark Mode zu versetzen,
+          ohne eine einzige Komponentenregel zu ändern. <strong>Standard ist stets das helle
+          Theme</strong>; der Umschalter oben rechts aktiviert den Dark Mode manuell
+          (gespeichert in <code>localStorage</code>, angewandt via <code>[data-theme="dark"]</code>).
+          Die Systemeinstellung (<code>prefers-color-scheme</code>) wird bewusst nicht
+          automatisch übernommen.
+        </p>
+        <div class="card"><div class="card-body" style="padding:0;">
+          <table class="data-table" style="border:none;">
+            <thead>
+              <tr><th>Semantisches Token</th><th>Rolle</th><th>Light</th><th>Dark</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>--color-bg</code></td><td>Seitenhintergrund</td><td>Gray 100</td><td>Gray 900</td></tr>
+              <tr><td><code>--color-surface</code></td><td>Karten, Sidebar, Topbar</td><td>White</td><td>Gray 800</td></tr>
+              <tr><td><code>--color-border</code></td><td>Trennlinien, Rahmen</td><td>Gray 200</td><td>Gray 700</td></tr>
+              <tr><td><code>--color-heading</code></td><td>Überschriften</td><td>Gray 800</td><td>Gray 100</td></tr>
+              <tr><td><code>--color-text</code></td><td>Fließtext</td><td>Gray 700</td><td>Gray 300</td></tr>
+              <tr><td><code>--primary</code></td><td>Markenrot</td><td>#BC0003</td><td>#FF4D50 (wie inverses Logo)</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+      </section>
+
+      <!-- Typography -->
+      <section id="typography">
+        <div class="section-header">
+          <span class="section-kicker">Schrift</span>
+          <h2 class="section-title">Typografie</h2>
+          <p class="section-lead">
+            Roboto Slab ist die durchgängig eingesetzte Leitschrift. Die Serifenschrift steht für
+            Ingenieurpräzision und klassische Seriosität. Die Skala ist bewusst begrenzt und
+            hierarchisch klar differenziert.
+          </p>
+        </div>
+
+        <div class="card"><div class="card-body">
+          <div class="type-row">
+            <div class="type-meta"><strong>Display / H1</strong>48 px · 700 · -0.5px<br>line-height 1.15</div>
+            <div class="type-sample t-h1">Technik, die überzeugt.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Heading H2</strong>32 px · 700<br>line-height 1.2</div>
+            <div class="type-sample t-h2">Skalierbare Softwareentwicklung</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Heading H3</strong>26 px · 700<br>line-height 1.3</div>
+            <div class="type-sample t-h3">Komponenten und Muster</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Heading H4</strong>20 px · 600<br>line-height 1.35</div>
+            <div class="type-sample t-h4">Abschnittstitel innerhalb eines Moduls</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Heading H5</strong>16 px · 600<br>line-height 1.4</div>
+            <div class="type-sample t-h5">Kartenüberschriften und kleinere Sektionen</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Body Large</strong>17 px · 400<br>line-height 1.8</div>
+            <div class="type-sample t-body-lg">Lange Lesetexte wie Dokumentationen und rechtliche Inhalte verwenden diese Größe für eine angenehme Lesbarkeit über mehrere Absätze.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Body</strong>14 px · 400<br>line-height 1.6</div>
+            <div class="type-sample t-body">Standard-Fließtext innerhalb von Oberflächen, Formularen, Listen und Tabellen.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Small</strong>13 px · 400<br>line-height 1.6</div>
+            <div class="type-sample t-small">Hilfetexte, sekundäre Angaben und Metadaten.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><strong>Kicker / Overline</strong>11 px · 600 · 1px<br>uppercase</div>
+            <div class="type-sample t-kicker">Kuntze IT Engineering</div>
+          </div>
+        </div></div>
+
+        <h3 class="block-title">Schriftschnitte</h3>
+        <div class="token-grid">
+          <div class="swatch"><div class="swatch-color" style="background:var(--gray-50); display:flex; align-items:center; justify-content:center; font-weight:400; font-size:28px; color:var(--gray-800);">Aa 400</div><div class="swatch-body"><div class="swatch-name">Regular</div><div class="swatch-hex">Fließtext, Beschriftungen</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:var(--gray-50); display:flex; align-items:center; justify-content:center; font-weight:500; font-size:28px; color:var(--gray-800);">Aa 500</div><div class="swatch-body"><div class="swatch-name">Medium</div><div class="swatch-hex">Labels, Navigation, Buttons</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:var(--gray-50); display:flex; align-items:center; justify-content:center; font-weight:600; font-size:28px; color:var(--gray-800);">Aa 600</div><div class="swatch-body"><div class="swatch-name">Semi-Bold</div><div class="swatch-hex">Zwischenüberschriften, Kicker</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:var(--gray-50); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:28px; color:var(--gray-800);">Aa 700</div><div class="swatch-body"><div class="swatch-name">Bold</div><div class="swatch-hex">Überschriften, Kennzahlen</div></div></div>
+        </div>
+      </section>
+
+      <!-- Spacing -->
+      <section id="spacing">
+        <div class="section-header">
+          <span class="section-kicker">Layout</span>
+          <h2 class="section-title">Abstände &amp; Raster</h2>
+          <p class="section-lead">
+            Abstände folgen einer 4-Pixel-Basis. Das gewährleistet mathematisch saubere
+            Ausrichtung und konsistente Proportionen über alle Bildschirmgrößen hinweg.
+          </p>
+        </div>
+
+        <div class="spacing-grid">
+          <div class="space-item"><div class="space-bar" style="width: 4px; height: 4px;"></div><div class="space-name">xs</div><div class="space-value">4 px</div></div>
+          <div class="space-item"><div class="space-bar" style="width: 8px; height: 8px;"></div><div class="space-name">sm</div><div class="space-value">8 px</div></div>
+          <div class="space-item"><div class="space-bar" style="width: 12px; height: 12px;"></div><div class="space-name">md</div><div class="space-value">12 px</div></div>
+          <div class="space-item"><div class="space-bar" style="width: 16px; height: 16px;"></div><div class="space-name">lg</div><div class="space-value">16 px</div></div>
+          <div class="space-item"><div class="space-bar" style="width: 20px; height: 20px;"></div><div class="space-name">xl</div><div class="space-value">20 px</div></div>
+          <div class="space-item"><div class="space-bar" style="width: 24px; height: 24px;"></div><div class="space-name">2xl</div><div class="space-value">24 px</div></div>
+          <div class="space-item"><div class="space-bar" style="width: 32px; height: 32px;"></div><div class="space-name">3xl</div><div class="space-value">32 px</div></div>
+          <div class="space-item"><div class="space-bar" style="width: 48px; height: 48px;"></div><div class="space-name">4xl</div><div class="space-value">48 px</div></div>
+        </div>
+
+        <h3 class="block-title">Layout-Grundwerte</h3>
+        <div class="card"><div class="card-body">
+          <div class="form-grid">
+            <div>
+              <h4 class="sub-title">Container</h4>
+              <p class="t-small">Maximale Inhaltsbreite: <strong>1200 px</strong>, zentriert mit 24–32 px horizontalem Padding.</p>
+            </div>
+            <div>
+              <h4 class="sub-title">Sidebar</h4>
+              <p class="t-small">Feste Breite <strong>260–280 px</strong>, auf Mobile eingeklappt.</p>
+            </div>
+            <div>
+              <h4 class="sub-title">Header</h4>
+              <p class="t-small">Höhe <strong>64 px</strong>, sticky, mit unterer 1 px Trennlinie.</p>
+            </div>
+            <div>
+              <h4 class="sub-title">Content-Padding</h4>
+              <p class="t-small">Desktop <strong>24 – 40 px</strong>, Mobile <strong>16 – 20 px</strong>.</p>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      <!-- Radius + Shadow -->
+      <section id="radius">
+        <div class="section-header">
+          <span class="section-kicker">Form</span>
+          <h2 class="section-title">Radien &amp; Schatten</h2>
+          <p class="section-lead">
+            Zwei Radien und drei Schatten-Ebenen genügen, um Hierarchie und Interaktivität
+            verlässlich auszudrücken — ohne optische Überladung.
+          </p>
+        </div>
+
+        <h3 class="block-title">Border-Radius</h3>
+        <div class="sample-grid">
+          <div class="sample-box" style="border-radius: 6px;">
+            <div class="sample-label">Radius XS</div>
+            <div class="sample-value">6 px</div>
+          </div>
+          <div class="sample-box" style="border-radius: 8px;">
+            <div class="sample-label">Radius SM</div>
+            <div class="sample-value">8 px · Buttons, Inputs</div>
+          </div>
+          <div class="sample-box" style="border-radius: 12px;">
+            <div class="sample-label">Radius MD</div>
+            <div class="sample-value">12 px · Cards, Modals</div>
+          </div>
+          <div class="sample-box" style="border-radius: 999px;">
+            <div class="sample-label">Radius Full</div>
+            <div class="sample-value">Pills &amp; Badges</div>
+          </div>
+        </div>
+
+        <h3 class="block-title">Schatten</h3>
+        <div class="sample-grid">
+          <div class="sample-box" style="box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-radius: 12px;">
+            <div class="sample-label">Shadow SM</div>
+            <div class="sample-value">Karten, Standard-Flächen</div>
+          </div>
+          <div class="sample-box" style="box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 12px;">
+            <div class="sample-label">Shadow MD</div>
+            <div class="sample-value">Hover, interaktive Elemente</div>
+          </div>
+          <div class="sample-box" style="box-shadow: 0 10px 40px rgba(0,0,0,0.08); border-radius: 12px;">
+            <div class="sample-label">Shadow LG</div>
+            <div class="sample-value">Dialoge, Overlays</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Iconography -->
+      <section id="iconography">
+        <div class="section-header">
+          <span class="section-kicker">Bildsprache</span>
+          <h2 class="section-title">Iconographie</h2>
+          <p class="section-lead">
+            Alle Anwendungen verwenden ausschließlich <strong>Material Icons Outlined</strong>
+            als Icon-Set. Der einheitliche Strich, die ruhige Linienführung und die offene Form
+            harmonieren mit der Serifenschrift Roboto Slab. Die Icons werden lokal als WOFF2
+            ausgeliefert (DSGVO-konform, kein externer CDN).
+          </p>
+        </div>
+
+        <h3 class="block-title">Größenstufen</h3>
+        <div class="icon-sizes">
+          <div class="icon-size">
+            <div class="icon-size-stage"><span class="material-icons-outlined" style="font-size:18px;" aria-hidden="true">edit</span></div>
+            <div class="icon-size-name">XS</div>
+            <div class="icon-size-value">18 px</div>
+            <div class="icon-size-use">Action-Buttons, Inline-Icons</div>
+          </div>
+          <div class="icon-size">
+            <div class="icon-size-stage"><span class="material-icons-outlined" style="font-size:20px;" aria-hidden="true">dashboard</span></div>
+            <div class="icon-size-name">SM</div>
+            <div class="icon-size-value">20 px</div>
+            <div class="icon-size-use">Navigation, Card-Titles</div>
+          </div>
+          <div class="icon-size">
+            <div class="icon-size-stage"><span class="material-icons-outlined" style="font-size:24px;" aria-hidden="true">check_circle</span></div>
+            <div class="icon-size-name">MD</div>
+            <div class="icon-size-value">22 – 24 px</div>
+            <div class="icon-size-use">Standardgröße, Alerts</div>
+          </div>
+          <div class="icon-size">
+            <div class="icon-size-stage"><span class="material-icons-outlined" style="font-size:28px;" aria-hidden="true">insights</span></div>
+            <div class="icon-size-name">LG</div>
+            <div class="icon-size-value">28 px</div>
+            <div class="icon-size-use">Stat-Karten, Promo-Cards</div>
+          </div>
+          <div class="icon-size">
+            <div class="icon-size-stage"><span class="material-icons-outlined" style="font-size:32px;" aria-hidden="true">settings</span></div>
+            <div class="icon-size-name">XL</div>
+            <div class="icon-size-value">32 px</div>
+            <div class="icon-size-use">Modals, Hero-Akzente</div>
+          </div>
+          <div class="icon-size">
+            <div class="icon-size-stage"><span class="material-icons-outlined" style="font-size:48px;" aria-hidden="true">cloud_done</span></div>
+            <div class="icon-size-name">2XL</div>
+            <div class="icon-size-value">48 px</div>
+            <div class="icon-size-use">Empty States, Login-Branding</div>
+          </div>
+        </div>
+
+        <h3 class="block-title">Farbnutzung</h3>
+        <div class="icon-color-grid">
+          <div class="icon-color">
+            <div class="icon-color-chip" style="background:var(--primary);"></div>
+            <div class="icon-color-meta"><strong>Primary</strong><small>Aktive Items, Markenakzente</small></div>
+          </div>
+          <div class="icon-color">
+            <div class="icon-color-chip" style="background:var(--secondary);"></div>
+            <div class="icon-color-meta"><strong>Secondary</strong><small>Edit-Aktionen, Info-Akzente</small></div>
+          </div>
+          <div class="icon-color">
+            <div class="icon-color-chip" style="background:var(--gray-500);"></div>
+            <div class="icon-color-meta"><strong>Gray 500</strong><small>Standard, neutrale Icons</small></div>
+          </div>
+          <div class="icon-color">
+            <div class="icon-color-chip" style="background:var(--gray-300);"></div>
+            <div class="icon-color-meta"><strong>Gray 300</strong><small>Empty-State-Icons, Disabled</small></div>
+          </div>
+          <div class="icon-color">
+            <div class="icon-color-chip" style="background:var(--success);"></div>
+            <div class="icon-color-meta"><strong>Success</strong><small>Bestätigung, Erfolg</small></div>
+          </div>
+          <div class="icon-color">
+            <div class="icon-color-chip" style="background:var(--warning);"></div>
+            <div class="icon-color-meta"><strong>Warning</strong><small>Achtung, ausstehend</small></div>
+          </div>
+          <div class="icon-color">
+            <div class="icon-color-chip" style="background:var(--danger);"></div>
+            <div class="icon-color-meta"><strong>Danger</strong><small>Löschen, Fehler</small></div>
+          </div>
+          <div class="icon-color">
+            <div class="icon-color-chip" style="background:var(--info);"></div>
+            <div class="icon-color-meta"><strong>Info</strong><small>Hinweise, neutrale Information</small></div>
+          </div>
+        </div>
+
+        <h3 class="block-title">Verbindliches Icon-Vokabular</h3>
+        <div class="card"><div class="card-body" style="padding:0;">
+          <table class="data-table" style="border:none;">
+            <thead>
+              <tr><th>Symbol</th><th>Bedeutung</th><th>Icon-Name</th><th>Verwendung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">check_circle</span></td><td>Erfolg</td><td><code>check_circle</code></td><td>Success-Alerts, Bestätigungen</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">error</span></td><td>Fehler</td><td><code>error</code></td><td>Error-Alerts, kritische Hinweise</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">warning</span></td><td>Warnung</td><td><code>warning</code></td><td>Warning-Alerts, Modals</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">info</span></td><td>Information</td><td><code>info</code></td><td>Info-Alerts, Tooltips</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">edit</span></td><td>Bearbeiten</td><td><code>edit</code></td><td>Action-Button „Edit"</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">delete</span></td><td>Löschen</td><td><code>delete</code></td><td>Action-Button „Delete"</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">add</span></td><td>Hinzufügen</td><td><code>add</code></td><td>Primäre Aktion „Neu"</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">save</span></td><td>Speichern</td><td><code>save</code></td><td>Formular-Aktion</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">logout</span></td><td>Abmelden</td><td><code>logout</code></td><td>Header-Logout</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">menu</span></td><td>Menü (Mobile)</td><td><code>menu</code></td><td>Sidebar-Toggle</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">close</span></td><td>Schließen</td><td><code>close</code></td><td>Modals, Dismissible Alerts</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">visibility</span></td><td>Passwort sichtbar</td><td><code>visibility</code></td><td>Password-Toggle (an)</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">visibility_off</span></td><td>Passwort versteckt</td><td><code>visibility_off</code></td><td>Password-Toggle (aus)</td></tr>
+              <tr><td><span class="material-icons-outlined" aria-hidden="true">cookie</span></td><td>Cookie-Banner</td><td><code>cookie</code></td><td>Cookie-Consent</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+
+        <h3 class="block-title">Einbindung &amp; Codebeispiel</h3>
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;!-- Standard-Icon, erbt Schriftgröße + Farbe vom Kontext --&gt;
+&lt;span class="material-icons-outlined"&gt;check_circle&lt;/span&gt;
+
+&lt;!-- Mit expliziter Größe und Farbe --&gt;
+&lt;span class="material-icons-outlined"
+      style="font-size: 24px; color: var(--primary);"&gt;
+  edit
+&lt;/span&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top: 20px;">
+          <div class="dd do">
+            <span class="dd-kicker">Empfohlen</span>
+            <ul>
+              <li>Ausschließlich <strong>Material Icons Outlined</strong> verwenden — keine Mischung mit Filled, Two-Tone, Sharp.</li>
+              <li>Selbst hosten (WOFF2), nie über externen CDN laden.</li>
+              <li>Icons stets <strong>semantisch</strong> einsetzen — niemals dekorativ.</li>
+              <li>Icon-Farbe von der Textfarbe ableiten oder explizit setzen.</li>
+              <li>Bei reinen Icon-Buttons stets <code>aria-label</code> definieren.</li>
+            </ul>
+          </div>
+          <div class="dd dont">
+            <span class="dd-kicker">Nicht erlaubt</span>
+            <ul>
+              <li>Eigenen Icon-Sets oder einzelne SVGs einführen.</li>
+              <li>Emojis statt Icons verwenden.</li>
+              <li>Icons ohne Bedeutung als reine Dekoration.</li>
+              <li>Mehrere Icon-Stile (Outlined + Filled) in einer Anwendung.</li>
+              <li>Icons unter 16 px verkleinern (Lesbarkeit).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buttons -->
+      <section id="buttons">
+        <div class="section-header">
+          <span class="section-kicker">Interaktion</span>
+          <h2 class="section-title">Buttons</h2>
+          <p class="section-lead">
+            Buttons haben stets eine klare Hierarchie: primär, sekundär und tertiär. Pro Ansicht
+            wird maximal <strong>eine</strong> primäre Aktion eingesetzt.
+          </p>
+        </div>
+
+        <h4 class="sub-title">Varianten</h4>
+        <div class="demo-row">
+          <button class="btn btn-primary">Primär</button>
+          <button class="btn btn-secondary">Sekundär</button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-danger">Destruktiv</button>
+        </div>
+
+        <h4 class="sub-title">Größen</h4>
+        <div class="demo-row">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-primary btn-block" style="max-width:240px;">Block</button>
+        </div>
+
+        <h4 class="sub-title">Zustände</h4>
+        <p class="t-small" style="margin:0 0 12px;">
+          Hover, Fokus und Active sind am Live-Element zu erleben: mit der Maus überfahren,
+          per <kbd>Tab</kbd> fokussieren (3&nbsp;px Fokusring) und klicken für den Active-Zustand.
+          Disabled ist ein realer, nicht fokussierbarer Zustand.
+        </p>
+        <div class="demo-row">
+          <button class="btn btn-primary">Interaktiv</button>
+          <button class="btn btn-primary" disabled>Disabled</button>
+        </div>
+
+        <h4 class="sub-title">Codebeispiel</h4>
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;button class="btn btn-primary"&gt;Speichern&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Sekundär&lt;/button&gt;
+&lt;button class="btn btn-outline btn-sm"&gt;Abbrechen&lt;/button&gt;
+&lt;button class="btn btn-danger"&gt;Löschen&lt;/button&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Immer echte <code>&lt;button&gt;</code>-Elemente — <kbd>Enter</kbd>/<kbd>Leertaste</kbd> und Fokus sind dann nativ.</li>
+              <li>Reine Icon-Buttons erhalten stets ein <code>aria-label</code>; dekorative Icons sind <code>aria-hidden</code>.</li>
+              <li>Der 3&nbsp;px-Fokusring (<code>:focus-visible</code>) wird nie entfernt.</li>
+              <li>Deaktivierung über das <code>disabled</code>-Attribut (nicht allein per Klasse) — nur so ist der Button auch für die Tastatur inaktiv.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Pro Ansicht genau <strong>eine</strong> primäre Aktion; alles Weitere sekundär, Outline oder Ghost.</li>
+              <li>Destruktive Aktionen als <code>btn-danger</code> und visuell von den Bestätigungsaktionen absetzen.</li>
+              <li>Beschriftung als klares Verb („Speichern", „Löschen") statt „OK".</li>
+              <li>Keine dekorativen Schatten oder Verläufe — Hierarchie entsteht über Farbe und Variante.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Forms -->
+      <section id="forms">
+        <div class="section-header">
+          <span class="section-kicker">Eingabe</span>
+          <h2 class="section-title">Formulare</h2>
+          <p class="section-lead">
+            Formulare folgen einem einheitlichen Raster: Label oben, Eingabefeld darunter,
+            optionaler Hilfetext. Validierung erfolgt sichtbar und sprachlich eindeutig.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Beispielformular</h3></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="f-name">Vollständiger Name</label>
+                <input id="f-name" class="form-control" type="text" placeholder="Max Mustermann" value="Lukas Kuntze">
+                <div class="form-helper">Pflichtfeld. Wird intern verwendet.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-mail">E-Mail-Adresse</label>
+                <input id="f-mail" class="form-control" type="email" placeholder="name@firma.de">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-role">Rolle</label>
+                <select id="f-role" class="form-control">
+                  <option>Administrator</option>
+                  <option>Mitarbeiter</option>
+                  <option>Kunde</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-phone">Telefon</label>
+                <input id="f-phone" class="form-control is-invalid" type="text" value="+49 abc">
+                <div class="form-error">Bitte eine gültige Telefonnummer eingeben.</div>
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label class="form-label" for="f-note">Notiz</label>
+                <textarea id="f-note" class="form-control" rows="3" placeholder="Zusätzliche Informationen"></textarea>
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label class="form-label" for="f-disabled">Deaktiviertes Feld</label>
+                <input id="f-disabled" class="form-control" type="text" value="Nicht bearbeitbar" disabled>
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label class="form-label" for="f-pass">Passwort</label>
+                <div class="input-group">
+                  <input id="f-pass" class="form-control" type="password" value="geheim123" autocomplete="off">
+                  <button type="button" class="password-toggle" aria-label="Passwort anzeigen" aria-pressed="false">
+                    <span class="material-icons-outlined" aria-hidden="true">visibility</span>
+                  </button>
+                </div>
+                <div class="form-helper">Das Auge blendet das Passwort ein/aus (<code>App.Forms</code>, <code>.password-toggle</code>).</div>
+              </div>
+            </div>
+
+            <div class="form-check"><input type="checkbox" id="c1" checked><label for="c1">Angemeldet bleiben</label></div>
+            <div class="form-check"><input type="checkbox" id="c2"><label for="c2">Newsletter abonnieren</label></div>
+            <div class="form-check"><input type="radio" name="r" id="r1" checked><label for="r1">Option A</label></div>
+            <div class="form-check"><input type="radio" name="r" id="r2"><label for="r2">Option B</label></div>
+
+            <div class="demo-row" style="margin-top: 24px; justify-content: flex-end; background: transparent; border: none; padding: 0;">
+              <button class="btn btn-danger action-btn delete" style="margin-right: auto;">
+                <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">delete</span>
+                Löschen
+              </button>
+              <button class="btn btn-outline">Abbrechen</button>
+              <button class="btn btn-primary">Speichern</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;div class="form-group"&gt;
+  &lt;label class="form-label" for="email"&gt;E-Mail-Adresse&lt;/label&gt;
+  &lt;input id="email" class="form-control" type="email" placeholder="name@firma.de"&gt;
+  &lt;div class="form-helper"&gt;Pflichtfeld.&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="form-group"&gt;
+  &lt;label class="form-label" for="phone"&gt;Telefon&lt;/label&gt;
+  &lt;input id="phone" class="form-control is-invalid" type="text"&gt;
+  &lt;div class="form-error"&gt;Bitte gültige Nummer eingeben.&lt;/div&gt;
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Jedes Feld hat ein sichtbares <code>&lt;label for&gt;</code>.</li>
+              <li>Fehler über <code>aria-invalid</code> + <code>aria-describedby</code> mit dem Feld verknüpft.</li>
+              <li>Passwort-Auge: echtes <code>&lt;button type="button"&gt;</code> mit <code>aria-pressed</code>; das Icon ist <code>aria-hidden</code>.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Label immer sichtbar lassen (keine reinen Platzhalter-Labels).</li>
+              <li>Destruktive Aktionen (<code>.action-btn.delete</code>) stets über den Bestätigungsdialog absichern.</li>
+              <li>Passwort standardmäßig verborgen; der Umschalter ändert nur den Anzeigetyp, nicht den Wert.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Switches -->
+      <section id="switches">
+        <div class="section-header">
+          <span class="section-kicker">Eingabe</span>
+          <h2 class="section-title">Switches</h2>
+          <p class="section-lead">
+            Der Switch schaltet eine einzelne Einstellung sofort um — anders als eine Checkbox,
+            die üblicherweise erst mit dem Absenden eines Formulars wirksam wird. Technisch ist er
+            eine gestylte native <code>&lt;input type="checkbox"&gt;</code> und damit vollständig
+            per Tastatur bedienbar.
+          </p>
+        </div>
+
+        <h4 class="sub-title">Zustände</h4>
+        <div class="demo-row" style="gap: 24px;">
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="switch-track"></span>
+            <span class="switch-label">Aktiv</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="switch-track"></span>
+            <span class="switch-label">Inaktiv</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" checked disabled>
+            <span class="switch-track"></span>
+            <span class="switch-label">Deaktiviert (an)</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" disabled>
+            <span class="switch-track"></span>
+            <span class="switch-label">Deaktiviert (aus)</span>
+          </label>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;label class="switch"&gt;
+  &lt;input type="checkbox" checked&gt;
+  &lt;span class="switch-track"&gt;&lt;/span&gt;
+  &lt;span class="switch-label"&gt;Benachrichtigungen&lt;/span&gt;
+&lt;/label&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Echte <code>&lt;input type="checkbox"&gt;</code> im <code>&lt;label&gt;</code> — Zustand wird als „aktiviert/deaktiviert" angesagt.</li>
+              <li>Umschalten per <kbd>Leertaste</kbd>; Fokusring liegt auf dem Track (<code>:focus-visible</code>).</li>
+              <li>Statuswechsel wirkt sofort — daher ohne umgebenden Absenden-Button einsetzen.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Für sofort wirksame Ein/Aus-Optionen (z. B. „Dark Mode"). Für Formularauswahl die Checkbox nutzen.</li>
+              <li>Label knapp und positiv formulieren („Benachrichtigungen", nicht „Keine Benachrichtigungen").</li>
+              <li>Kein zusätzliches „An/Aus" ans Label hängen — der Zustand ist visuell und semantisch klar.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Badges -->
+      <section id="badges">
+        <div class="section-header">
+          <span class="section-kicker">Status</span>
+          <h2 class="section-title">Badges</h2>
+          <p class="section-lead">
+            Badges kommunizieren Status und Kategorien knapp und unaufdringlich. Farbe und
+            Sprache sind stets konsistent an die semantische Bedeutung gebunden.
+          </p>
+        </div>
+
+        <div class="demo-row">
+          <span class="badge badge-success">Aktiv</span>
+          <span class="badge badge-warning">Ausstehend</span>
+          <span class="badge badge-danger">Inaktiv</span>
+          <span class="badge badge-info">Neu</span>
+          <span class="badge badge-primary">Markiert</span>
+          <span class="badge badge-neutral">Nicht zutreffend</span>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;span class="badge badge-success"&gt;Aktiv&lt;/span&gt;
+&lt;span class="badge badge-warning"&gt;Ausstehend&lt;/span&gt;
+&lt;span class="badge badge-danger"&gt;Inaktiv&lt;/span&gt;
+&lt;span class="badge badge-info"&gt;Neu&lt;/span&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Der Status steht im <strong>Text</strong> des Badges — nie allein über die Farbe transportiert.</li>
+              <li>Textkontrast über die adaptiven <code>--*-text</code>-Töne (WCAG&nbsp;AA in Light und Dark).</li>
+              <li>Badge ist rein informativ: kein Ersatz für einen Button oder Link, nicht fokussierbar.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Kurze, statushafte Labels (ein bis zwei Wörter); semantische Farbe gemäß Bedeutung.</li>
+              <li><code>badge-neutral</code> für nicht-semantische Kategorien statt einer Statusfarbe zweckzuentfremden.</li>
+              <li>Pro Kontext nur ein Badge — mehrere gleichzeitige Status zusammenfassen.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alerts -->
+      <section id="alerts">
+        <div class="section-header">
+          <span class="section-kicker">Feedback</span>
+          <h2 class="section-title">Alerts</h2>
+          <p class="section-lead">
+            Alerts geben kontextbezogenes Feedback und werden oberhalb oder innerhalb des
+            betroffenen Bereichs angezeigt. Sie bleiben <strong>dauerhaft</strong> stehen, bis der
+            Nutzer sie zur Kenntnis nimmt — für flüchtige Rückmeldungen sind
+            <a href="#loading">Toasts</a> vorgesehen, die sich automatisch schließen.
+          </p>
+        </div>
+
+        <div class="alert alert-success"><strong>Erfolgreich gespeichert</strong>Die Änderungen wurden übernommen.</div>
+        <div class="alert alert-info"><strong>Hinweis</strong>Ein neues Update ist verfügbar.</div>
+        <div class="alert alert-warning"><strong>Warnung</strong>Einige Felder enthalten Platzhalterwerte.</div>
+        <div class="alert alert-danger"><strong>Fehler beim Speichern</strong>Die Verbindung zum Server ist unterbrochen.</div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;div class="alert alert-success"&gt;
+  &lt;strong&gt;Erfolgreich gespeichert&lt;/strong&gt;
+  Die Änderungen wurden übernommen.
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Statisches Inline-Feedback — die Bedeutung tragen Titel und Text, nicht allein die Farbe.</li>
+              <li>Dynamisch eingefügte Alerts je nach Dringlichkeit als <code>role="status"</code> (dezent) oder <code>role="alert"</code> (unterbrechend) auszeichnen.</li>
+              <li>Fehler-Alerts nahe am auslösenden Kontext platzieren.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Alert bleibt dauerhaft bis zur Kenntnisnahme — für flüchtiges Feedback den <a href="#loading">Toast</a> nutzen.</li>
+              <li>Genau eine klare Kernaussage pro Alert; semantische Farbe gemäß Bedeutung.</li>
+              <li>Nicht stapeln — mehrere gleichartige Meldungen zusammenfassen.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cards -->
+      <section id="cards">
+        <div class="section-header">
+          <span class="section-kicker">Container</span>
+          <h2 class="section-title">Cards</h2>
+          <p class="section-lead">
+            Cards gruppieren zusammengehörige Inhalte. Sie besitzen stets einen klaren Header,
+            einen strukturierten Body und optional eine Fußzeile mit Aktionen.
+          </p>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 20px;">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Projektübersicht</h3><span class="badge badge-success">Aktiv</span></div>
+            <div class="card-body">
+              <p class="t-small" style="margin:0 0 12px;">Zusammenfassung aller laufenden Aktivitäten, Meilensteine und Zuständigkeiten im Projekt.</p>
+              <button class="btn btn-outline btn-sm">Details ansehen</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Dokumentation</h3></div>
+            <div class="card-body">
+              <p class="t-small" style="margin:0 0 12px;">Aktuelle technische Unterlagen, Richtlinien und Architekturentscheidungen an zentraler Stelle.</p>
+              <button class="btn btn-primary btn-sm">Öffnen</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Support</h3><span class="badge badge-warning">3 offen</span></div>
+            <div class="card-body">
+              <p class="t-small" style="margin:0;">Ein Überblick über offene Tickets und Prioritäten der laufenden Woche.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;div class="card"&gt;
+  &lt;div class="card-header"&gt;
+    &lt;h3 class="card-title"&gt;Projektübersicht&lt;/h3&gt;
+    &lt;span class="badge badge-success"&gt;Aktiv&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="card-body"&gt;
+    &lt;p&gt;Inhalt der Karte.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Der Card-Titel ist eine echte Überschrift (<code>h3</code>) und fügt sich in die Dokumentgliederung ein.</li>
+              <li>Keine komplett klickbare Card ohne fokussierbares Steuerelement — die Aktion gehört auf einen echten Button oder Link im Body.</li>
+              <li>Ein Status-Badge im Header ersetzt keine textliche Information für Screenreader.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Eine Card = ein Thema; Header für Titel und Status, Body für Inhalt, Aktionen unten.</li>
+              <li>Cards nicht ineinander verschachteln — bei mehr Struktur eine eigene Sektion wählen.</li>
+              <li>Höhen im Raster über <code>auto-fit</code>/<code>minmax</code> gleichmäßig halten.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section id="stats">
+        <div class="section-header">
+          <span class="section-kicker">Metriken</span>
+          <h2 class="section-title">Stat-Karten</h2>
+          <p class="section-lead">
+            Stat-Karten heben zentrale Kennzahlen hervor. Die großen Zahlen sind stets in
+            Bold gesetzt, Labels in kleiner Skalierung und gedämpfter Farbe.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Aktive Kunden</div>
+            <div class="stat-value">1.248</div>
+            <div class="stat-delta">+ 4,2 % ggü. Vormonat</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Offene Tickets</div>
+            <div class="stat-value">37</div>
+            <div class="stat-delta negative">+ 12 diese Woche</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Umsatz (MTD)</div>
+            <div class="stat-value">84.320 €</div>
+            <div class="stat-delta">+ 8,7 %</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Verfügbarkeit</div>
+            <div class="stat-value">99,98 %</div>
+            <div class="stat-delta">Stabil</div>
+          </div>
+        </div>
+
+        <div class="dd-grid" style="margin-top:20px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Die Richtung des Deltas nie allein über die Farbe — ein Vorzeichen (<code>+</code>/<code>−</code>) oder Wort trägt die Aussage.</li>
+              <li>Das Label benennt die Kennzahl eindeutig, damit der Wert auch ohne Umfeld verständlich ist.</li>
+              <li>Positiv/negativ ist eine Bewertung, kein Rechenzeichen: mehr offene Tickets sind <code>.negative</code>.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Große Zahl als Kernaussage, Kontext (Vergleich, Zeitraum) in das Delta.</li>
+              <li><code>.stat-delta.negative</code> für nachteilige Entwicklung, sonst der grüne Standardton.</li>
+              <li>Kurze Labels; Einheiten (%, €) direkt am Wert statt im Label.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tables -->
+      <section id="tables">
+        <div class="section-header">
+          <span class="section-kicker">Datendarstellung</span>
+          <h2 class="section-title">Tabellen</h2>
+          <p class="section-lead">
+            Tabellen verwenden einen ruhigen Header in Grau 50, gleichmäßige Zeilenhöhen und
+            klare Trennlinien. Interaktive Zeilen heben sich dezent auf Hover hervor.
+          </p>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Kunde</th>
+                <th>Projekt</th>
+                <th>Status</th>
+                <th>Laufzeit</th>
+                <th style="text-align:right;">Volumen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Meyer Industrietechnik</td>
+                <td>ERP-Ablösung</td>
+                <td><span class="badge badge-success">In Produktion</span></td>
+                <td>2025 – 2026</td>
+                <td style="text-align:right;">142.500 €</td>
+              </tr>
+              <tr>
+                <td>Schneider &amp; Partner</td>
+                <td>Portal-Entwicklung</td>
+                <td><span class="badge badge-info">In Umsetzung</span></td>
+                <td>2026</td>
+                <td style="text-align:right;">68.000 €</td>
+              </tr>
+              <tr>
+                <td>Nordbau GmbH</td>
+                <td>Infrastruktur</td>
+                <td><span class="badge badge-warning">Freigabe offen</span></td>
+                <td>Q2 2026</td>
+                <td style="text-align:right;">22.400 €</td>
+              </tr>
+              <tr>
+                <td>Kern Automatisierung</td>
+                <td>SCADA-Integration</td>
+                <td><span class="badge badge-danger">Pausiert</span></td>
+                <td>—</td>
+                <td style="text-align:right;">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Pagination -->
+      <section id="pagination">
+        <div class="section-header">
+          <span class="section-kicker">Navigation</span>
+          <h2 class="section-title">Pagination</h2>
+          <p class="section-lead">
+            Teilt lange Ergebnislisten in Seiten. Die aktive Seite ist deutlich hervorgehoben und
+            trägt <code>aria-current="page"</code>; „Zurück"/„Weiter" nutzen ein Icon mit
+            zusätzlichem <code>aria-label</code>.
+          </p>
+        </div>
+
+        <div class="demo-row">
+          <nav class="pagination" aria-label="Seitennavigation">
+            <a class="pagination-item is-disabled" href="#" aria-label="Vorherige Seite" aria-disabled="true">
+              <span class="material-icons-outlined" aria-hidden="true">chevron_left</span>
+            </a>
+            <a class="pagination-item is-active" href="#" aria-current="page">1</a>
+            <a class="pagination-item" href="#">2</a>
+            <a class="pagination-item" href="#">3</a>
+            <span class="pagination-ellipsis" aria-hidden="true">…</span>
+            <a class="pagination-item" href="#">12</a>
+            <a class="pagination-item pagination-next" href="#" aria-label="Nächste Seite">
+              <span class="material-icons-outlined" aria-hidden="true">chevron_right</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;nav class="pagination" aria-label="Seitennavigation"&gt;
+  &lt;a class="pagination-item is-disabled" href="#" aria-label="Vorherige Seite" aria-disabled="true"&gt;
+    &lt;span class="material-icons-outlined" aria-hidden="true"&gt;chevron_left&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a class="pagination-item is-active" href="#" aria-current="page"&gt;1&lt;/a&gt;
+  &lt;a class="pagination-item" href="#"&gt;2&lt;/a&gt;
+  &lt;span class="pagination-ellipsis" aria-hidden="true"&gt;…&lt;/span&gt;
+  &lt;a class="pagination-item" href="#"&gt;12&lt;/a&gt;
+  &lt;a class="pagination-item" href="#" aria-label="Nächste Seite"&gt;
+    &lt;span class="material-icons-outlined" aria-hidden="true"&gt;chevron_right&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/nav&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Umschließendes <code>&lt;nav aria-label&gt;</code>; aktive Seite mit <code>aria-current="page"</code>.</li>
+              <li>Icon-Buttons „Zurück/Weiter" tragen ein textliches <code>aria-label</code>.</li>
+              <li>Deaktivierte Ränder mit <code>aria-disabled="true"</code> und <code>.is-disabled</code>.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Erste/letzte Seite immer erreichbar; dazwischen mit „…" kürzen.</li>
+              <li>Bei client-seitiger Navigation <code>&lt;button&gt;</code> statt <code>&lt;a&gt;</code> verwenden.</li>
+              <li>Genug große Trefferflächen (36 px) für Touch-Bedienung.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tabs -->
+      <section id="tabs">
+        <div class="section-header">
+          <span class="section-kicker">Segmentierung</span>
+          <h2 class="section-title">Tabs &amp; Pills</h2>
+          <p class="section-lead">
+            Tabs strukturieren Inhalte innerhalb einer Ansicht, ohne den Benutzer die Seite wechseln
+            zu lassen. Der aktive Tab hebt sich über Hintergrund und Schatten klar hervor.
+          </p>
+        </div>
+
+        <div data-tab-group>
+          <div class="demo-row" style="background: transparent; border: none; padding: 0 0 12px;">
+            <div class="tablist" role="tablist" aria-label="Projektansichten">
+              <button id="tab-overview" class="tab is-active" role="tab" aria-selected="true" aria-controls="tab-panel-overview">Übersicht</button>
+              <button id="tab-details" class="tab" role="tab" aria-selected="false" aria-controls="tab-panel-details">Details</button>
+              <button id="tab-activity" class="tab" role="tab" aria-selected="false" aria-controls="tab-panel-activity">Aktivitäten</button>
+              <button id="tab-settings" class="tab" role="tab" aria-selected="false" aria-controls="tab-panel-settings">Einstellungen</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div id="tab-panel-overview" data-tab-panel role="tabpanel" tabindex="0" aria-labelledby="tab-overview">
+                <p class="t-small" style="margin:0;">Zusammenfassung aller laufenden Aktivitäten, Meilensteine und Zuständigkeiten im Projekt.</p>
+              </div>
+              <div id="tab-panel-details" data-tab-panel role="tabpanel" tabindex="0" aria-labelledby="tab-details" hidden>
+                <p class="t-small" style="margin:0;">Detailinformationen zum ausgewählten Eintrag, inklusive Historie und verknüpfter Dokumente.</p>
+              </div>
+              <div id="tab-panel-activity" data-tab-panel role="tabpanel" tabindex="0" aria-labelledby="tab-activity" hidden>
+                <p class="t-small" style="margin:0;">Chronologischer Aktivitätsverlauf mit Änderungen, Kommentaren und Statuswechseln.</p>
+              </div>
+              <div id="tab-panel-settings" data-tab-panel role="tabpanel" tabindex="0" aria-labelledby="tab-settings" hidden>
+                <p class="t-small" style="margin:0;">Konfigurationsoptionen für Benachrichtigungen, Zugriffsrechte und Automatisierungen.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;div data-tab-group&gt;
+  &lt;div class="tablist" role="tablist" aria-label="Projektansichten"&gt;
+    &lt;button id="tab-1" class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-1"&gt;Übersicht&lt;/button&gt;
+    &lt;button id="tab-2" class="tab" role="tab" aria-selected="false" aria-controls="panel-2"&gt;Details&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div id="panel-1" data-tab-panel role="tabpanel" tabindex="0" aria-labelledby="tab-1"&gt;…&lt;/div&gt;
+  &lt;div id="panel-2" data-tab-panel role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Tastatur: ← / → wechseln, Home / End springen zum ersten / letzten Tab.
+     Nur der aktive Tab liegt im Tab-Index (Roving-Tabindex, von App.Tabs gesetzt). --&gt;</pre>
+        </div>
+      </section>
+
+      <!-- Accordion -->
+      <section id="accordion">
+        <div class="section-header">
+          <span class="section-kicker">Segmentierung</span>
+          <h2 class="section-title">Accordion</h2>
+          <p class="section-lead">
+            Untereinander gestapelte, aufklappbare Abschnitte für FAQs oder gruppierte Einstellungen.
+            Jede Überschrift ist ein echter Button, der seinen Bereich ein- und ausblendet. Mit
+            <code>data-accordion-single</code> bleibt höchstens ein Bereich gleichzeitig offen.
+          </p>
+        </div>
+
+        <div class="accordion" data-accordion data-accordion-single>
+          <div class="accordion-item">
+            <h3 class="accordion-heading">
+              <button class="accordion-trigger" type="button" aria-expanded="true" aria-controls="acc-panel-1">
+                Wie wird der Styleguide eingebunden?
+                <span class="accordion-icon material-icons-outlined" aria-hidden="true">expand_more</span>
+              </button>
+            </h3>
+            <div id="acc-panel-1" class="accordion-panel" role="region" aria-labelledby="acc-panel-1">
+              <div class="accordion-panel-inner">
+                Tokens, Basis und die benötigten Komponenten-CSS werden per <code>&lt;link&gt;</code> eingebunden;
+                Verhalten über die einzelnen Module unter <code>scripts/modules/</code>. Ein Build-Schritt
+                ist nicht erforderlich.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-heading">
+              <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="acc-panel-2">
+                Werden externe Dienste kontaktiert?
+                <span class="accordion-icon material-icons-outlined" aria-hidden="true">expand_more</span>
+              </button>
+            </h3>
+            <div id="acc-panel-2" class="accordion-panel" role="region" aria-labelledby="acc-panel-2" hidden>
+              <div class="accordion-panel-inner">
+                Nein. Schriften und Icons werden selbst gehostet (WOFF2), es gibt keine CDN-Aufrufe —
+                DSGVO-konform.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-heading">
+              <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="acc-panel-3">
+                Wie wird der Dark Mode aktiviert?
+                <span class="accordion-icon material-icons-outlined" aria-hidden="true">expand_more</span>
+              </button>
+            </h3>
+            <div id="acc-panel-3" class="accordion-panel" role="region" aria-labelledby="acc-panel-3" hidden>
+              <div class="accordion-panel-inner">
+                Standard ist stets das helle Theme. Der Dark Mode wird manuell über den Umschalter
+                in der Topbar aktiviert (in <code>localStorage</code> gespeichert); die
+                Systemeinstellung wird bewusst nicht automatisch übernommen.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;div class="accordion" data-accordion data-accordion-single&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;h3 class="accordion-heading"&gt;
+      &lt;button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="acc-1"&gt;
+        Frage
+        &lt;span class="accordion-icon material-icons-outlined" aria-hidden="true"&gt;expand_more&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/h3&gt;
+    &lt;div id="acc-1" class="accordion-panel" role="region" aria-labelledby="acc-1" hidden&gt;
+      &lt;div class="accordion-panel-inner"&gt;Antwort&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Überschrift ist ein <code>&lt;button&gt;</code> in einem <code>&lt;h3&gt;</code>; <code>aria-expanded</code> spiegelt den Zustand.</li>
+              <li>Panel über <code>aria-controls</code> verknüpft und im geschlossenen Zustand <code>hidden</code>.</li>
+              <li>Voll per <kbd>Tab</kbd> und <kbd>Enter</kbd>/<kbd>Leertaste</kbd> bedienbar.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Für FAQ-artige Inhalte den Einzel-Öffnen-Modus (<code>data-accordion-single</code>) nutzen.</li>
+              <li>Prägnante, sprechende Überschriften — der Nutzer soll ohne Aufklappen entscheiden können.</li>
+              <li>Nicht für primäre Navigation verwenden — dafür Tabs oder Sidebar.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <section id="navigation">
+        <div class="section-header">
+          <span class="section-kicker">Struktur</span>
+          <h2 class="section-title">Navigation</h2>
+          <p class="section-lead">
+            Die Sidebar ist der zentrale Einstiegspunkt. Sie folgt einer festen Struktur:
+            Markenbereich oben, gruppierte Hauptnavigation, optionale Meta-Navigation unten.
+          </p>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 280px 1fr; gap: 24px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; background: var(--white);">
+          <div style="background: var(--white); border-right: 1px solid var(--gray-200); padding: 20px;">
+            <div class="sidebar-header" style="padding: 0 0 20px; text-align:center;">
+              <div class="brand-logo" style="margin: 0 auto 8px; max-width: 200px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none" aria-label="Kuntze Logo">
+                  <text x="150" y="25" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="12" font-weight="600" fill="#BC0003" letter-spacing="1">SOFTWAREENTWICKLUNG &amp;</text>
+                  <text x="150" y="42" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="12" font-weight="600" fill="#BC0003" letter-spacing="1">IT-DIENSTLEISTUNGEN</text>
+                  <text x="150" y="70" text-anchor="middle" font-family="'Roboto Slab', serif" font-size="28" font-weight="700" fill="#1E293B">Kuntze</text>
+                </svg>
+              </div>
+              <div style="font-size: 13px; color: var(--gray-500); letter-spacing: 0.3px;">Demo-Projekt</div>
+            </div>
+            <div style="padding-top: 16px;">
+              <div class="nav-section" style="padding: 8px 0;">Arbeitsbereich</div>
+              <a href="#" class="nav-item active">Dashboard</a>
+              <a href="#" class="nav-item">Projekte</a>
+              <a href="#" class="nav-item">Kunden</a>
+              <a href="#" class="nav-item">Rechnungen</a>
+              <div class="nav-section" style="padding: 12px 0 8px;">System</div>
+              <a href="#" class="nav-item">Einstellungen</a>
+              <a href="#" class="nav-item">Abmelden</a>
+            </div>
+          </div>
+          <div style="padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gray-200); padding-bottom: 16px; margin-bottom: 16px;">
+              <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: var(--gray-800);">Dashboard</h3>
+              <button class="btn btn-primary btn-sm">Neuer Eintrag</button>
+            </div>
+            <p class="t-small" style="margin:0;">Inhaltsbereich der ausgewählten Ansicht. Der aktive Navigationspunkt wird in der Sidebar durch hinterlegten Primärton und farbigen Text ausgezeichnet.</p>
+          </div>
+        </div>
+
+        <h3 class="block-title">Aktiver Zustand &amp; Mobile Off-Canvas</h3>
+        <p class="t-body">
+          Der aktive Navigationseintrag folgt automatisch dem Scroll (<code>App.ScrollSpy</code>):
+          Der Eintrag, dessen Abschnitt im Blickfeld ist, erhält <code>.active</code> — die Sidebar
+          links ist die Live-Demo. <strong>Mobile Off-Canvas (Produktmuster):</strong> In
+          Anwendungen mit App-Shell wird die Sidebar unter dem Breakpoint über einen Menü-Button
+          ein-/ausgeblendet (<code>.sidebar.open</code>). In diesem Styleguide klappt die Navigation
+          auf Mobilgeräten bewusst als Inline-Liste ein — ein Off-Canvas-Panel ist hier nicht nötig.
+        </p>
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;button id="menuToggle" class="menu-toggle" aria-label="Menü öffnen"&gt;
+  &lt;span class="material-icons-outlined"&gt;menu&lt;/span&gt;
+&lt;/button&gt;
+&lt;aside class="sidebar"&gt; … &lt;/aside&gt;   &lt;!-- .open blendet das Panel ein --&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Navigation als <code>&lt;nav&gt;</code> ausgezeichnet; Links sind echte <code>&lt;a href&gt;</code> mit sichtbarem Fokusring.</li>
+              <li>Der aktive Eintrag erhält <code>.active</code> — Kontrast und Fokus bleiben sichtbar.</li>
+              <li>Menü-Button mit <code>aria-label</code>; Off-Canvas schließt per <kbd>ESC</kbd> und Klick außerhalb.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Abschnittsüberschriften und <code>id</code>s konsistent benennen.</li>
+              <li>Aktiven Zustand nicht allein über Farbe transportieren (Gewicht/Marker).</li>
+              <li>Navigationsstruktur flach halten — maximal zwei Ebenen.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dropdown -->
+      <section id="dropdown">
+        <div class="section-header">
+          <span class="section-kicker">Navigation &amp; Overlays</span>
+          <h2 class="section-title">Dropdown-Menü</h2>
+          <p class="section-lead">
+            Kontextmenüs für Zeilen- und Toolbar-Aktionen. Öffnet per Klick, schließt bei
+            <kbd>ESC</kbd>, Klick außerhalb oder erneutem Klick auf den Auslöser. Vollständig
+            per Tastatur bedienbar (Modul <code>App.Dropdown</code>).
+          </p>
+        </div>
+
+        <div class="demo-row">
+          <div class="dropdown">
+            <button type="button" class="btn btn-outline" data-dropdown-toggle aria-haspopup="true" aria-expanded="false">
+              Aktionen ▾
+            </button>
+            <div class="dropdown-menu" role="menu">
+              <button type="button" class="dropdown-item" role="menuitem" tabindex="-1">Bearbeiten</button>
+              <button type="button" class="dropdown-item" role="menuitem" tabindex="-1">Öffnen</button>
+              <hr class="dropdown-divider">
+              <button type="button" class="dropdown-item danger" role="menuitem" tabindex="-1">Löschen</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;div class="dropdown"&gt;
+  &lt;button class="btn btn-outline" data-dropdown-toggle aria-haspopup="true" aria-expanded="false"&gt;
+    Aktionen
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu" role="menu"&gt;
+    &lt;button class="dropdown-item" role="menuitem" tabindex="-1"&gt;Bearbeiten&lt;/button&gt;
+    &lt;button class="dropdown-item" role="menuitem" tabindex="-1"&gt;Öffnen&lt;/button&gt;
+    &lt;hr class="dropdown-divider"&gt;
+    &lt;button class="dropdown-item danger" role="menuitem" tabindex="-1"&gt;Löschen&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Tastatur: ↓ öffnet und fokussiert das erste Element, ↑/↓ navigieren,
+     ESC schließt und fokussiert den Auslöser (App.Dropdown). --&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Auslöser trägt <code>aria-haspopup="true"</code> und spiegelt den Zustand über <code>aria-expanded</code>.</li>
+              <li>Menü als <code>role="menu"</code>, Einträge als <code>role="menuitem"</code> mit Roving-Tabindex (<code>tabindex="-1"</code>).</li>
+              <li><kbd>ESC</kbd> schließt und gibt den Fokus an den Auslöser zurück.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Für Kontext- und Zeilenaktionen — nicht als Ersatz für die primäre Navigation.</li>
+              <li>Destruktive Einträge (<code>.dropdown-item.danger</code>) optisch absetzen und ans Ende stellen.</li>
+              <li>Kurze, verbbasierte Labels; verwandte Aktionen mit <code>.dropdown-divider</code> gruppieren.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Breadcrumbs -->
+      <section id="breadcrumb">
+        <div class="section-header">
+          <span class="section-kicker">Struktur</span>
+          <h2 class="section-title">Breadcrumbs</h2>
+          <p class="section-lead">
+            Die Brotkrümelnavigation zeigt die Position der aktuellen Seite innerhalb der Hierarchie
+            und erlaubt den Sprung zu übergeordneten Ebenen. Die aktuelle Seite ist kein Link,
+            sondern ein <code>&lt;span&gt;</code> mit <code>aria-current="page"</code>.
+          </p>
+        </div>
+
+        <div class="demo-row">
+          <nav class="breadcrumb" aria-label="Brotkrümelnavigation">
+            <ol class="breadcrumb-list">
+              <li class="breadcrumb-item"><a href="#">Start</a></li>
+              <li class="breadcrumb-item"><a href="#">Projekte</a></li>
+              <li class="breadcrumb-item"><a href="#">Kuntze IT</a></li>
+              <li class="breadcrumb-item"><span aria-current="page">UI Styleguide</span></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;nav class="breadcrumb" aria-label="Brotkrümelnavigation"&gt;
+  &lt;ol class="breadcrumb-list"&gt;
+    &lt;li class="breadcrumb-item"&gt;&lt;a href="/"&gt;Start&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="breadcrumb-item"&gt;&lt;a href="/projekte"&gt;Projekte&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="breadcrumb-item"&gt;&lt;span aria-current="page"&gt;UI Styleguide&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Umschließendes <code>&lt;nav aria-label&gt;</code> mit geordneter Liste <code>&lt;ol&gt;</code>.</li>
+              <li>Aktuelle Seite mit <code>aria-current="page"</code>, nicht als Link.</li>
+              <li>Trennzeichen sind rein dekorativ (CSS) und werden nicht vorgelesen.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Erst ab der dritten Hierarchieebene sinnvoll — bei flachen Strukturen weglassen.</li>
+              <li>Kurze, konsistente Labels, die den Seitentiteln entsprechen.</li>
+              <li>Ersetzt keine primäre Navigation, sondern ergänzt sie.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dialogs & Drawer -->
+      <section id="dialogs">
+        <div class="section-header">
+          <span class="section-kicker">Overlays</span>
+          <h2 class="section-title">Dialoge &amp; Drawer</h2>
+          <p class="section-lead">
+            Modale Dialoge sind destruktiven oder blockierenden Entscheidungen vorbehalten,
+            der Drawer eignet sich für Detailansichten und Formulare ohne Kontextwechsel. Beide
+            schließen per <kbd>ESC</kbd> oder Klick auf das Overlay und geben den Fokus danach
+            an das auslösende Element zurück.
+          </p>
+        </div>
+
+        <div class="demo-row">
+          <button class="btn btn-primary" data-modal-open="demo-modal">Dialog öffnen</button>
+          <button class="btn btn-outline" data-drawer-open="demo-drawer">Drawer öffnen</button>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;button class="btn btn-primary" data-modal-open="demo-modal"&gt;Dialog öffnen&lt;/button&gt;
+&lt;button class="btn btn-outline" data-drawer-open="demo-drawer"&gt;Drawer öffnen&lt;/button&gt;
+
+&lt;div class="modal-overlay" id="demo-modal" hidden&gt;
+  &lt;div class="modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title"&gt;
+    &lt;div class="modal-header"&gt;
+      &lt;h3 id="demo-modal-title"&gt;Eintrag löschen?&lt;/h3&gt;
+      &lt;button class="close-btn" data-modal-close aria-label="Schließen"&gt;&amp;times;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="modal-body"&gt;…&lt;/div&gt;
+    &lt;div class="modal-footer"&gt;
+      &lt;button class="btn btn-outline" data-modal-close&gt;Abbrechen&lt;/button&gt;
+      &lt;button class="btn btn-danger" data-modal-close&gt;Löschen&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">JavaScript</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">// Deklarativ genügen die Attribute [data-modal-open] / [data-drawer-open]
+// und [data-*-close]. Programmatisch:
+const dialog = document.getElementById('demo-modal');
+App.Overlays.open(dialog);   // öffnet, setzt den Fokus in den Dialog
+App.Overlays.close(dialog);  // schließt, gibt den Fokus an den Auslöser zurück</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li><code>role="dialog"</code> + <code>aria-modal="true"</code>, Titel via <code>aria-labelledby</code>.</li>
+              <li>Fokus wandert beim Öffnen in den Dialog (bevorzugt <code>[data-autofocus]</code>), <kbd>Tab</kbd> zirkuliert darin; der Hintergrund-Scroll ist gesperrt.</li>
+              <li>Beim Schließen kehrt der Fokus zum auslösenden Element zurück.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Genau eine primäre/destruktive Aktion; „Abbrechen" erhält den Erstfokus.</li>
+              <li>Modal nur für blockierende Entscheidungen — Detailinhalte in den Drawer.</li>
+              <li>Kurzer, eindeutiger Titel als Frage oder Aussage.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Loading & Toasts -->
+      <section id="loading">
+        <div class="section-header">
+          <span class="section-kicker">Zustände</span>
+          <h2 class="section-title">Ladezustände &amp; Toasts</h2>
+          <p class="section-lead">
+            Skeleton-Loader bilden das Layout nachladender Inhalte ab und vermeiden Sprünge im
+            Seitenaufbau, der Spinner markiert kurze Wartezeiten. Toasts geben nicht-blockierendes
+            Feedback zu abgeschlossenen Aktionen und schließen automatisch nach 5 Sekunden.
+          </p>
+        </div>
+
+        <div class="form-grid">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Skeleton Loader</h3></div>
+            <div class="card-body">
+              <div style="display:flex; gap:12px; align-items:center; margin-bottom:20px;">
+                <div class="skeleton skeleton-avatar"></div>
+                <div style="flex:1;">
+                  <div class="skeleton skeleton-title"></div>
+                  <div class="skeleton skeleton-text"></div>
+                </div>
+              </div>
+              <div class="skeleton skeleton-card"></div>
+
+              <h4 class="sub-title">Spinner</h4>
+              <div style="display:flex; align-items:center; gap:12px; color:var(--gray-500); font-size:14px;">
+                <span class="spinner" role="status" aria-label="Lädt"></span>
+                Daten werden geladen …
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Toasts</h3></div>
+            <div class="card-body">
+              <p class="t-small" style="margin:0 0 16px;">Klicken, um eine Beispiel-Benachrichtigung unten rechts einzublenden.</p>
+              <div class="demo-row" style="background:transparent; border:none; padding:0;">
+                <button class="btn btn-outline btn-sm" data-toast-trigger="success">Erfolg</button>
+                <button class="btn btn-outline btn-sm" data-toast-trigger="danger">Fehler</button>
+                <button class="btn btn-outline btn-sm" data-toast-trigger="warning">Warnung</button>
+                <button class="btn btn-outline btn-sm" data-toast-trigger="info">Info</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;div class="skeleton skeleton-title"&gt;&lt;/div&gt;
+&lt;div class="skeleton skeleton-text"&gt;&lt;/div&gt;
+
+&lt;span class="spinner" role="status" aria-label="Lädt"&gt;&lt;/span&gt;
+
+&lt;!-- Toast: Auslöser + Ausgabebereich (Live-Region) --&gt;
+&lt;button data-toast-trigger="success"&gt;Erfolg&lt;/button&gt;
+&lt;div class="toast-stack" data-toast-stack aria-live="polite"&gt;&lt;/div&gt;</pre>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">JavaScript</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">// Kurzform: nur der Typ ('success' | 'danger' | 'warning' | 'info')
+App.Toast.show('success');
+
+// Ausführlich: eigener Titel &amp; Text
+App.Toast.show({ type: 'info', title: 'Aktualisiert', body: 'Der Datensatz wurde neu geladen.' });</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Der Ausgabebereich ist eine <code>aria-live="polite"</code>-Region — neue Toasts werden angesagt.</li>
+              <li>Schließen-Button trägt <code>aria-label="Schließen"</code>; der Spinner nutzt <code>role="status"</code>.</li>
+              <li>Bedeutung nicht allein über Farbe — Titel und Text tragen den Kontext.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Toasts kurz halten; für kritische, bestätigungspflichtige Fehler ein Modal nutzen.</li>
+              <li>Genau <strong>eine</strong> Live-Region pro Seite.</li>
+              <li>Skeleton statt Spinner, wenn das Layout des Inhalts vorab bekannt ist (weniger Sprünge).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content states (Empty & Error) -->
+      <section id="content-states">
+        <div class="section-header">
+          <span class="section-kicker">Zustände</span>
+          <h2 class="section-title">Leer- &amp; Fehlerzustände</h2>
+          <p class="section-lead">
+            Eine leere Fläche ist nie ein Zustand: Liegt kein Inhalt vor, erklärt ein
+            <strong>Leerzustand</strong> die Situation und bietet den nächsten Schritt an; scheitert das
+            Laden, benennt ein <strong>Fehlerzustand</strong> das Problem und bietet einen Wiederholversuch.
+            Für kurze Wartezeiten sind die <a href="#loading">Ladezustände</a> vorgesehen.
+          </p>
+        </div>
+
+        <div class="form-grid">
+          <div class="empty-state">
+            <span class="material-icons-outlined empty-state-icon" aria-hidden="true">inbox</span>
+            <h3 class="empty-state-title">Noch keine Einträge</h3>
+            <p class="empty-state-text">Sobald du den ersten Datensatz anlegst, erscheint er hier in der Übersicht.</p>
+            <div class="empty-state-actions">
+              <button class="btn btn-primary btn-sm">
+                <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">add</span>
+                Neu anlegen
+              </button>
+            </div>
+          </div>
+
+          <div class="error-state" role="alert">
+            <span class="material-icons-outlined error-state-icon" aria-hidden="true">error</span>
+            <h3 class="error-state-title">Daten konnten nicht geladen werden</h3>
+            <p class="error-state-text">Die Verbindung zum Server ist unterbrochen. Bitte prüfe deine Verbindung und versuche es erneut.</p>
+            <div class="error-state-actions">
+              <button class="btn btn-outline btn-sm">Erneut versuchen</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;!-- Leerzustand --&gt;
+&lt;div class="empty-state"&gt;
+  &lt;span class="material-icons-outlined empty-state-icon" aria-hidden="true"&gt;inbox&lt;/span&gt;
+  &lt;h3 class="empty-state-title"&gt;Noch keine Einträge&lt;/h3&gt;
+  &lt;p class="empty-state-text"&gt;Sobald du den ersten Datensatz anlegst, erscheint er hier.&lt;/p&gt;
+  &lt;div class="empty-state-actions"&gt;
+    &lt;button class="btn btn-primary btn-sm"&gt;Neu anlegen&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Fehlerzustand · role="alert" kündigt ihn Screenreadern beim Erscheinen an --&gt;
+&lt;div class="error-state" role="alert"&gt;
+  &lt;span class="material-icons-outlined error-state-icon" aria-hidden="true"&gt;error&lt;/span&gt;
+  &lt;h3 class="error-state-title"&gt;Daten konnten nicht geladen werden&lt;/h3&gt;
+  &lt;p class="error-state-text"&gt;Bitte versuche es erneut.&lt;/p&gt;
+  &lt;div class="error-state-actions"&gt;
+    &lt;button class="btn btn-outline btn-sm"&gt;Erneut versuchen&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Das Icon ist rein dekorativ (<code>aria-hidden</code>) — die Aussage tragen Titel und Text, nicht die Farbe.</li>
+              <li>Fehlerzustände als <code>role="alert"</code> auszeichnen, damit Screenreader sie beim Erscheinen ankündigen; Leerzustände brauchen das nicht.</li>
+              <li>Der Titel ist eine echte Überschrift (<code>h3</code>) und fügt sich in die Dokumentgliederung ein.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Leerzustand = genau ein klarer nächster Schritt (primäre Aktion). Fehlerzustand = Ursache benennen und Wiederholung anbieten.</li>
+              <li>Sachlicher Ton ohne Schuldzuweisung; nie nur „Fehler" ohne Kontext.</li>
+              <li>Bei kurzen Ladezeiten Skeleton/Spinner statt Leerzustand — dieser erst, wenn wirklich nichts vorliegt.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- States -->
+      <section id="states">
+        <div class="section-header">
+          <span class="section-kicker">Interaktion</span>
+          <h2 class="section-title">Zustände</h2>
+          <p class="section-lead">
+            Jedes interaktive Element besitzt definierte Zustände für Default, Hover, Focus,
+            Active und Disabled. Fokus-Ringe sind Pflicht und werden nie entfernt.
+          </p>
+        </div>
+
+        <p class="t-small" style="margin:0 0 12px;">
+          Live-Beispiele — Hover und Active am Element ausprobieren, mit <kbd>Tab</kbd> den
+          Fokusring setzen. Disabled, Fehler und Loading sind reale, statische Zustände.
+        </p>
+        <div class="demo-row" style="gap:20px;">
+          <button class="btn btn-primary">Interaktiv</button>
+          <button class="btn btn-primary" disabled>Disabled</button>
+          <input class="form-control" style="max-width:180px;" value="Fokus per Tab" aria-label="Fokus-Demofeld">
+          <input class="form-control is-invalid" style="max-width:180px;" value="Ungültige Eingabe" aria-label="Fehler-Demofeld">
+          <span style="display:inline-flex; align-items:center; gap:8px; color:var(--color-text-muted); font-size:14px;">
+            <span class="spinner" role="status" aria-label="Lädt"></span> Loading
+          </span>
+        </div>
+
+        <div class="card" style="margin-top:20px;"><div class="card-body">
+          <table class="data-table" style="border: none;">
+            <thead>
+              <tr><th>Zustand</th><th>Visuelle Merkmale</th><th>Verwendung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Default</strong></td><td>Grundform ohne Interaktion</td><td>Ruhender Zustand</td></tr>
+              <tr><td><strong>Hover</strong></td><td>Dunklerer Hintergrund oder subtiler Schatten</td><td>Mauszeiger über Element</td></tr>
+              <tr><td><strong>Focus</strong></td><td>3 px Fokus-Ring in Secondary Light bzw. Primary Light</td><td>Tastaturnavigation</td></tr>
+              <tr><td><strong>Active</strong></td><td>Leicht eingedrückt, Primärton intensiver</td><td>Während des Klicks</td></tr>
+              <tr><td><strong>Disabled</strong></td><td>Opazität 50 %, Cursor „not-allowed"</td><td>Aktion nicht verfügbar</td></tr>
+              <tr><td><strong>Loading</strong></td><td>Primäre Farbe, Inhalt durch Spinner ersetzt</td><td>Asynchrone Vorgänge</td></tr>
+              <tr><td><strong>Error</strong></td><td>Rahmen und Hilfetext in Danger</td><td>Validierungsfehler</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+      </section>
+
+      <!-- Responsive -->
+      <section id="responsive">
+        <div class="section-header">
+          <span class="section-kicker">Skalierung</span>
+          <h2 class="section-title">Responsive Verhalten</h2>
+          <p class="section-lead">
+            Alle Oberflächen sind Mobile First entwickelt und skalieren über vier definierte
+            Breakpoints. Die Sidebar wird auf kleinen Geräten zur einblendbaren Drawer-Navigation.
+          </p>
+        </div>
+
+        <div class="breakpoints">
+          <div class="bp-item">
+            <div class="bp-name">Extra Small</div>
+            <div class="bp-range">&lt; 480 px</div>
+            <div class="bp-desc">Schmale Smartphones. Reduziertes Padding, vertikale Stacks.</div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-name">Small</div>
+            <div class="bp-range">480 – 768 px</div>
+            <div class="bp-desc">Smartphones. Sidebar eingeklappt, einspaltige Formulare.</div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-name">Medium</div>
+            <div class="bp-range">768 – 1200 px</div>
+            <div class="bp-desc">Tablets, kleine Laptops. Sidebar sichtbar, zweispaltige Grids.</div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-name">Large</div>
+            <div class="bp-range">≥ 1200 px</div>
+            <div class="bp-desc">Desktop. Volle Grid-Breite, Multi-Column-Layouts.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture & behaviour rules -->
+      <section id="architecture">
+        <div class="section-header">
+          <span class="section-kicker">Verhalten</span>
+          <h2 class="section-title">Architektur &amp; Verhaltensregeln</h2>
+          <p class="section-lead">
+            Komponenten besitzen nicht nur ein Aussehen, sondern auch ein definiertes Verhalten.
+            Dieses Kapitel beschreibt die framework-freie <code>App</code>-Architektur und die
+            verbindlichen, übergreifenden Verhaltensregeln. <a href="#cookie-consent">Cookie-Consent</a>
+            und die <a href="#page-templates">Seiten-Templates</a> stehen in eigenen Kapiteln; die
+            öffentliche API der <em>einzelnen</em> Komponenten kompakt unter
+            <a href="#js-components">„JavaScript-Komponenten &amp; Interaktionen"</a>.
+          </p>
+        </div>
+
+        <h3 class="block-title">Architektur</h3>
+        <div class="card"><div class="card-body">
+          <p class="t-body" style="margin: 0 0 12px;">
+            Alle Verhaltensmodule liegen unter dem globalen Namespace <code>App</code>. Jedes Modul
+            <strong>registriert sich selbst</strong> über <code>App.register(...)</code>; zentral
+            werden dann alle einmalig beim <code>DOMContentLoaded</code> initialisiert. Ein
+            fehlerhaftes Modul bricht dank <code>try/catch</code> nicht die gesamte Seite.
+          </p>
+          <div class="snippet">
+            <div class="snippet-head"><span class="snippet-lang">JavaScript</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">// scripts/app.js — Registry + zentrale Initialisierung
+window.App = {
+  MOBILE_BREAKPOINT: 768,
+  TOAST_DELAY: 5000,
+  _modules: [],
+
+  register(name, module) {          // jedes Modul meldet sich hier an
+    this[name] = module;            // → App.Toast, App.Overlays, …
+    this._modules.push({ name, module });
+    return module;
+  },
+
+  init() {                          // einmalig beim Start
+    this._modules.forEach(({ name, module }) =&gt; {
+      try { module.init &amp;&amp; module.init(); }
+      catch (err) { console.error(`[App] Modul "${name}" fehlgeschlagen:`, err); }
+    });
+  },
+
+  prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () =&gt; App.init());
+
+// Ein Interaktionsmuster (scripts/modules/*.js) registriert sich so:
+App.register('Toast', { init() { /* Listener verdrahten … */ } });</pre>
+          </div>
+        </div></div>
+
+        <h3 class="block-title">Verbindliche Verhaltensregeln</h3>
+        <div class="card"><div class="card-body" style="padding:0;">
+          <table class="data-table" style="border:none;">
+            <thead><tr><th>Pattern</th><th>Trigger</th><th>Reaktion</th></tr></thead>
+            <tbody>
+              <tr><td>Modal schließen</td><td><kbd>ESC</kbd> oder Klick auf Overlay</td><td>Modal schließt, Fokus zurück zum Trigger</td></tr>
+              <tr><td>Sidebar (Mobile)</td><td><kbd>ESC</kbd> oder Klick außerhalb</td><td>Drawer schließt, Focus-Trap entfällt</td></tr>
+              <tr><td>Toast</td><td>Nach <code>App.TOAST_DELAY</code> (5 s)</td><td>Automatische DOM-Entfernung; Alerts bleiben dagegen dauerhaft</td></tr>
+              <tr><td>Destruktive Aktion</td><td>Klick auf <code>.action-btn.delete</code></td><td>Bestätigungs-Modal mit Cancel-Fokus</td></tr>
+              <tr><td>Passwort-Toggle</td><td>Klick auf <code>.password-toggle</code></td><td>Wechsel <code>password</code> ↔ <code>text</code></td></tr>
+              <tr><td>Tabs</td><td><kbd>←</kbd>/<kbd>→</kbd>, <kbd>Home</kbd>/<kbd>End</kbd></td><td>Aktiven Tab wechseln; nur aktiver Tab im Tab-Index (Roving)</td></tr>
+              <tr><td>Dropdown</td><td><kbd>↓</kbd> öffnet, <kbd>↑</kbd>/<kbd>↓</kbd> navigieren, <kbd>ESC</kbd></td><td>Fokus wandert durch die Einträge; ESC gibt Fokus an Auslöser</td></tr>
+              <tr><td>Accordion</td><td>Klick / <kbd>Enter</kbd> auf die Überschrift</td><td>Bereich auf/zu; <code>aria-expanded</code> gespiegelt</td></tr>
+              <tr><td>Overlay offen</td><td>Modal/Drawer sichtbar</td><td>Body-Scroll gesperrt; Fokus zirkuliert im Container (Tab-Trap)</td></tr>
+              <tr><td>Reduzierte Bewegung</td><td><code>prefers-reduced-motion: reduce</code></td><td>Animationen entfallen, sofortige Zustandswechsel</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+      </section>
+
+      <!-- Cookie-Consent -->
+      <section id="cookie-consent">
+        <div class="section-header">
+          <span class="section-kicker">DSGVO</span>
+          <h2 class="section-title">Cookie-Consent</h2>
+          <p class="section-lead">
+            Zwei aufeinander abgestimmte, DSGVO-konforme Varianten mit denselben drei Kategorien
+            (Notwendig, Analyse, Marketing). Die Notwendigen sind stets aktiv und nicht abwählbar.
+            Beide teilen sich die Persistenz: ein Cookie <code>cookie_consent</code> mit 365 Tagen
+            Laufzeit (<code>SameSite=Lax</code>). Welche Variante zum Einsatz kommt, hängt vom
+            Kontext ab — siehe Entscheidungshilfe unten.
+          </p>
+        </div>
+
+        <h4 class="sub-title">Variante A · Banner (dezent, nicht blockierend)</h4>
+        <p class="t-body">
+          Unten fixiertes Banner, das den Inhalt nicht überlagert. Ideal als initiale Einwilligung
+          auf Inhaltsseiten, bei denen der Nutzer weiterlesen können soll. Drei Schaltflächen:
+          „Nur Notwendige" und „Auswahl speichern" (sekundär, <code>.btn-outline</code>),
+          „Alle akzeptieren" (primär). Steuerung über <code>[data-cookie]</code>, Modul
+          <code>App.CookieConsent</code>.
+        </p>
+        <div class="demo-row">
+          <button type="button" class="btn btn-primary" data-cookie-open>
+            <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">cookie</span>
+            Cookie-Banner anzeigen
+          </button>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">JavaScript</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">// Variante A · App.CookieConsent (scripts/modules/cookie-consent.js)
+App.CookieConsent = {
+  COOKIE_NAME: 'cookie_consent',
+  COOKIE_DAYS: 365,
+
+  hasConsent() {
+    return document.cookie.split(';')
+      .some(c =&gt; c.trim().startsWith(this.COOKIE_NAME + '='));
+  },
+
+  save(preferences) {
+    const expires = new Date();
+    expires.setDate(expires.getDate() + this.COOKIE_DAYS);
+    document.cookie = `${this.COOKIE_NAME}=` +
+      `${encodeURIComponent(JSON.stringify(preferences))};` +
+      `expires=${expires.toUTCString()};path=/;SameSite=Lax`;
+  }
+};</pre>
+        </div>
+
+        <h4 class="sub-title">Variante B · Modaler Dialog (blockierend, ausführlich)</h4>
+        <p class="t-body">
+          Zentrierter Dialog mit abgedunkeltem Hintergrund, Icon-Header und je Kategorie einer
+          kurzen Erläuterung. Passend als erzwungene Einwilligung beim ersten Besuch (z. B. auf
+          der <a href="login.html" target="_blank" rel="noopener">Anmeldeseite</a>) und als jederzeit
+          über einen „Cookie-Einstellungen"-Link erneut aufrufbarer Dialog. Er nutzt die generische
+          <strong>Overlay-Infrastruktur</strong> (<code>.modal-overlay</code> + <code>App.Overlays</code>):
+          Öffnen über <code>[data-modal-open]</code>, Schließen über <code>[data-modal-close]</code>,
+          <kbd>ESC</kbd> und Klick auf den Hintergrund — inklusive Fokus-Trap. Das schlanke Modul
+          <code>App.CookieModal</code> ergänzt nur Persistenz, Vorbelegung der Auswahl und den
+          Bestätigungs-Toast.
+        </p>
+        <p class="t-body">
+          <strong>Optik:</strong> Farbgebung und Darstellung sind originalgetreu aus der
+          <em>business-management-console</em> übernommen — heller Dialog, roter Icon-Header,
+          BMC-Schatten, schwarzer Backdrop (<code>.cookie-overlay</code>). Bewusst mit festen,
+          hellen Werten, der Dialog bleibt daher auch im Dark Mode hell. Wer stattdessen die
+          Light/Dark-Anpassung des Styleguides möchte, ergänzt den Modifier
+          <code>cookie-modal--theme</code> — gleiches BMC-Styling, aber theme-aware.
+        </p>
+        <div class="demo-row">
+          <button type="button" class="btn btn-primary" data-modal-open="cookie-consent-modal">
+            <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">cookie</span>
+            Cookie-Dialog öffnen
+          </button>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;!-- Variante B · BMC-Optik. .cookie-overlay = schwarzer Backdrop.
+     Optional theme-aware: class="cookie-modal cookie-modal--theme" --&gt;
+&lt;div class="modal-overlay cookie-overlay" id="cookie-consent-modal" hidden&gt;
+  &lt;div class="cookie-modal" data-cookie-modal role="dialog" aria-modal="true"&gt;
+    &lt;div class="cookie-modal-header"&gt;…Icon + Titel…&lt;/div&gt;
+    &lt;p class="cookie-modal-desc"&gt;…&lt;/p&gt;
+    &lt;div class="cookie-modal-options"&gt;
+      &lt;div class="cookie-option"&gt;
+        &lt;input type="checkbox" id="cm-necessary" checked disabled&gt;
+        &lt;div&gt;&lt;h3 class="cookie-option-title"&gt;Notwendige Cookies&lt;/h3&gt;…&lt;/div&gt;
+      &lt;/div&gt;
+      … Analyse (#cm-analytics) · Marketing (#cm-marketing) …
+    &lt;/div&gt;
+    &lt;div class="cookie-modal-actions"&gt;
+      &lt;button class="btn btn-secondary" data-cookie="necessary" data-modal-close&gt;Nur Notwendige&lt;/button&gt;
+      &lt;button class="btn btn-secondary" data-cookie="save"      data-modal-close&gt;Auswahl speichern&lt;/button&gt;
+      &lt;button class="btn btn-primary"   data-cookie="all"       data-modal-close&gt;Alle akzeptieren&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Öffnen (überall im Produkt, z. B. Footer-Link): --&gt;
+&lt;a href="#" data-modal-open="cookie-consent-modal"&gt;Cookie-Einstellungen&lt;/a&gt;</pre>
+        </div>
+
+        <h4 class="sub-title">Wann welche Variante?</h4>
+        <div class="card"><div class="card-body" style="padding:0;">
+          <table class="data-table" style="border:none;">
+            <thead><tr><th>Kriterium</th><th>Variante A · Banner</th><th>Variante B · Dialog</th></tr></thead>
+            <tbody>
+              <tr><td>Charakter</td><td>Dezent, nicht blockierend</td><td>Blockierend, erzwingt Entscheidung</td></tr>
+              <tr><td>Typischer Ort</td><td>Inhalts-/Marketingseiten</td><td>Login &amp; Erstkontakt, „Cookie-Einstellungen"-Link</td></tr>
+              <tr><td>Detailtiefe</td><td>Kompakt (Kategorien als Kürzel)</td><td>Je Kategorie eine Erläuterung</td></tr>
+              <tr><td>Infrastruktur</td><td>Eigenes Modul <code>App.CookieConsent</code></td><td><code>.modal-overlay</code> + <code>App.Overlays</code> + <code>App.CookieModal</code></td></tr>
+              <tr><td>Persistenz</td><td colspan="2">Identisch — Cookie <code>cookie_consent</code>, 365 Tage, <code>SameSite=Lax</code></td></tr>
+            </tbody>
+          </table>
+        </div></div>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Barrierefreiheit</span>
+            <ul>
+              <li>Notwendige Kategorie ist <code>checked disabled</code> — aktiv und nicht abwählbar.</li>
+              <li>Variante B ist ein Dialog (<code>role="dialog"</code>) mit <kbd>ESC</kbd>/Fokus-Trap über die Overlay-API.</li>
+              <li>Ein dauerhaft erreichbarer „Cookie-Einstellungen"-Zugang für spätere Änderungen.</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--success-light); color:var(--success-text);">Best Practices</span>
+            <ul>
+              <li>Alle Kategorien gleich einfach ablehnbar wie annehmbar gestalten.</li>
+              <li>Optionale Cookies erst nach Einwilligung setzen.</li>
+              <li>Aktivierung: Variante A über <code>[data-cookie-open]</code>/<code>[data-cookie]</code>, Variante B über <code>[data-modal-open="cookie-consent-modal"]</code>.</li>
+            </ul>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Page templates -->
+      <section id="page-templates">
+        <div class="section-header">
+          <span class="section-kicker">Seitenvorlagen</span>
+          <h2 class="section-title">Seiten-Templates</h2>
+          <p class="section-lead">
+            Vollständige Seitenvorlagen im Unternehmensstandard. Aktuell die Anmeldeseite als
+            eigenständiges Template — weitere (Dashboard u. a.) folgen demselben Muster:
+            Library-Komponenten und Tokens, kein Sonderweg.
+          </p>
+        </div>
+
+        <h3 class="block-title">Login-Seite (Seiten-Template)</h3>
+        <p class="t-body">
+          Eigenständige Anmeldeseite im Unternehmensstandard, übernommen aus der
+          business-management-console. Sie ist als komplette Seite unter
+          <a href="login.html" target="_blank" rel="noopener"><code>login.html</code></a> ausgeliefert
+          (nicht in den Dokument-Fluss eingebettet, da sie den vollen Viewport mit eigenem
+          Marken-Hintergrund einnimmt). Aufbau: geteilte Card mit Marken-/Feature-Spalte links und
+          Formular rechts. Die Formularfelder nutzen die bestehende Library
+          (<code>.form-group</code>, <code>.form-control</code>, <code>.input-group</code> +
+          <code>.password-toggle</code>) und den primären Button — die Seite folgt damit automatisch
+          dem Light/Dark-System. Der bewusst dunkle Verlauf-Hintergrund bleibt als etablierte
+          Auth-Optik in beiden Modi erhalten. Der Footer-Link „Cookie-Einstellungen" öffnet dort
+          den Cookie-Dialog (Variante B). Unten beide Farbmodi im direkten Vergleich — die
+          Vorschauen werden über <code>login.html?theme=light</code> bzw.
+          <code>?theme=dark</code> gezielt in Hell und Dunkel erzwungen.
+        </p>
+        <div class="preview-split">
+          <div class="preview-frame">
+            <div class="preview-frame-bar">
+              <span class="preview-frame-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="preview-frame-tag">Hell</span>
+              <span class="preview-frame-url">login.html?theme=light</span>
+              <a class="btn btn-outline btn-sm" href="login.html?theme=light" target="_blank" rel="noopener">
+                <span class="material-icons-outlined" aria-hidden="true" style="font-size:16px;">open_in_new</span>
+                Öffnen
+              </a>
+            </div>
+            <iframe class="preview-frame-view" src="login.html?theme=light" title="Login-Seite — Vorschau Hell" loading="lazy"></iframe>
+          </div>
+          <div class="preview-frame">
+            <div class="preview-frame-bar">
+              <span class="preview-frame-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="preview-frame-tag">Dunkel</span>
+              <span class="preview-frame-url">login.html?theme=dark</span>
+              <a class="btn btn-outline btn-sm" href="login.html?theme=dark" target="_blank" rel="noopener">
+                <span class="material-icons-outlined" aria-hidden="true" style="font-size:16px;">open_in_new</span>
+                Öffnen
+              </a>
+            </div>
+            <iframe class="preview-frame-view" src="login.html?theme=dark" title="Login-Seite — Vorschau Dunkel" loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">HTML</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">&lt;div class="login-wrapper"&gt;
+  &lt;div class="login-container"&gt;
+    &lt;div class="login-card login-card-split"&gt;
+      &lt;div class="login-branding"&gt;…Marke + Feature-Liste…&lt;/div&gt;
+      &lt;div class="login-form-section"&gt;
+        &lt;h1 class="login-form-title"&gt;Anmelden&lt;/h1&gt;
+        &lt;form class="login-form" method="POST"&gt;
+          &lt;div class="form-group"&gt;
+            &lt;label class="form-label" for="username"&gt;Benutzername&lt;/label&gt;
+            &lt;input id="username" class="form-control" type="text" required&gt;
+          &lt;/div&gt;
+          &lt;div class="form-group"&gt;
+            &lt;label class="form-label" for="password"&gt;Passwort&lt;/label&gt;
+            &lt;div class="input-group"&gt;
+              &lt;input id="password" class="form-control" type="password" required&gt;
+              &lt;button type="button" class="password-toggle"&gt;…Auge…&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;label class="login-remember"&gt;&lt;input type="checkbox" name="remember"&gt; Passwort merken&lt;/label&gt;
+          &lt;button type="submit" class="btn btn-primary btn-block"&gt;Anmelden&lt;/button&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="login-page-footer"&gt;…Impressum · Datenschutz · Cookie-Einstellungen…&lt;/div&gt;
+&lt;/div&gt;</pre>
+        </div>
+      </section>
+
+      <!-- JavaScript Components & Interactions -->
+      <section id="js-components">
+        <div class="section-header">
+          <span class="section-kicker">Verhalten · Öffentliche API</span>
+          <h2 class="section-title">JavaScript-Komponenten &amp; Interaktionen</h2>
+          <p class="section-lead">
+            Kompakte <strong>API-Übersicht</strong> aller framework-freien Interaktions-Komponenten —
+            womit sie aktiviert werden und welche programmatischen Aufrufe sie bieten. Live-Demos,
+            Zustände, HTML-Beispiele sowie Barrierefreiheits- und Best-Practice-Hinweise stehen
+            jeweils in der <strong>eigenen Sektion</strong> der Komponente (Spalte „Details"). Der
+            Aufbau der zugrunde liegenden <code>App</code>-Architektur steht im Kapitel
+            <a href="#architecture">„Architektur &amp; Verhaltensregeln"</a>.
+          </p>
+        </div>
+
+        <h3 class="block-title">Überblick</h3>
+        <div class="card"><div class="card-body" style="padding:0;">
+          <table class="data-table" style="border:none;">
+            <thead><tr><th>Komponente</th><th>Aktivierung (HTML)</th><th>Öffentliche JS-API</th><th>Details</th></tr></thead>
+            <tbody>
+              <tr><td>Navigation</td><td><code>.nav-item</code>, <code>section[id]</code></td><td>automatisch (aktiver Eintrag folgt beim Scrollen)</td><td><a href="#navigation">Navigation</a></td></tr>
+              <tr><td>Toasts</td><td><code>[data-toast-trigger]</code>, <code>[data-toast-stack]</code></td><td><code>App.Toast.show(...)</code></td><td><a href="#loading">Ladezustände &amp; Toasts</a></td></tr>
+              <tr><td>Alerts</td><td><code>.alert.alert-*</code> (statisch)</td><td>—</td><td><a href="#alerts">Alerts</a></td></tr>
+              <tr><td>Modal / Drawer</td><td><code>[data-modal-open]</code> · <code>[data-drawer-open]</code> · <code>[data-*-close]</code> · <code>[data-autofocus]</code></td><td><code>App.Overlays.open(el)</code> · <code>close(el)</code></td><td><a href="#dialogs">Dialoge &amp; Drawer</a></td></tr>
+              <tr><td>Tabs</td><td><code>.tablist</code> + <code>role="tab"</code>, <code>[data-tab-panel]</code></td><td>automatisch (Klick + Tastatur)</td><td><a href="#tabs">Tabs</a></td></tr>
+              <tr><td>Accordion</td><td><code>[data-accordion]</code>, <code>.accordion-trigger</code></td><td>automatisch</td><td><a href="#accordion">Accordion</a></td></tr>
+              <tr><td>Dropdown</td><td><code>.dropdown</code> + <code>[data-dropdown-toggle]</code></td><td>automatisch (Klick + Tastatur)</td><td><a href="#dropdown">Dropdown</a></td></tr>
+              <tr><td>Formulare</td><td><code>.form-control</code>, <code>.is-invalid</code>, <code>.action-btn.delete</code></td><td>—</td><td><a href="#forms">Formulare</a></td></tr>
+              <tr><td>Passwort anzeigen</td><td><code>.input-group</code> + <code>.password-toggle</code></td><td>—</td><td><a href="#forms">Formulare</a></td></tr>
+              <tr><td>Cookie-Consent</td><td><code>[data-cookie-open]</code>, <code>[data-cookie]</code>, <code>[data-modal-open="cookie-consent-modal"]</code></td><td><code>App.CookieConsent.show()</code></td><td><a href="#cookie-consent">Cookie-Consent</a></td></tr>
+            </tbody>
+          </table>
+        </div></div>
+
+      </section>
+
+      <!-- Accessibility -->
+      <section id="accessibility">
+        <div class="section-header">
+          <span class="section-kicker">Querschnitt</span>
+          <h2 class="section-title">Accessibility</h2>
+          <p class="section-lead">
+            Barrierefreiheit ist Querschnittsanspruch aller Komponenten. Die folgenden Muster gelten
+            verbindlich und sind im ausgelieferten Code umgesetzt. Jede Komponente führt zusätzlich
+            einen eigenen „Barrierefreiheit"-Block in ihrer Sektion.
+          </p>
+        </div>
+        <h4 class="sub-title">Tastaturbedienung</h4>
+        <p class="t-body">
+          Die vollständige Tasten-Zuordnung je Interaktionsmuster (Modal/Drawer, Tabs, Dropdown,
+          Accordion, Passwort-Toggle, <kbd>ESC</kbd>/Tab-Trap …) steht gebündelt und als einzige
+          Quelle in der Tabelle <a href="#architecture">„Verbindliche Verhaltensregeln"</a> — sie wird
+          hier bewusst nicht wiederholt. Übergreifend gelten zusätzlich die folgenden Fokus- und
+          ARIA-Muster.
+        </p>
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">Fokusmanagement</span>
+            <ul>
+              <li>Beim Öffnen wandert der Fokus in den Dialog — bevorzugt <code>[data-autofocus]</code>, sonst „Abbrechen".</li>
+              <li>Beim Schließen kehrt der Fokus zum auslösenden Element zurück.</li>
+              <li>Fokus-Zustände bleiben stets sichtbar (kein <code>outline: none</code> ohne Ersatz).</li>
+            </ul>
+          </div>
+          <div class="dd"><span class="dd-kicker" style="background:var(--info-light); color:var(--info-text);">ARIA-Unterstützung</span>
+            <ul>
+              <li>Dialoge: <code>role="dialog"</code>, <code>aria-modal</code>, <code>aria-labelledby</code>.</li>
+              <li>Toasts: <code>aria-live="polite"</code>-Region; Toggles: <code>aria-pressed</code>; Dropdown: <code>aria-expanded</code>.</li>
+              <li>Dekorative Icons durchgängig <code>aria-hidden</code>.</li>
+            </ul>
+          </div>
+        </div>
+        <h4 class="sub-title">Reduzierte Bewegung</h4>
+        <p class="t-body">
+          Ein globaler Kill-Switch respektiert <code>prefers-reduced-motion: reduce</code>: Animationen
+          und weiches Scrollen werden systemweit deaktiviert (siehe <code>styles/base.css</code>). Für
+          JavaScript steht <code>App.prefersReducedMotion()</code> als Abfrage bereit.
+        </p>
+        <div class="snippet">
+          <div class="snippet-head"><span class="snippet-lang">JavaScript</span><button class="snippet-copy" type="button" data-copy>Kopieren</button></div>
+<pre class="code">if (!App.prefersReducedMotion()) {
+  // aufwändigere Übergänge nur, wenn Bewegung erwünscht ist
+}</pre>
+        </div>
+
+      </section>
+
+      <!-- Beispiele -->
+      <section id="examples">
+        <div class="section-header">
+          <span class="section-kicker">Zusammengesetzt</span>
+          <h2 class="section-title">Beispiele</h2>
+          <p class="section-lead">
+            Reale Ansichten, ausschließlich aus den Bibliothekskomponenten dieses Styleguides
+            zusammengesetzt — ohne Sonder-CSS. Sie zeigen, wie Tokens, Cards, Stat-Karten,
+            Tabellen, Badges und Buttons im Zusammenspiel eine vollständige Produktoberfläche
+            ergeben.
+          </p>
+        </div>
+
+        <h3 class="block-title">Kunden-Dashboard</h3>
+        <div style="border:1px solid var(--color-border); border-radius:var(--radius-md); background:var(--color-bg); padding:24px; overflow:hidden;">
+          <nav class="breadcrumb" aria-label="Brotkrümelnavigation" style="margin-bottom:12px;">
+            <ol class="breadcrumb-list">
+              <li class="breadcrumb-item"><a href="#examples">Start</a></li>
+              <li class="breadcrumb-item"><a href="#examples">Kunden</a></li>
+              <li class="breadcrumb-item"><span aria-current="page">Übersicht</span></li>
+            </ol>
+          </nav>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:20px;">
+            <h4 style="margin:0; font-size:22px; font-weight:700; color:var(--color-heading);">Kundenübersicht</h4>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-outline btn-sm">Exportieren</button>
+              <button class="btn btn-primary btn-sm">
+                <span class="material-icons-outlined" aria-hidden="true" style="font-size:18px;">add</span>
+                Neuer Kunde
+              </button>
+            </div>
+          </div>
+
+          <div class="stats-grid" style="margin-bottom:20px;">
+            <div class="stat-card"><div class="stat-label">Aktive Kunden</div><div class="stat-value">1.248</div><div class="stat-delta">+ 4,2 % ggü. Vormonat</div></div>
+            <div class="stat-card"><div class="stat-label">Offene Tickets</div><div class="stat-value">37</div><div class="stat-delta negative">+ 12 diese Woche</div></div>
+            <div class="stat-card"><div class="stat-label">Umsatz (MTD)</div><div class="stat-value">84.320 €</div><div class="stat-delta">+ 8,7 %</div></div>
+            <div class="stat-card"><div class="stat-label">Verfügbarkeit</div><div class="stat-value">99,98 %</div><div class="stat-delta">Stabil</div></div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr); gap:20px; align-items:start;">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Laufende Projekte</h3>
+                <span class="badge badge-info">4 aktiv</span>
+              </div>
+              <div class="card-body" style="padding:0;">
+                <div class="table-wrapper" style="border:none; border-radius:0;">
+                  <table class="data-table" style="border:none;">
+                    <thead>
+                      <tr><th>Kunde</th><th>Projekt</th><th>Status</th><th style="text-align:right;">Volumen</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Meyer Industrietechnik</td><td>ERP-Ablösung</td><td><span class="badge badge-success">In Produktion</span></td><td style="text-align:right;">142.500 €</td></tr>
+                      <tr><td>Schneider &amp; Partner</td><td>Portal-Entwicklung</td><td><span class="badge badge-info">In Umsetzung</span></td><td style="text-align:right;">68.000 €</td></tr>
+                      <tr><td>Nordbau GmbH</td><td>Infrastruktur</td><td><span class="badge badge-warning">Freigabe offen</span></td><td style="text-align:right;">22.400 €</td></tr>
+                      <tr><td>Kern Automatisierung</td><td>SCADA-Integration</td><td><span class="badge badge-danger">Pausiert</span></td><td style="text-align:right;">—</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div class="alert alert-info" style="margin:0;"><strong>Wartungsfenster</strong>Am Sonntag 03:00–04:00 Uhr eingeschränkte Verfügbarkeit.</div>
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">Nächste Schritte</h3></div>
+                <div class="card-body">
+                  <p class="t-small" style="margin:0 0 12px;">Offene Aufgaben mit hoher Priorität für diese Woche.</p>
+                  <div class="form-check"><input type="checkbox" id="ex-t1" checked><label for="ex-t1">Angebot Nordbau finalisieren</label></div>
+                  <div class="form-check"><input type="checkbox" id="ex-t2"><label for="ex-t2">SCADA-Blocker klären</label></div>
+                  <div class="form-check"><input type="checkbox" id="ex-t3"><label for="ex-t3">Rechnung Meyer versenden</label></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="t-small" style="margin-top:16px;">
+          Zusammengesetzt aus <a href="#breadcrumb">Breadcrumbs</a>, <a href="#stats">Stat-Karten</a>,
+          <a href="#cards">Cards</a>, <a href="#tables">Tabellen</a>, <a href="#badges">Badges</a>,
+          <a href="#alerts">Alerts</a>, <a href="#forms">Formularelementen</a> und
+          <a href="#buttons">Buttons</a> — kein zusätzliches CSS.
+        </p>
+
+        <div class="dd-grid" style="margin-top:16px;">
+          <div class="dd do">
+            <span class="dd-kicker">Zu tun</span>
+            <ul>
+              <li>Vollständige Ansichten ausschließlich aus Bibliothekskomponenten und Tokens zusammensetzen.</li>
+              <li>Pro Ansicht genau <strong>eine</strong> primäre Aktion (hier „Neuer Kunde").</li>
+              <li>Layout über Grid/Flex und die Spacing-Skala, nicht über Sonder-CSS je Seite.</li>
+            </ul>
+          </div>
+          <div class="dd dont">
+            <span class="dd-kicker">Zu vermeiden</span>
+            <ul>
+              <li>Neue Farben, Radien oder Schatten nur für eine einzelne Ansicht einführen.</li>
+              <li>Mehrere konkurrierende Primär-Buttons in einer Ansicht.</li>
+              <li>Datentabellen ohne klaren Status (Badge) und ohne rechtsbündige Zahlenspalten.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Guidelines -->
+      <section id="guidelines">
+        <div class="section-header">
+          <span class="section-kicker">Verbindliches</span>
+          <h2 class="section-title">Guidelines</h2>
+          <p class="section-lead">
+            Die folgenden Regeln sind keine Empfehlungen, sondern Teil des Unternehmensstandards.
+            Sie verhindern Wildwuchs und sichern ein einheitliches Nutzererlebnis über alle
+            Produkte hinweg.
+          </p>
+        </div>
+
+        <div class="dd-grid">
+          <div class="dd do">
+            <span class="dd-kicker">Zu tun</span>
+            <ul>
+              <li>Design-Tokens (Variablen) statt Literalwerte verwenden.</li>
+              <li>Pro Ansicht genau <strong>eine</strong> primäre Aktion.</li>
+              <li>Semantische Farben ausschließlich für ihre Bedeutung nutzen.</li>
+              <li>Fokus-Zustände stets sichtbar belassen.</li>
+              <li>Klar unterscheidbare Zustände für alle Interaktionen liefern.</li>
+              <li>Deutschsprachige Oberflächen, sachliche Tonalität.</li>
+            </ul>
+          </div>
+          <div class="dd dont">
+            <span class="dd-kicker">Zu vermeiden</span>
+            <ul>
+              <li>Eigene Schriftarten, Farben oder Radien einführen.</li>
+              <li>Buttons mit <em>dekorativen</em> Schatten oder Verläufen.</li>
+              <li>Mehrere primäre Buttons in einer Ansicht.</li>
+              <li>Rot als dekoratives Element — Rot bedeutet Marke oder Gefahr.</li>
+              <li>Outline-Entfernung bei Focus-Zuständen.</li>
+              <li>Komponenten ohne definierten Disabled-Zustand ausliefern.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="block-title">Versionierung</h3>
+        <div class="card"><div class="card-body">
+          <p class="t-body" style="margin: 0 0 8px;">
+            Dieser Styleguide ist als lebendes Dokument angelegt. Änderungen werden als Pull Request
+            gegen das Repository <strong>kuntze-it-engineering-styleguide</strong> eingereicht und
+            nach Review in einer neuen Minor-Version veröffentlicht.
+          </p>
+          <p class="t-small" style="margin:0;">Versionsstand und Änderungshistorie: <code>docs/CHANGELOG.md</code> · Verantwortlich: Lukas Kuntze</p>
+        </div></div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Modal-Demo -->
+<div class="modal-overlay" id="demo-modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title">
+    <div class="modal-header">
+      <h3 id="demo-modal-title">Eintrag löschen?</h3>
+      <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin:0;">Möchtest du diesen Eintrag wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+      <button type="button" class="btn btn-danger" data-modal-close>Löschen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Drawer-Demo -->
+<div class="drawer-overlay" id="demo-drawer" hidden>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="demo-drawer-title">
+    <div class="drawer-header">
+      <h3 id="demo-drawer-title">Projektdetails</h3>
+      <button type="button" class="close-btn" data-drawer-close aria-label="Schließen">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <div class="form-group">
+        <label class="form-label" for="d-name">Projektname</label>
+        <input id="d-name" class="form-control" type="text" value="ERP-Ablösung">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="d-note">Notiz</label>
+        <textarea id="d-note" class="form-control" rows="4" placeholder="Zusätzliche Informationen"></textarea>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <button type="button" class="btn btn-outline" data-drawer-close>Abbrechen</button>
+      <button type="button" class="btn btn-primary" data-drawer-close>Übernehmen</button>
+    </div>
+  </aside>
+</div>
+
+<!-- Toast-Ausgabebereich -->
+<div class="toast-stack" data-toast-stack aria-live="polite"></div>
+
+<!-- Cookie-Consent-Banner (Demo — via „Cookie-Banner anzeigen" einblendbar) -->
+<div class="cookie-banner" data-cookie-banner role="dialog" aria-modal="false" aria-labelledby="cookie-title" hidden>
+  <h3 class="cookie-title" id="cookie-title">
+    <span class="material-icons-outlined" aria-hidden="true" style="color: var(--color-accent);">cookie</span>
+    Datenschutz &amp; Cookies
+  </h3>
+  <p class="cookie-text">
+    Wir verwenden Cookies, um diese Anwendung bereitzustellen und zu verbessern.
+    Notwendige Cookies sind für den Betrieb erforderlich und stets aktiv. Optionale
+    Kategorien kannst du selbst wählen.
+  </p>
+  <div class="cookie-options">
+    <div class="form-check"><input type="checkbox" id="cc-necessary" checked disabled><label for="cc-necessary">Notwendig</label></div>
+    <div class="form-check"><input type="checkbox" id="cc-analytics"><label for="cc-analytics">Analyse</label></div>
+    <div class="form-check"><input type="checkbox" id="cc-marketing"><label for="cc-marketing">Marketing</label></div>
+  </div>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn-outline" data-cookie="necessary">Nur Notwendige</button>
+    <button type="button" class="btn btn-outline" data-cookie="save">Auswahl speichern</button>
+    <button type="button" class="btn btn-primary" data-cookie="all">Alle akzeptieren</button>
+  </div>
+</div>
+
+<!-- Cookie-Consent · Variante B · modaler Dialog (Demo — via „Cookie-Dialog öffnen") -->
+<div class="modal-overlay cookie-overlay" id="cookie-consent-modal" hidden>
+  <div class="cookie-modal" data-cookie-modal role="dialog" aria-modal="true" aria-labelledby="cm-title">
+    <div class="cookie-modal-header">
+      <div class="cookie-modal-icon"><span class="material-icons-outlined" aria-hidden="true">cookie</span></div>
+      <div>
+        <h2 class="cookie-modal-title" id="cm-title">Cookie-Einstellungen</h2>
+        <p class="cookie-modal-subtitle">Wir respektieren deine Privatsphäre</p>
+      </div>
+    </div>
+    <p class="cookie-modal-desc">
+      Wir verwenden Cookies, um dir die bestmögliche Erfahrung zu bieten. Du kannst wählen, welche
+      Cookies du zulassen möchtest. Weitere Informationen findest du in unserer
+      <a href="#">Datenschutzerklärung</a>.
+    </p>
+    <div class="cookie-modal-options">
+      <div class="cookie-option">
+        <input type="checkbox" id="cm-necessary" checked disabled>
+        <div>
+          <h3 class="cookie-option-title">Notwendige Cookies</h3>
+          <p class="cookie-option-text">Für die Grundfunktionen der Website erforderlich und nicht deaktivierbar.</p>
+        </div>
+      </div>
+      <div class="cookie-option">
+        <input type="checkbox" id="cm-analytics">
+        <div>
+          <h3 class="cookie-option-title">Analyse-Cookies</h3>
+          <p class="cookie-option-text">Helfen uns zu verstehen, wie Besucher mit der Website interagieren.</p>
+        </div>
+      </div>
+      <div class="cookie-option">
+        <input type="checkbox" id="cm-marketing">
+        <div>
+          <h3 class="cookie-option-title">Marketing-Cookies</h3>
+          <p class="cookie-option-text">Werden verwendet, um relevante Werbung anzuzeigen.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cookie-modal-actions">
+      <button type="button" class="btn btn-secondary" data-cookie="necessary" data-modal-close>Nur Notwendige</button>
+      <button type="button" class="btn btn-secondary" data-cookie="save" data-modal-close>Auswahl speichern</button>
+      <button type="button" class="btn btn-primary" data-cookie="all" data-modal-close>Alle akzeptieren</button>
+    </div>
+    <div class="cookie-modal-footer">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </div>
+  </div>
+</div>
+
+<!-- Behaviour layer · framework-free App namespace (see scripts/) -->
+<script src="scripts/app.js"></script>
+<script src="scripts/modules/theme.js"></script>
+<script src="scripts/modules/scroll-spy.js"></script>
+<script src="scripts/modules/clipboard.js"></script>
+<script src="scripts/modules/tabs.js"></script>
+<script src="scripts/modules/accordion.js"></script>
+<script src="scripts/modules/dropdown.js"></script>
+<script src="scripts/modules/overlays.js"></script>
+<script src="scripts/modules/forms.js"></script>
+<script src="scripts/modules/toast.js"></script>
+<script src="scripts/modules/cookie-consent.js"></script>
+<script src="scripts/modules/cookie-modal.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Dokumentation · App-Distribution</title>
+  </head>
+  <body data-nav="docs" data-title="Hilfe">
+    <!-- @shell-start -->
+    <div class="page-header">
+      <div>
+        <h2 class="page-title">Dokumentation</h2>
+        <p class="page-subtitle">Wie Apps in die Plattform kommen, wie sie auf die Geräte gelangen und wer was darf.</p>
+      </div>
+    </div>
+
+    <nav class="docs-toc" aria-label="Inhalt">
+      <a href="#erste-schritte"><span class="material-icons-outlined" aria-hidden="true">flag</span> Erste Schritte</a>
+      <a href="#installation"
+        ><span class="material-icons-outlined" aria-hidden="true">install_mobile</span> Installation auf Geräten</a
+      >
+      <a href="#ci"><span class="material-icons-outlined" aria-hidden="true">hub</span> CI-Einrichtung</a>
+      <a href="#rollen"
+        ><span class="material-icons-outlined" aria-hidden="true">admin_panel_settings</span> Rollen &amp; Rechte</a
+      >
+    </nav>
+
+    <section id="erste-schritte" class="docs-section">
+      <h3>Erste Schritte</h3>
+      <p>Vom ersten Projekt bis zur installierten App in sechs Schritten.</p>
+      <ol class="docs-steps">
+        <li>
+          <strong>Projekt anlegen.</strong> Unter <a href="/projects.html">Projekte</a> mit „Projekt anlegen“. Ein
+          Projekt bündelt die Apps eines Produkts, z. B. „MEDIFOX DAN - Ambulant“. Dafür braucht es die Rolle
+          Plattform-Admin.
+        </li>
+        <li>
+          <strong>Anwendung anlegen.</strong> Im Projekt mit „Anwendung anlegen“: Name, Framework (Flutter oder .NET
+          MAUI), Plattformen und die Paketnamen bzw. Bundle-IDs. Sobald das erste Release existiert, sind diese
+          Kennungen eingefroren. Nutzt die App Flavors (z. B. Production und Staging), werden sie im Tab „Flavors“
+          angelegt, jeder mit eigenen Kennungen.
+        </li>
+        <li>
+          <strong>Build hochladen.</strong> Auf der Anwendungsseite mit „Build hochladen“ oder automatisch aus GitHub
+          Actions (siehe <a href="#ci">CI-Einrichtung</a>). Version, Build-Nummer und Flavor liest die Plattform aus der
+          Datei. Android- und iOS-Build mit derselben Build-Nummer landen im selben Release; beim manuellen Upload wird
+          zusätzlich der Commit angegeben, aus dem gebaut wurde.
+        </li>
+        <li>
+          <strong>Ergänzen und veröffentlichen.</strong> Auf der Release-Seite lassen sich dSYM-, Mapping- und
+          Metadaten-Dateien sowie Release-Notes hinzufügen. „Veröffentlichen“ ist möglich, sobald für jede Plattform der
+          Anwendung ein installierbarer Build vorliegt. „Zurückziehen“ blendet ein Release wieder aus.
+        </li>
+        <li>
+          <strong>Verteilen.</strong> Mitarbeitende installieren über <a href="/apps.html">Apps installieren</a>. Kunden
+          ohne Konto erhalten im Tab „Freigaben“ einen Freigabelink, auf Wunsch befristet und jederzeit widerrufbar.
+        </li>
+        <li>
+          <strong>Aufräumen.</strong> „Release löschen“ (unter „Weitere Aktionen“) verschiebt das Release zunächst in
+          die Quarantäne. Bis zum Ablauf der Frist (standardmäßig 7 Tage) lässt es sich wiederherstellen, danach werden
+          die Dateien endgültig gelöscht.
+        </li>
+      </ol>
+    </section>
+
+    <section id="installation" class="docs-section">
+      <h3>Installation auf Geräten</h3>
+      <p>
+        Diese Hinweise gelten für Mitarbeitende auf „Apps installieren“ ebenso wie für Kunden mit einem Freigabelink.
+      </p>
+
+      <h4><span class="material-icons-outlined" aria-hidden="true">phone_iphone</span> iPhone und iPad</h4>
+      <ol class="docs-steps">
+        <li>
+          Die Seite <strong>direkt auf dem Gerät in Safari</strong> öffnen; am Computer ist keine Installation möglich.
+        </li>
+        <li>
+          „Auf diesem Gerät installieren“ tippen und die Rückfrage bestätigen. Der Installationslink gilt nur wenige
+          Minuten; bei einer Fehlermeldung die Seite neu laden.
+        </li>
+        <li>
+          Erscheint beim ersten Start „Nicht vertrauenswürdiger Entwickler“: Einstellungen → Allgemein → VPN und
+          Geräteverwaltung → das Unternehmensprofil auswählen → „Vertrauen“.
+        </li>
+        <li>
+          Bricht die Installation ab, ist das Gerät für den Build meist nicht registriert (Ad-hoc-Verteilung). Dann
+          bitte die Geräte-ID an das Projektteam geben.
+        </li>
+      </ol>
+
+      <h4><span class="material-icons-outlined" aria-hidden="true">android</span> Android</h4>
+      <ol class="docs-steps">
+        <li>Die Seite auf dem Gerät öffnen und den Android-Build (APK) herunterladen.</li>
+        <li>
+          Beim ersten Mal fragt Android, ob der Browser Apps installieren darf: „Unbekannte Apps installieren“ für
+          diesen Browser erlauben.
+        </li>
+        <li>
+          Warnt Google Play Protect, über „Details“ → „Trotzdem installieren“ fortfahren, sofern die App aus dieser
+          Plattform stammt.
+        </li>
+        <li>Updates werden genauso installiert; die vorhandene App und ihre Daten bleiben erhalten.</li>
+      </ol>
+    </section>
+
+    <section id="ci" class="docs-section">
+      <h3>CI-Einrichtung</h3>
+      <p>
+        Workflows laden Builds über die GitHub Action in <code>src/action/</code> hoch. Sie melden sich mit dem
+        OIDC-Token ihres Jobs an – es gibt kein Secret zu hinterlegen.
+      </p>
+      <ol class="docs-steps">
+        <li>
+          <strong>Repository verbinden.</strong> Auf der Anwendungsseite im Tab „CI“ mit „Repository verbinden“:
+          Repository als <code>owner/name</code>, dessen numerische ID (abrufbar mit
+          <code>gh api repos/owner/name --jq .id</code>), das Branch- oder Tag-Muster und optional ein Environment.
+        </li>
+        <li>
+          <strong>Workflow anlegen.</strong> Den Beispiel-Workflow aus dem Tab „CI“ kopieren; er enthält
+          <code>portal-url</code> und <code>application-id</code> bereits. Der Job braucht
+          <code>permissions: id-token: write</code>.
+        </li>
+        <li>
+          <strong>Ausführen.</strong> Der erste Upload einer Build-Nummer legt das Release als Entwurf an; weitere
+          Builds desselben Commits kommen hinzu. Veröffentlicht wird weiterhin im Portal. Ein erneut gestarteter
+          Workflow ist unbedenklich: Bereits gespeicherte Dateien werden erkannt.
+        </li>
+      </ol>
+
+      <h4>Häufige Fehler</h4>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Meldung</th>
+              <th>Ursache und Abhilfe</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>ci_token_invalid</code> (401)</td>
+              <td>
+                Kein oder kein gültiges OIDC-Token: <code>id-token: write</code> fehlt, oder die Audience passt nicht
+                zur Adresse des Portals.
+              </td>
+            </tr>
+            <tr>
+              <td><code>ci_not_bound</code> (403)</td>
+              <td>
+                Keine Anbindung passt: Repository, Branch bzw. Tag oder Environment des Laufs stimmen mit keiner aktiven
+                Anbindung im Tab „CI“ überein.
+              </td>
+            </tr>
+            <tr>
+              <td><code>artifact_commit_mismatch</code></td>
+              <td>Die Build-Nummer gehört schon zu einem Release aus einem anderen Commit. Build-Nummer erhöhen.</td>
+            </tr>
+            <tr>
+              <td><code>bundle_identifier_mismatch</code>, <code>flavor_mismatch</code></td>
+              <td>
+                Paketname bzw. Bundle-ID der Datei passt zu keinem Flavor der Anwendung oder nicht zum angegebenen
+                <code>flavor</code>.
+              </td>
+            </tr>
+            <tr>
+              <td><code>artifact_exists</code> (409)</td>
+              <td>
+                Für diese Plattform liegt im Release schon eine andere Datei. Build-Nummer erhöhen oder die alte Datei
+                im Portal entfernen.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="rollen" class="docs-section">
+      <h3>Rollen &amp; Rechte</h3>
+      <ul class="docs-list">
+        <li>
+          <strong>Anmelden heißt noch nicht dürfen.</strong> Die Mitgliedschaft in der GitHub-Organisation entscheidet
+          nur, ob sich jemand anmelden kann; Rechte gibt es ausschließlich über Rollen.
+        </li>
+        <li>
+          <strong>Rollen gelten für einen Bereich</strong> – Plattform, Projekt oder Anwendung – und vererben sich nach
+          unten. Hat jemand mehrere Rollen, gilt die Summe.
+        </li>
+        <li>
+          Vergeben werden Rollen unter <a href="/access.html">Benutzer &amp; Zugriff</a> oder im Tab „Zugriff“ eines
+          Projekts bzw. einer Anwendung, immer mit Begründung und auf Wunsch befristet.
+        </li>
+      </ul>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Rolle</th>
+              <th>Typischer Bereich</th>
+              <th>Kurz gesagt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Plattform-Admin</strong></td>
+              <td>Plattform</td>
+              <td>Darf alles: Projekte, Benutzer, Rechte, Speicher und Einstellungen.</td>
+            </tr>
+            <tr>
+              <td><strong>Projekt-Admin</strong></td>
+              <td>Projekt</td>
+              <td>Verwaltet ein Projekt vollständig: Anwendungen, Flavors, Releases, Rechte, Freigaben, Audit-Log.</td>
+            </tr>
+            <tr>
+              <td><strong>Release Manager</strong></td>
+              <td>Projekt oder Anwendung</td>
+              <td>Hochladen, veröffentlichen, zurückziehen, löschen und wiederherstellen.</td>
+            </tr>
+            <tr>
+              <td><strong>Entwickler</strong></td>
+              <td>Projekt oder Anwendung</td>
+              <td>Legt Releases an und lädt hoch, veröffentlicht aber nicht.</td>
+            </tr>
+            <tr>
+              <td><strong>Tester</strong></td>
+              <td>Projekt oder Anwendung</td>
+              <td>Sieht alle Releases einschließlich Entwürfen und installiert sie.</td>
+            </tr>
+            <tr>
+              <td><strong>Betrachter</strong></td>
+              <td>Projekt oder Anwendung</td>
+              <td>Sieht das Projekt und installiert veröffentlichte Releases.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-muted">
+        Apps mit der Sichtbarkeit „Organisation“ kann jede angemeldete Person installieren, auch ohne Rolle. Die
+        vollständige Übersicht aller Berechtigungen finden alle, die Rollen vergeben dürfen, unter
+        <a href="/access.html">Benutzer &amp; Zugriff</a>.
+      </p>
+    </section>
+    <!-- @shell-end -->
+  </body>
+</html>

@@ -1,0 +1,42 @@
+/* =============================================================================
+   COMPONENT · Badges
+   Compact status/category pills. Colour is bound to semantic meaning.
+
+   Text uses the darker/adaptive --*-text shades (not the full-saturation hue)
+   so small 12px labels meet WCAG AA on the light tint — and stay legible on
+   dark surfaces where --*-text flips to a light shade.
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.badge-success {
+  background: var(--success-light);
+  color: var(--success-text);
+}
+.badge-danger {
+  background: var(--danger-light);
+  color: var(--danger-text);
+}
+.badge-warning {
+  background: var(--warning-light);
+  color: var(--warning-text);
+}
+.badge-info {
+  background: var(--info-light);
+  color: var(--info-text);
+}
+.badge-neutral {
+  background: rgba(107, 114, 128, 0.12);
+  color: var(--color-text-secondary);
+}
+.badge-primary {
+  background: var(--primary-light);
+  color: var(--color-accent);
+}

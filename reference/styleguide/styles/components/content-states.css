@@ -1,0 +1,49 @@
+/* =============================================================================
+   COMPONENT · Content states (Empty & Error)
+   -----------------------------------------------------------------------------
+   Full-panel placeholders for "no data yet" (empty) and "loading failed"
+   (error). Shared centered layout; the icon tone carries the difference —
+   neutral/muted for empty, danger for error. Pairs with the transient loading
+   states (skeleton/spinner) in feedback.css. Only semantic tokens.
+   ========================================================================== */
+
+.empty-state,
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-md);
+  padding: var(--space-4xl) var(--space-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+/* Empty reads as a placeholder → dashed edge; error is a firm, solid panel. */
+.empty-state { border-style: dashed; border-color: var(--color-border-strong); }
+
+.empty-state-icon,
+.error-state-icon { font-size: 48px; }
+.empty-state-icon { color: var(--color-text-subtle); }   /* neutral, theme-aware */
+.error-state-icon { color: var(--danger); }
+
+.empty-state-title,
+.error-state-title { margin: 0; font-size: 16px; font-weight: 600; color: var(--color-heading); }
+
+.empty-state-text,
+.error-state-text {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.empty-state-actions,
+.error-state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-top: var(--space-sm);
+}

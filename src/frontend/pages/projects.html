@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Projekte · App-Distribution</title>
+  </head>
+  <body data-nav="projects" data-title="Projektverwaltung">
+    <!-- @shell-start -->
+    <div data-projects-page>
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Projekte</h2>
+          <p class="page-subtitle">Projekte bündeln die Anwendungen eines Kunden oder Produktbereichs.</p>
+        </div>
+        <div class="page-actions">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-modal-open="project-create"
+            data-requires="createProjects"
+            hidden
+          >
+            <span class="material-icons-outlined" aria-hidden="true">add</span>
+            Projekt anlegen
+          </button>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="form-group">
+          <label class="form-label" for="project-status">Status</label>
+          <select id="project-status" class="form-control" data-project-status>
+            <option value="active">Aktiv</option>
+            <option value="archived">Archiviert</option>
+          </select>
+        </div>
+      </div>
+
+      <div data-project-list></div>
+    </div>
+
+    <div class="modal-overlay" id="project-create" hidden>
+      <form
+        class="modal"
+        id="project-create-form"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-create-title"
+        novalidate
+      >
+        <div class="modal-header">
+          <h3 id="project-create-title">Projekt anlegen</h3>
+          <button type="button" class="close-btn" data-modal-close aria-label="Schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="project-create-name">Name</label>
+            <input
+              id="project-create-name"
+              name="name"
+              class="form-control"
+              type="text"
+              maxlength="200"
+              required
+              data-autofocus
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="project-create-slug">Slug</label>
+            <input
+              id="project-create-slug"
+              name="slug"
+              class="form-control"
+              type="text"
+              maxlength="63"
+              required
+              pattern="[a-z0-9]+(-[a-z0-9]+)*"
+              spellcheck="false"
+            />
+            <div class="form-helper">
+              Wird aus dem Namen vorgeschlagen und erscheint in Adressen. Nach dem Anlegen nicht mehr änderbar.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="project-create-description">Beschreibung (optional)</label>
+            <textarea
+              id="project-create-description"
+              name="description"
+              class="form-control"
+              rows="3"
+              maxlength="2000"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Anlegen</button>
+        </div>
+      </form>
+    </div>
+    <!-- @shell-end -->
+  </body>
+</html>

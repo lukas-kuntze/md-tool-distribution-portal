@@ -1,0 +1,198 @@
+/* =============================================================================
+   COMPONENT · Cookie-Consent (zwei Varianten)
+   -----------------------------------------------------------------------------
+   VARIANTE A · Banner  (.cookie-banner)
+     Dezentes, unten fixiertes Banner mit drei Kategorien. Nicht blockierend.
+     Verhalten & Persistenz: scripts/modules/cookie-consent.js
+
+   VARIANTE B · Modaler Dialog  (.cookie-modal, sitzt in einem .modal-overlay)
+     Blockierender, ausführlicherer Einstellungsdialog (Icon-Header, Optionen mit
+     Beschreibung, Footer-Links). Übernommen aus der business-management-console
+     und auf die semantischen Tokens des Styleguides angeglichen (folgt Light/Dark).
+     Öffnen/Schließen/ESC/Fokus-Trap kommen von App.Overlays (.modal-overlay);
+     Persistenz + Bestätigungs-Toast: scripts/modules/cookie-modal.js
+
+   Notwendige Cookies sind in beiden Varianten fest aktiv und nicht abwählbar.
+   ========================================================================== */
+
+/* -- VARIANTE A · Banner --------------------------------------------------- */
+
+.cookie-banner {
+  position: fixed;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 20px 24px;
+  z-index: 1200;
+}
+.cookie-banner[hidden] { display: none; }
+
+.cookie-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin: 0 0 8px;
+}
+.cookie-text {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+.cookie-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-bottom: 16px;
+}
+.cookie-options .form-check { margin-bottom: 0; }
+.cookie-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 767.98px) {
+  .cookie-actions { flex-direction: column-reverse; }
+  .cookie-actions .btn { width: 100%; }
+}
+
+/* -- VARIANTE B · Modaler Dialog ------------------------------------------- */
+/* Sitzt in einem generischen .modal-overlay (siehe components/overlays.css),
+   daher übernimmt App.Overlays das Ein-/Ausblenden, ESC und den Fokus-Trap.
+
+   OPTIK: originalgetreu aus der business-management-console übernommen
+   (Farben, Schatten, Abstände, kein Rahmen, schwarzer Backdrop). Bewusst mit
+   festen, hellen Primitives statt theme-aware Rollen — der Dialog bleibt daher
+   auch im Dark Mode hell/weiß, exakt wie in der BMC (color-scheme: light).
+
+   THEME-AWARE (optional): Modifier `.cookie-modal--theme` behält das BMC-Styling,
+   führt Flächen/Text aber über die semantischen Tokens des Styleguides, sodass
+   der Dialog dem Light/Dark-System folgt. So sind beide Darstellungen möglich. */
+
+/* Backdrop wie in der BMC (reines Schwarz 50 %) statt des slate-getönten
+   Standard-Overlays. Betrifft nur das Cookie-Overlay. */
+.modal-overlay.cookie-overlay { background: rgba(0, 0, 0, 0.5); }
+
+.cookie-modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+}
+
+.cookie-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 24px 16px;
+}
+.cookie-modal-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: var(--primary-light);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cookie-modal-icon .material-icons-outlined {
+  font-size: 24px;
+  color: var(--primary);
+}
+.cookie-modal-title { margin: 0 0 2px; font-size: 20px; font-weight: 600; color: var(--gray-800); }
+.cookie-modal-subtitle { margin: 0; font-size: 14px; color: var(--gray-500); }
+
+.cookie-modal-desc {
+  padding: 0 24px 20px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--gray-600);
+}
+.cookie-modal-desc a { color: var(--primary); text-decoration: none; font-weight: 500; }
+.cookie-modal-desc a:hover { text-decoration: underline; }
+
+.cookie-modal-options { padding: 0 24px; }
+.cookie-option {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+}
+.cookie-option:last-child { margin-bottom: 0; }
+.cookie-option input[type="checkbox"] {
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--secondary);
+  cursor: pointer;
+}
+.cookie-option input[type="checkbox"]:disabled { cursor: not-allowed; }
+.cookie-option-title { margin: 0 0 6px; font-size: 15px; font-weight: 600; color: var(--gray-800); }
+.cookie-option-text { margin: 0; font-size: 13px; line-height: 1.5; color: var(--gray-500); }
+
+.cookie-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 24px;
+}
+.cookie-modal-actions .btn {
+  flex: 1;
+  min-width: fit-content;
+  justify-content: center;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.cookie-modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 24px 24px;
+}
+.cookie-modal-footer a {
+  font-size: 14px;
+  color: var(--gray-500);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+.cookie-modal-footer a:hover { color: var(--primary); }
+
+@media (max-width: 479.98px) {
+  .cookie-modal-actions { flex-direction: column; }
+  .cookie-modal-footer { flex-wrap: wrap; gap: 16px; }
+}
+
+/* -- VARIANTE B · optionaler theme-aware Modifier -------------------------- */
+/* Gleiche BMC-Optik, aber Flächen/Text folgen den semantischen Tokens (Dark Mode).
+   Anwenden über <div class="cookie-modal cookie-modal--theme">. */
+.cookie-modal--theme { background: var(--color-surface); }
+.cookie-modal--theme .cookie-modal-icon .material-icons-outlined { color: var(--color-accent); }
+.cookie-modal--theme .cookie-modal-title,
+.cookie-modal--theme .cookie-option-title { color: var(--color-heading); }
+.cookie-modal--theme .cookie-modal-subtitle,
+.cookie-modal--theme .cookie-option-text { color: var(--color-text-muted); }
+.cookie-modal--theme .cookie-modal-desc { color: var(--color-text-secondary); }
+.cookie-modal--theme .cookie-modal-desc a { color: var(--color-accent); }
+.cookie-modal--theme .cookie-option { border-color: var(--color-border); }
+.cookie-modal--theme .cookie-modal-footer a { color: var(--color-text-muted); }
+.cookie-modal--theme .cookie-modal-footer a:hover { color: var(--color-accent); }

@@ -1,18 +1,20 @@
 {
-  "name": "devx-template-typescript",
-  "version": "1.1.2",
-  "description": "Template for building maintainable, well-tested applications and libraries in TypeScript.",
+  "name": "md-tool-distribution-portal",
+  "version": "0.1.0",
+  "description": "Internal distribution platform for Flutter and .NET apps, succeeding HockeyKit.",
   "author": "Lukas Kuntze",
   "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukas-kuntze/devx-template-typescript.git"
+    "url": "git+https://github.com/lukas-kuntze/md-tool-distribution-portal.git"
   },
   "keywords": [
-    "developer-experience",
-    "node",
-    "template",
+    "android",
+    "app-distribution",
+    "dotnet",
+    "flutter",
+    "ios",
     "typescript"
   ],
   "type": "module",
@@ -38,19 +40,37 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "build": "tsc -p tsconfig.build.json",
+    "dev:frontend": "vite",
+    "build": "npm run build:backend && npm run build:frontend && npm run build:action",
+    "build:backend": "tsc -p tsconfig.build.json",
+    "build:frontend": "vite build",
+    "build:action": "tsc -p src/action/tsconfig.json",
+    "start": "node dist/index.js",
+    "start:worker": "node dist/worker.js",
     "all": "npm run format:check && npm run lint && npm run typecheck && npm run coverage && npm run build"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.0",
+    "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^26.6.3",
     "@vitest/coverage-v8": "^5.0.0",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.13.0",
+    "happy-dom": "^21.0.3",
     "prettier": "^3.9.9",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.0",
+    "vite": "^8.3.4",
     "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.1.3",
+    "better-sqlite3": "^13.0.3",
+    "fastify": "^5.12.7",
+    "zod": "^4.6.7"
+  },
+  "allowScripts": {
+    "better-sqlite3": false
   }
 }

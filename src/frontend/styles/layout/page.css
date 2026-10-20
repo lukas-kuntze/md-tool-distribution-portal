@@ -1,0 +1,662 @@
+/* =============================================================================
+   LAYOUT · Page composition
+   -----------------------------------------------------------------------------
+   Arrangement of the administration views from library components: page
+   header, toolbars, grids and metadata lists. Only tokens, no new colours,
+   radii or shadows (styleguide guidelines).
+   ========================================================================== */
+
+/* Components set `display` on their class; the attribute must still win. */
+[hidden] {
+  display: none !important;
+}
+
+/* -- Page header ---------------------------------------------------------- */
+.breadcrumb {
+  margin-bottom: var(--space-md);
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+.page-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-heading);
+}
+.page-subtitle {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-text-muted);
+}
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+/* -- Toolbars and panels -------------------------------------------------- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.toolbar .form-group {
+  margin-bottom: 0;
+  min-width: 180px;
+}
+.toolbar .form-check {
+  margin-bottom: 0;
+}
+.toolbar-split {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tab-panel {
+  margin-top: var(--space-xl);
+}
+.panel-card {
+  margin-bottom: var(--space-xl);
+}
+.panel-card .card-body > .form-group:last-of-type {
+  margin-bottom: var(--space-lg);
+}
+
+.stack > * + * {
+  margin-top: var(--space-xl);
+}
+
+.loading-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  color: var(--color-text-muted);
+}
+.spinner-inline {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
+/* -- Cards ---------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+.card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.card-link:hover {
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+}
+.card-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+.card-text {
+  margin: 0 0 var(--space-md);
+}
+
+/* -- Tables --------------------------------------------------------------- */
+.table-wrapper {
+  overflow-x: auto;
+}
+.data-table .text-right,
+.data-table th.text-right {
+  text-align: right;
+}
+.table-link {
+  font-weight: 600;
+}
+.table-actions {
+  display: inline-flex;
+  white-space: nowrap;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+}
+.row-muted td {
+  color: var(--color-text-muted);
+}
+.pager {
+  margin-top: var(--space-lg);
+  justify-content: flex-end;
+}
+
+/* -- Text helpers --------------------------------------------------------- */
+.text-muted {
+  color: var(--color-text-muted);
+}
+.text-right {
+  text-align: right;
+}
+.badge-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.hash {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.btn .material-icons-outlined {
+  font-size: 18px;
+}
+
+/* -- Metadata ------------------------------------------------------------- */
+.meta-list {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--space-sm) var(--space-2xl);
+  margin: 0;
+}
+.meta-list dt {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+.meta-list dd {
+  margin: 0;
+  color: var(--color-heading);
+  overflow-wrap: anywhere;
+}
+
+/* -- Overlays ------------------------------------------------------------- */
+/* Forms with several sections need more room than a confirmation. */
+.modal-wide {
+  max-width: 640px;
+}
+.modal-body .form-group:last-child {
+  margin-bottom: 0;
+}
+.delete-subject {
+  margin: 0 0 var(--space-sm);
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.delete-impact {
+  margin: 0 0 var(--space-lg);
+  padding-left: var(--space-xl);
+}
+
+/* -- Shell additions ------------------------------------------------------ */
+button.nav-item {
+  width: 100%;
+  border: none;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.dropdown-menu-end {
+  left: auto;
+  right: 0;
+}
+.dropdown-header {
+  padding: 6px 12px 8px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+.dropdown-header:empty {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .meta-list {
+    grid-template-columns: 1fr;
+  }
+  .toolbar .form-group {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+}
+
+/* -- Surfaces -------------------------------------------------------------
+   As in the styleguide, data and tabs sit on white surfaces, never directly
+   on the page background (where the tab track would be invisible). */
+.table-wrapper {
+  background: var(--color-surface);
+}
+[data-tab-group] {
+  padding: var(--space-xl) var(--space-2xl) var(--space-2xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.toolbar .form-control {
+  height: 42px;
+}
+textarea.form-control {
+  height: auto;
+}
+
+/* The hidden skip link must not cast its shadow into the topbar. */
+.skip-link:not(:focus) {
+  box-shadow: none;
+}
+
+@media (max-width: 767.98px) {
+  .topbar h1 {
+    font-size: 17px;
+  }
+  .topbar-actions {
+    gap: var(--space-xs);
+  }
+  .topbar-actions [data-theme-label],
+  .topbar-actions [data-user-name] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  [data-tab-group] {
+    padding: var(--space-lg);
+  }
+  .tablist {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+/* -- Forms in modals ------------------------------------------------------ */
+.modal-body .form-grid {
+  gap: 0 var(--space-xl);
+}
+.modal-body .sub-title:first-child {
+  margin-top: 0;
+}
+.form-check-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+}
+.form-check-row .form-check {
+  margin-bottom: 0;
+}
+
+/* -- Public share page ----------------------------------------------------
+   Customers open shared releases without the app shell: brand header, one
+   centred column, the same cards, badges and buttons as the administration. */
+.public-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.public-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-3xl);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+.public-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.public-brand {
+  align-items: flex-start;
+}
+.public-main {
+  flex: 1;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--space-xl);
+}
+.public-footer {
+  padding: var(--space-xl);
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.share-releases {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.share-release {
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-border);
+}
+.share-release:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+.share-release-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+.share-version {
+  font-size: 16px;
+  color: var(--color-heading);
+}
+.share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+.share-notes {
+  margin-top: var(--space-md);
+}
+.share-notes summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+.share-notes summary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+  border-radius: var(--radius-xs);
+}
+.share-notes p {
+  margin: var(--space-sm) 0 0;
+  white-space: pre-wrap;
+}
+.toolbar-text {
+  margin: 0;
+  max-width: 60ch;
+}
+
+/* -- Application presentation: icon, installation notes, download page --- */
+.public-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}
+.app-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  min-width: 0;
+}
+.app-icon {
+  flex: none;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+}
+.app-icon-md {
+  width: 48px;
+  height: 48px;
+}
+.app-icon-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+}
+.app-icon-lg {
+  width: 96px;
+  height: 96px;
+}
+.app-icon-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+.install-notes {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-subtle);
+}
+.install-notes strong {
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--color-heading);
+}
+.install-notes p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+/* Each project in its own framed area, so that the white app cards stand out against it. */
+.apps-project {
+  padding: var(--space-2xl);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+}
+.apps-project + .apps-project {
+  margin-top: var(--space-2xl);
+}
+@media (max-width: 767.98px) {
+  .apps-project {
+    padding: var(--space-lg);
+  }
+}
+/* Download page: wider column with two apps side by side, one below another on narrow screens. */
+.public-main-wide {
+  max-width: 1200px;
+}
+[data-apps-filter] .toolbar {
+  margin-bottom: var(--space-2xl);
+}
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xl);
+  align-items: start;
+}
+@media (max-width: 899.98px) {
+  .apps-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.flavor-order-actions {
+  display: inline-flex;
+  gap: var(--space-xs);
+}
+
+@media (max-width: 767.98px) {
+  .public-header {
+    padding: var(--space-md) var(--space-xl);
+  }
+  .public-main {
+    padding: var(--space-xl) var(--space-lg);
+  }
+  .share-actions,
+  .share-actions .btn {
+    width: 100%;
+  }
+}
+
+/* -- Option groups in forms ----------------------------------------------- */
+.form-fieldset {
+  min-width: 0;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+}
+.form-check-described {
+  align-items: flex-start;
+}
+.form-check-described input {
+  margin-top: 3px;
+}
+.form-check-described label .form-helper {
+  display: block;
+  margin-top: 2px;
+}
+.share-hint {
+  margin: 0 0 var(--space-lg);
+}
+
+/* -- Dashboard ------------------------------------------------------------ */
+/* Tables fill a card edge to edge, as in the styleguide's dashboard example. */
+.card-body-flush {
+  padding: 0;
+}
+.card-body-flush > .table-wrapper {
+  border: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+.card-body-flush > .empty-state {
+  border: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+.stat-delta-neutral {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* -- Role catalog --------------------------------------------------------- */
+.role-summary {
+  margin: 0 0 var(--space-xs);
+  color: var(--color-heading);
+}
+.permission-list {
+  margin: 0;
+  padding-left: var(--space-xl);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+/* Five figures fit in one row on a laptop screen. */
+[data-dashboard-stats] {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+/* -- Form actions --------------------------------------------------------
+   As in the styleguide's form example: actions right-aligned below the
+   fields, a destructive action (if any) pushed to the left. */
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  margin-top: var(--space-2xl);
+}
+.form-actions .btn-danger {
+  margin-right: auto;
+}
+
+/* Styleguide state "Loading": keeps the button's colour (unlike "Disabled") and shows a spinner in the
+   button's text colour instead of its content. */
+.btn[aria-busy='true']:disabled {
+  opacity: 1;
+}
+.btn .spinner {
+  border-color: currentColor;
+  border-top-color: transparent;
+  opacity: 0.85;
+}
+.icon-field {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+.icon-field .form-helper {
+  margin-top: var(--space-sm);
+}
+
+/* -- Documentation -------------------------------------------------------- */
+.docs-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xl);
+}
+.docs-toc a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.docs-toc a:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.docs-section {
+  /* Anchored sections stay clear of the sticky top bar. */
+  scroll-margin-top: calc(var(--header-height) + var(--space-lg));
+}
+.docs-section h3 {
+  margin-top: 0;
+}
+.docs-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--space-2xl) 0 var(--space-sm);
+}
+.docs-steps,
+.docs-list {
+  margin: var(--space-md) 0;
+  padding-left: 1.4em;
+  line-height: 1.6;
+}
+.docs-steps li + li,
+.docs-list li + li {
+  margin-top: var(--space-sm);
+}
+.alert .branding-contact {
+  margin: var(--space-xs) 0 0;
+}
+[data-branding-notice] .alert {
+  white-space: pre-wrap;
+}
+
+/* -- Account page -------------------------------------------------------- */
+.account-profile-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+.account-avatar {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  object-fit: cover;
+}
+.account-avatar-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-subtle);
+}
+.account-avatar-placeholder .material-icons-outlined {
+  font-size: 64px;
+}
+.account-permissions {
+  margin: 0;
+  padding-left: var(--space-lg);
+  font-size: 13px;
+}

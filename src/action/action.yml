@@ -1,0 +1,59 @@
+name: MD Tool Distribution Upload
+description: Uploads APK, AAB and IPA builds with dSYM and mapping files into the MEDIFOX DAN app distribution portal.
+author: MEDIFOX DAN
+
+inputs:
+  portal-url:
+    description: Address of the portal, e.g. https://apps.example.com. HTTPS is required.
+    required: true
+  application-id:
+    description: Id of the application in the portal (shown in its settings under "CI").
+    required: true
+  flavor:
+    description: >-
+      Key of the flavor, e.g. production. Optional: the portal derives the flavor from the package name or bundle
+      identifier in the files and only checks it against this value.
+    required: false
+  files:
+    description: >-
+      APK, AAB and IPA files to upload, one path or glob pattern per line, relative to the workspace. All of them
+      must carry the same version and build number; they form one release.
+    required: true
+  dsym:
+    description: Zipped dSYM bundles, one path or glob pattern per line.
+    required: false
+  mapping:
+    description: R8/ProGuard mapping files (mapping.txt), one path or glob pattern per line.
+    required: false
+  metadata:
+    description: Additional build information as JSON files, one path or glob pattern per line.
+    required: false
+  release-notes:
+    description: Release notes for users. Kept if the release already has release notes or is published.
+    required: false
+  release-notes-file:
+    description: File with the release notes, instead of "release-notes".
+    required: false
+  changelog:
+    description: Technical changelog. Kept if the release already has one or is published.
+    required: false
+  changelog-file:
+    description: File with the changelog, instead of "changelog".
+    required: false
+  audience:
+    description: Audience of the OIDC token. Defaults to the origin of portal-url; change only if the portal expects another.
+    required: false
+
+outputs:
+  release-id:
+    description: Id of the release the builds were added to.
+  release-url:
+    description: Address of the release in the portal.
+
+runs:
+  using: node24
+  main: dist/main.js
+
+branding:
+  icon: upload-cloud
+  color: red

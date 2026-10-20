@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Übersicht · App-Distribution</title>
+  </head>
+  <body data-nav="dashboard" data-title="Übersicht">
+    <!-- @shell-start -->
+    <div data-dashboard-page>
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Willkommen, <span data-user-name></span></h2>
+          <p class="page-subtitle">Projekte, Versionen und Downloads, soweit du sie sehen darfst.</p>
+          <p class="page-subtitle" data-dashboard-signin></p>
+        </div>
+        <div class="page-actions">
+          <a class="btn btn-outline" href="/projects.html">Alle Projekte</a>
+        </div>
+      </div>
+      <div data-page-state></div>
+
+      <div class="stack" data-page-content hidden>
+        <div class="stats-grid" data-dashboard-stats></div>
+
+        <article class="card" data-dashboard-quarantine hidden>
+          <div class="card-header">
+            <h3 class="card-title">Endgültige Löschung steht bevor</h3>
+            <span data-dashboard-quarantine-count></span>
+          </div>
+          <div class="card-body card-body-flush" data-dashboard-quarantine-list></div>
+        </article>
+
+        <article class="card">
+          <div class="card-header"><h3 class="card-title">Projekte</h3></div>
+          <div class="card-body card-body-flush" data-dashboard-projects></div>
+        </article>
+
+        <article class="card">
+          <div class="card-header"><h3 class="card-title">Neueste Releases</h3></div>
+          <div class="card-body card-body-flush" data-dashboard-releases></div>
+        </article>
+      </div>
+    </div>
+    <!-- @shell-end -->
+  </body>
+</html>

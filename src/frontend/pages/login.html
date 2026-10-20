@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- @head -->
+    <title>Anmeldung · App-Distribution</title>
+  </head>
+  <body>
+    <div class="login-wrapper">
+      <main class="login-container">
+        <div class="login-card login-card-split">
+          <div class="login-branding">
+            <div class="login-branding-content">
+              <div class="login-branding-header">
+                <img
+                  class="brand-logo brand-logo-large"
+                  src="../assets/images/medifox-dan-logo.webp"
+                  alt="MEDIFOX DAN"
+                  width="240"
+                  height="128"
+                />
+              </div>
+              <div class="login-features">
+                <div class="login-feature">
+                  <div class="login-feature-icon">
+                    <span class="material-icons-outlined" aria-hidden="true">install_mobile</span>
+                  </div>
+                  <div class="login-feature-text">
+                    <h4 data-portal-name>Zentrale App-Distribution</h4>
+                    <p>
+                      Android- und iOS-Builds aus der CI/CD-Pipeline kontrolliert an Testteams und Kunden bereitstellen.
+                    </p>
+                  </div>
+                </div>
+                <div class="login-feature">
+                  <div class="login-feature-icon">
+                    <span class="material-icons-outlined" aria-hidden="true">admin_panel_settings</span>
+                  </div>
+                  <div class="login-feature-text">
+                    <h4>Granulares Berechtigungsmodell</h4>
+                    <p>Rollen auf Plattform-, Projekt- und Anwendungsebene präzise zuweisen.</p>
+                  </div>
+                </div>
+                <div class="login-feature">
+                  <div class="login-feature-icon">
+                    <span class="material-icons-outlined" aria-hidden="true">verified_user</span>
+                  </div>
+                  <div class="login-feature-text">
+                    <h4>Nachvollziehbare Löschprozesse</h4>
+                    <p>Quarantäne, Wiederherstellung und vollständige Audit-Protokollierung.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="login-form-section">
+            <h1 class="login-form-title">Anmelden</h1>
+            <p class="login-form-subtitle">
+              Melde dich mit deinem GitHub-Konto an. Rechte vergibt die Plattform, nicht GitHub.
+            </p>
+            <div data-login-error></div>
+            <a class="btn btn-primary btn-block" href="/auth/github/login">
+              <span class="material-icons-outlined" aria-hidden="true">login</span>
+              Mit GitHub anmelden
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
+    <!-- @scripts -->
+  </body>
+</html>

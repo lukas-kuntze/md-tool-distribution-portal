@@ -1,0 +1,22 @@
+/* =============================================================================
+   COMPONENT · Stat cards
+   Metric tiles: small muted label, large bold value, delta with polarity.
+   ========================================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-lg);
+}
+.stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  transition: var(--transition);
+}
+.stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.stat-label { font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-sm); font-weight: 500; letter-spacing: 0.2px; }
+.stat-value { font-size: 28px; font-weight: 700; color: var(--color-heading); line-height: 1.1; }
+.stat-delta { margin-top: var(--space-sm); font-size: 12px; color: var(--success-text); font-weight: 600; }
+.stat-delta.negative { color: var(--danger-text); }

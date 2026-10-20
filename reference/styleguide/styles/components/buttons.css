@@ -1,0 +1,49 @@
+/* =============================================================================
+   COMPONENT · Buttons
+   Variants: primary, secondary, outline, ghost, danger.
+   Sizes: sm, (default), lg, block. States: hover, focus-visible, disabled.
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  line-height: 1.2;
+}
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--focus-ring); }
+
+.btn-primary { background: var(--primary); color: var(--color-text-on-accent); }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-primary:focus-visible { box-shadow: 0 0 0 3px var(--primary-light); }
+
+.btn-secondary { background: var(--secondary); color: var(--color-text-on-accent); }
+.btn-secondary:hover { background: var(--secondary-dark); }
+
+.btn-outline { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
+.btn-outline:hover { background: var(--color-surface-hover); color: var(--color-heading); }
+
+.btn-ghost { background: transparent; color: var(--color-text-secondary); }
+.btn-ghost:hover { background: var(--color-surface-hover); color: var(--color-heading); }
+
+.btn-danger { background: var(--danger); color: var(--color-text-on-accent); }
+.btn-danger:hover { background: #DC2626; }
+
+.btn:disabled, .btn.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+.btn-lg { padding: 14px 20px; font-size: 15px; font-weight: 600; }
+.btn-block { width: 100%; }
